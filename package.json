@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "init": "honkit init",
-    "build": "honkit build",
+    "build": "honkit build && mv _book docs",
     "serve": "honkit serve"
   },
   "dependencies": {
