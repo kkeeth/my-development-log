@@ -11,5 +11,7 @@
   "dependencies": {
     "honkit": "^5.1.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "gitbook-plugin-sidebar-ad": "^0.0.4"
+  }
 }

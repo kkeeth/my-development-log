@@ -9,6 +9,11 @@ dependencies:
     specifier: ^5.1.4
     version: 5.1.4
 
+devDependencies:
+  gitbook-plugin-sidebar-ad:
+    specifier: ^0.0.4
+    version: 0.0.4
+
 packages:
 
   /@asciidoctor/cli@3.5.0(@asciidoctor/core@2.2.6):
@@ -608,6 +613,11 @@ packages:
     resolution: {integrity: sha512-oP9jhaKFUVPo756G9ywuuI43YdkZClSjfpFzNKe/a/Rcn3oVsrAM/PjdQ+dt65KfZVo3iW1LY4WdiZnNqzRP8g==}
     engines: {gitbook: '>=3.0.0-pre.0'}
     dev: false
+
+  /gitbook-plugin-sidebar-ad@0.0.4:
+    resolution: {integrity: sha512-VuT2ywyurHLcwiHLSBV4+dpD2SZOP7cws43RQWze1YzaU5tc5bOENMac2xcLgswRFw1fCb03WCVRiYHIaAHO3A==}
+    engines: {gitbook: '>=3.0.0'}
+    dev: true
 
   /github-slugid@1.0.1:
     resolution: {integrity: sha512-L5uVRzSM8jyWTgHUtaHwmymZW8S234JrIaOGotPK+0emNz9XsO6qqgw1KiI5YfP1SyBjG0ApNYU0vpb01teM9Q==}
