@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>01 濁流 · HonKit</title>
+        <title>0119 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -60,8 +60,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="0118.html" />
     
+    <link rel="prev" href="0118.html" />
     
 
     </head>
@@ -109,7 +109,7 @@
                 <span>
             
                     
-                    Development Logs
+                    💻 Development Logs
             
                 </span>
             
@@ -132,7 +132,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.2.1.1" data-path="202401.html">
+        <li class="chapter " data-level="1.2.1.1" data-path="202401.html">
             
                 <a href="202401.html">
             
@@ -152,6 +152,89 @@
             
                     
                     0118
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.1.1.2" data-path="0119.html">
+            
+                <a href="0119.html">
+            
+                    
+                    0119
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    🌩 What I think
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <span>
+            
+                    
+                    2024
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../any24/202401.html">
+            
+                <a href="../any24/202401.html">
+            
+                    
+                    01 濁流
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1.1" data-path="../any24/0119.html">
+            
+                <a href="../any24/0119.html">
+            
+                    
+                    0119
             
                 </a>
             
@@ -199,7 +282,7 @@
         </a>
       
       
-        <p>I deliver daily chat about what I'm learning and noticing in the web industry ✨</p>
+        <p>I podcast what I'm learning and noticing in the web industry every day ✨</p>
       
       
       <a href="https://art19.com/shows/kkeethengineers" class="btn" target="_blank">
@@ -222,7 +305,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >01 濁流</a>
+        <a href=".." >0119</a>
     </h1>
 </div>
 
@@ -237,10 +320,50 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="202401">2024/01</h1>
+                                <h1 id="0119">0119</h1>
+<h2 id="濁流">濁流</h2>
 <ul>
-<li><a href="0118.html">0118</a></li>
+<li>とりあえず KADOKAWA ドワンゴ情報工科学院の最終課題の講義用のアプリ作成<ul>
+<li><code>react, react-router-dom, vite</code> で SPA<ul>
+<li><code>typescript</code>　はなしで，<code>jsx</code></li>
+<li><code>swc</code> 使っても良いが，まぁ今回はなし</li>
+<li><code>babel</code> も <code>eslint, prettier</code> もなし</li>
+<li>とにかく最小構成<ul>
+<li>とはいえ，今回の最終課題は学生たちはそれでも良いが，俺はいれても良いかも</li>
+<li>後で入れておくか．リンター・フォーマッターがないのは流石にいかがなものか</li>
+<li>コミット用の，コミットリント的なやつ…名前忘れた</li>
+<li>それも入れても良いかも</li>
+<li>少なくとも学生への参考にはなるかな</li>
 </ul>
+</li>
+</ul>
+</li>
+<li>スライドはほぼ作ってなく，ロードマップを用意して，各自で進める形</li>
+<li>と言いつつ自分も開発する<ul>
+<li>SPA で，俺も個人ブログのページも作っていきたいが，おそらく使わない</li>
+<li>個人ブログはこの <code>開発日誌</code> で満足</li>
+<li>それ以外の知見共有や考えをまとめたものは <code>note</code> や <code>zenn</code> の方がよい</li>
+<li><code>OKS(Open Knowledge Sharing)</code> だ</li>
+</ul>
+</li>
+<li>とりあえず構成は昨日考えたまま<ul>
+<li>TOP（自己紹介），ブログ，お問い合わせ</li>
+<li>URL は <code>/</code>, <code>/blogs</code>, <code>/contact</code><ul>
+<li>各ページは <code>routes</code> ではなく <code>pages</code> ディレクトリに</li>
+</ul>
+</li>
+<li>あとは エラーハンドリングとして <code>/error</code></li>
+</ul>
+</li>
+<li>各ページ構成<ul>
+<li>ヘッダー，フッター，メイン，ナビゲーション</li>
+<li>メインは基本的には</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="まとめ">まとめ</h2>
 
                                 
                                 </section>
@@ -268,10 +391,10 @@
 
             
                 
-                
-                <a href="0118.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 0118">
-                    <i class="fa fa-angle-right"></i>
+                <a href="0118.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 0118">
+                    <i class="fa fa-angle-left"></i>
                 </a>
+                
                 
             
         
@@ -280,7 +403,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"01 濁流","level":"1.2.1.1","depth":3,"next":{"title":"0118","level":"1.2.1.1.1","depth":4,"path":"2024/0118.md","ref":"2024/0118.md","articles":[]},"previous":{"title":"2024","level":"1.2.1","depth":2,"ref":"","articles":[{"title":"01 濁流","level":"1.2.1.1","depth":3,"path":"2024/202401.md","ref":"2024/202401.md","articles":[{"title":"0118","level":"1.2.1.1.1","depth":4,"path":"2024/0118.md","ref":"2024/0118.md","articles":[]}]}]},"articles":[{"title":"0118","level":"1.2.1.1.1","depth":4,"path":"2024/0118.md","ref":"2024/0118.md","articles":[]}],"dir":"ltr"},"config":{"plugins":["sidebar-ad"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I deliver daily chat about what I'm learning and noticing in the web industry ✨","btnText":"Listen now!"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"2024/202401.md","mtime":"2024-01-18T15:14:54.191Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-01-18T16:28:48.456Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"0119","level":"1.2.1.1.2","depth":4,"next":{"title":"🌩 What I think","level":"1.3","depth":1,"ref":"","articles":[{"title":"2024","level":"1.3.1","depth":2,"ref":"","articles":[{"title":"01 濁流","level":"1.3.1.1","depth":3,"path":"any24/202401.md","ref":"any24/202401.md","articles":[{"title":"0119","level":"1.3.1.1.1","depth":4,"path":"any24/0119.md","ref":"any24/0119.md","articles":[]}]}]}]},"previous":{"title":"0118","level":"1.2.1.1.1","depth":4,"path":"dev24/0118.md","ref":"dev24/0118.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"dev24/0119.md","mtime":"2024-01-19T13:16:49.463Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-01-19T14:53:47.955Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
