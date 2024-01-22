@@ -17,3 +17,4 @@
   - 2024
     - [エンジニア組織論への招待](engineering_organization_theory.md)
     - [金より価値ある時間の使い方](how_to_live_on_24_hours_a_day.md)
+    - [体系的に学ぶ 安全な WEB アプリケーションの作り方](learn_howto_create_web_applications_systematically.md)
