@@ -518,7 +518,36 @@ To configure your current shell, run:
 
 $ <span class="hljs-built_in">exec</span> <span class="hljs-variable">$SHELL</span> -l <span class="hljs-comment">#シェルの再起動</span>
 </code></pre>
-<p>-</p>
+<ul>
+<li>一旦 rust は置いとく</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>KADOKAWA ドワンゴ情報工科学院の最終課題</p>
+<ul>
+<li>俺も作るので続き</li>
+<li>とりあえず TOP ページはこの講義の第４回で作ったペライチのホームページを移植</li>
+<li><p>各ページ用の <code>Layout</code> を作成</p>
+<ul>
+<li>ヘッダー，フッター，コンテンツをざっくり構成</li>
+<li>コンテンツは <code>children</code> を <code>props</code> で受け取って表示<ul>
+<li>中身は厳密には <code>react-router-dom</code> を使ってルーティングされた各ページ</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">BaseLayout</span> = (<span class="hljs-params">{ children }</span>) =&gt; {
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Header</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span>{children}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Footer</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/&gt;</span></span>
+  );
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">BaseLayout</span>;
+</code></pre>
 </li>
 </ul>
 </li>
@@ -562,7 +591,7 @@ $ <span class="hljs-built_in">exec</span> <span class="hljs-variable">$SHELL</sp
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"0124","level":"1.2.1.1.5","depth":4,"next":{"title":"🌩 WHAT UI THINK","level":"1.3","depth":1,"ref":"","articles":[{"title":"2024","level":"1.3.1","depth":2,"ref":"","articles":[{"title":"01 濁流","level":"1.3.1.1","depth":3,"path":"any24/202401.md","ref":"any24/202401.md","articles":[{"title":"0119","level":"1.3.1.1.1","depth":4,"path":"any24/0119.md","ref":"any24/0119.md","articles":[]},{"title":"0120","level":"1.3.1.1.2","depth":4,"path":"any24/0120.md","ref":"any24/0120.md","articles":[]},{"title":"0122","level":"1.3.1.1.3","depth":4,"path":"any24/0122.md","ref":"any24/0122.md","articles":[]},{"title":"0123","level":"1.3.1.1.4","depth":4,"path":"any24/0123.md","ref":"any24/0123.md","articles":[]},{"title":"0124","level":"1.3.1.1.5","depth":4,"path":"any24/0124.md","ref":"any24/0124.md","articles":[]}]}]}]},"previous":{"title":"0122","level":"1.2.1.1.4","depth":4,"path":"dev24/0122.md","ref":"dev24/0122.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"dev24/0124.md","mtime":"2024-01-24T03:33:59.335Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-01-24T09:09:01.239Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"0124","level":"1.2.1.1.5","depth":4,"next":{"title":"🌩 WHAT UI THINK","level":"1.3","depth":1,"ref":"","articles":[{"title":"2024","level":"1.3.1","depth":2,"ref":"","articles":[{"title":"01 濁流","level":"1.3.1.1","depth":3,"path":"any24/202401.md","ref":"any24/202401.md","articles":[{"title":"0119","level":"1.3.1.1.1","depth":4,"path":"any24/0119.md","ref":"any24/0119.md","articles":[]},{"title":"0120","level":"1.3.1.1.2","depth":4,"path":"any24/0120.md","ref":"any24/0120.md","articles":[]},{"title":"0122","level":"1.3.1.1.3","depth":4,"path":"any24/0122.md","ref":"any24/0122.md","articles":[]},{"title":"0123","level":"1.3.1.1.4","depth":4,"path":"any24/0123.md","ref":"any24/0123.md","articles":[]},{"title":"0124","level":"1.3.1.1.5","depth":4,"path":"any24/0124.md","ref":"any24/0124.md","articles":[]}]}]}]},"previous":{"title":"0122","level":"1.2.1.1.4","depth":4,"path":"dev24/0122.md","ref":"dev24/0122.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"dev24/0124.md","mtime":"2024-01-24T14:56:53.694Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-01-24T14:57:38.124Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
