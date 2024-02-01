@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>0122 · HonKit</title>
+        <title>0125 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -60,10 +60,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="0124.html" />
+    <link rel="next" href="0126.html" />
     
     
-    <link rel="prev" href="0121.html" />
+    <link rel="prev" href="0124.html" />
     
 
     </head>
@@ -187,7 +187,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.1.1.4" data-path="0122.html">
+        <li class="chapter " data-level="1.2.1.1.4" data-path="0122.html">
             
                 <a href="0122.html">
             
@@ -213,7 +213,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.1.1.6" data-path="0125.html">
+        <li class="chapter active" data-level="1.2.1.1.6" data-path="0125.html">
             
                 <a href="0125.html">
             
@@ -579,7 +579,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >0122</a>
+        <a href=".." >0125</a>
     </h1>
 </div>
 
@@ -594,47 +594,79 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="0122">0122</h1>
+                                <h1 id="0125">0125</h1>
 <h2 id="濁流">濁流</h2>
 <ul>
-<li>徳丸本久しぶりに<ul>
-<li>docker 環境が壊れたっぽい</li>
-<li>container, network, image 全部消して１からやり直し</li>
-<li><code>&gt; docker compose up -d</code> だけで起動，便利！</li>
-<li>ただ，ソースコード中に <code>http://api.example.net/33/33-006.php</code> のように <code>api.example.net</code> というドメインにアクセスしようとしているが，Not Found!!<ul>
-<li>README にちゃんと記載があった</li>
-<li><code>&gt; docker compose restart</code></li>
-<li>proxy 経由の使い方に戻してリスタート！動け！</li>
-<li>うん，動かねぇ！アプリ自体にはブラウザからアクセスはできた<ul>
-<li>ちなみにポートは 80, 13128 両方とも行けたが，以前 <code>api.example.net</code> がねーよ！って言われるね</li>
-<li>docker かなり忘れてる<ul>
-<li>ソース変更しても反映されない… <code>docker compose down</code> からの <code>docker compose up -d</code> でも反映されない？🤔</li>
+<li>KADOKAWA ドワンゴ情報工科学院最終課題続き<ul>
+<li>ブログページ:表示用に加え，ブログページ:エディタ用を作成しようと思う</li>
+<li>せっかく Firebase Authentication を覚えたので利用したい</li>
+<li>認証通った人，つうか俺だけエディタを表示できるように<ul>
+<li>URL は <code>/editor</code> とかテキトーに</li>
 </ul>
 </li>
-<li><code>&gt; docker compose exec apache bash</code> からコンテナ内に入る</li>
-<li><code>vi command not found</code> … WHAT&apos;S!?</li>
-<li><code>&gt; apt-get update</code> → <code>apt-get install vim</code> これで vim が入る（ほっ）</li>
-<li>あとはファイルを変更<ul>
-<li><code>api.example.net</code> → <code>127.0.0.1:13128</code> に変更</li>
-<li>無事にファイルが動作する 🎉</li>
+<li>とりま続きで， <code>Header</code> コンポーネントから</li>
+</ul>
+</li>
+<li>勉強会 <code>AWS cafeteria #1</code><ul>
+<li><a href="https://cyberagent.connpass.com/event/303690/" target="_blank">https://cyberagent.connpass.com/event/303690/</a></li>
+<li>一本目<ul>
+<li>FIFO ってファイホって読むのか</li>
+<li>AWS の最初のサービスは <code>SQS</code> らしい<ul>
+<li><a href="https://x.com/makies/status/1750463009858928696?s=20" target="_blank">https://x.com/makies/status/1750463009858928696?s=20</a></li>
+</ul>
+</li>
+<li><code>Lambda</code> が異常終了したらどうなる？</li>
+</ul>
+</li>
+<li>二本目<ul>
+<li>AWS Education Lead の取り組み</li>
+</ul>
+</li>
+<li>三本目<ul>
+<li>AWS の話はなし</li>
+<li>クラメソさんの社内の雰囲気の話のみ</li>
+</ul>
+</li>
+<li>四本目<ul>
+<li>もういっちょクラメソさんの話</li>
+<li>検証環境で１週間で約 330 万円を溶かした話</li>
+<li>バックアップ開始</li>
+<li>n 時間後，特定の条件で自動復元テストで生成されたリソースをバックアッププランがバックアップを実施</li>
+<li>上記を繰り返し指数関数的に…</li>
+<li>特定の条件<ul>
+<li>バックアッププランと復元テストプランの実行時間帯が一致</li>
+<li>バックアッププランの対象に復元テストプランで生成されるリソースが含まれる</li>
+<li>バックアッププランで復元テストが生成するリソースのタグを除外していない</li>
+</ul>
+</li>
+<li>EC2 インスタンス：12750 台</li>
+<li>リカバリーポイント：10356 個</li>
+<li>日時の検知・通知はしていたが，休日を挟んだことも起因している</li>
+<li>高額請求後にやったこと<ul>
+<li>バックアッププランで使用されるサービスロールを剥奪</li>
+<li>バックアッププランと復元テストプランに関連する情報をひたすらスクショ</li>
+<li>AWS CLI を使用し，大量生成されたリソースの一括削除とプランの削除</li>
+</ul>
+</li>
+<li>全額免除で着地…！</li>
+</ul>
+</li>
+<li>五人目<ul>
+<li>ゆめみのセキュリティエンジニア</li>
+<li>昔の AWS ではセキュリティ認証の観点から使えるサービスが少なかった</li>
+</ul>
+</li>
+<li>六人目<ul>
+<li>ついていけない話だった</li>
+<li>ただ，AWS，さくらインターネットをつなぐとか考えたことなかったのですげーなと</li>
+</ul>
+</li>
+<li>パネルディスカッション：前半<ul>
+<li>資格取得を目的とするのではなく，業務に活かすに尽きる</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>ローカルファイルを変更して docker コンテナ内のファイルが変更されてほしい…</li>
-</ul>
-</li>
-<li>P177 「認証情報を含むリクエスト」から<ul>
-<li><code>http://127.0.0.1/33/33-006.php</code> にアクセス</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="まとめ">まとめ</h2>
-<ul>
-<li>docker 周りは素直にググる方が早そう</li>
-<li>AI よりも</li>
 </ul>
 
                                 
@@ -663,12 +695,12 @@
 
             
                 
-                <a href="0121.html" class="navigation navigation-prev " aria-label="Previous page: 0121">
+                <a href="0124.html" class="navigation navigation-prev " aria-label="Previous page: 0124">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="0124.html" class="navigation navigation-next " aria-label="Next page: 0124">
+                <a href="0126.html" class="navigation navigation-next " aria-label="Next page: 0126">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -679,7 +711,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"0122","level":"1.2.1.1.4","depth":4,"next":{"title":"0124","level":"1.2.1.1.5","depth":4,"path":"dev24/0124.md","ref":"dev24/0124.md","articles":[]},"previous":{"title":"0121","level":"1.2.1.1.3","depth":4,"path":"dev24/0121.md","ref":"dev24/0121.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"dev24/0122.md","mtime":"2024-01-22T15:32:44.795Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-01-30T15:45:14.023Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"0125","level":"1.2.1.1.6","depth":4,"next":{"title":"0126","level":"1.2.1.1.7","depth":4,"path":"dev24/0126.md","ref":"dev24/0126.md","articles":[]},"previous":{"title":"0124","level":"1.2.1.1.5","depth":4,"path":"dev24/0124.md","ref":"dev24/0124.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"dev24/0125.md","mtime":"2024-01-29T01:19:04.494Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-01-30T15:45:14.023Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
