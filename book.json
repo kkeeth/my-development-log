@@ -2,7 +2,7 @@
   "author": "Keeth Kuwahara(kkeeth)",
   "copyright": "Keeth Kuwahara",
   "root": "src",
-  "plugins": ["sidebar-ad"],
+  "plugins": ["sidebar-ad", "folding-chapters"],
   "pluginsConfig": {
     "sidebar-ad": {
       "imageUrl": "https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg",

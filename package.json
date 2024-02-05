@@ -12,6 +12,8 @@
     "honkit": "^5.1.4"
   },
   "devDependencies": {
+    "gitbook-plugin-chapter-fold": "^0.0.4",
+    "gitbook-plugin-folding-chapters": "^0.0.9",
     "gitbook-plugin-sidebar-ad": "^0.0.4"
   }
 }

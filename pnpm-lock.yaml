@@ -10,6 +10,12 @@ dependencies:
     version: 5.1.4
 
 devDependencies:
+  gitbook-plugin-chapter-fold:
+    specifier: ^0.0.4
+    version: 0.0.4
+  gitbook-plugin-folding-chapters:
+    specifier: ^0.0.9
+    version: 0.0.9
   gitbook-plugin-sidebar-ad:
     specifier: ^0.0.4
     version: 0.0.4
@@ -590,6 +596,16 @@ packages:
       has-symbols: 1.0.3
       hasown: 2.0.0
     dev: false
+
+  /gitbook-plugin-chapter-fold@0.0.4:
+    resolution: {integrity: sha512-pszjq24KVV7sZFsaYE/3e3fA9zkdMiK4QVlfxvlOiuPpoEWuZb1BbpurZTla8aNjyqbE5ifK4BxwKlHvgcAlsg==}
+    engines: {gitbook: '>=1.0.0'}
+    dev: true
+
+  /gitbook-plugin-folding-chapters@0.0.9:
+    resolution: {integrity: sha512-w1lLoCDDy4RARTqY5SUEh+GP27UXQ5mqf4Vv82HhACDsd1BHAtiYU4uieV31q8XyehnRas0RKhZxnSLZhkBoTw==}
+    engines: {gitbook: '>=3.0.0'}
+    dev: true
 
   /gitbook-plugin-fontsettings@2.0.0:
     resolution: {integrity: sha512-bZpz/Jev7lL1d3VNp41KHZD67UYqyqdOwbsJE6YEW93R2mGiLfZLpUs86d2nrY61BedhlNck1xF52FNT6sWeig==}
