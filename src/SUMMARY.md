@@ -31,7 +31,7 @@
       - [0128](DAILY/2024/JAN/0128.md)
       - [0130](DAILY/2024/JAN/0130.md)
     - FEBUARY
-      - [0205](DAILY/2024/FEB/0205.md)
+      - [0213](DAILY/2024/FEB/0213.md)
 - 📚 BOOKS
   - 2024
     - [エンジニア組織論への招待](BOOKS/engineering_organization_theory.md)
