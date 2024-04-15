@@ -13,15 +13,16 @@
       - [0126](DEVELOPMENT/2024/JAN/0126.md)
       - [0128](DEVELOPMENT/2024/JAN/0128.md)
       - [0130](DEVELOPMENT/2024/JAN/0130.md)
-    - [FEBRUARY](DEVELOPMENT/2024/FEB/README.md)
+    - FEBRUARY
       - [0201](DEVELOPMENT/2024/FEB/0201.md)
       - [0202](DEVELOPMENT/2024/FEB/0202.md)
       - [0203](DEVELOPMENT/2024/FEB/0203.md)
       - [0205](DEVELOPMENT/2024/FEB/0205.md)
       - [0222](DEVELOPMENT/2024/FEB/0222.md)
       - [0226](DEVELOPMENT/2024/FEB/0226.md)
-    - [APRIL](DEVELOPMENT/2024/APR/README.md)
+    - APRIL
       - [0414](DEVELOPMENT/2024/APR/0414.md)
+      - [0415](DEVELOPMENT/2024/APR/0415.md)
 - 🌩 DAILY LOG
   - 2024
     - JANUARY
@@ -36,6 +37,8 @@
       - [0130](DAILY/2024/JAN/0130.md)
     - FEBUARY
       - [0213](DAILY/2024/FEB/0213.md)
+    - APRIL
+      - [0415](DAILY/2024/APR/0415.md)
 - 📚 BOOKS
   - 2024
     - [エンジニア組織論への招待](BOOKS/engineering_organization_theory.md)
