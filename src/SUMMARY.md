@@ -1,6 +1,6 @@
 # Summary
 
-- [README](README.md)
+- [ようこそ](README.md)
 - 💻 DEVELOPMENT
   - 2024
     - JANUARY
