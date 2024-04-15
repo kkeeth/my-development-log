@@ -792,7 +792,8 @@
                                 <h1 id="0414">0414</h1>
 <h2 id="logs">LOGS</h2>
 <ul>
-<li>PWA with firebase Messaging をローカルでもやる</li>
+<li><p>PWA with firebase Messaging をローカルでもやる</p>
+<ul>
 <li>昨晩やったので続きから</li>
 <li><code>src/sw.ts</code> を書いて，<code>public/firebase-messaging-sw.js</code> に <code>esbuild</code> を用いてビルド<ul>
 <li>ただ， <code>vite</code> とは別で動かしているので， <code>vite</code> との連携ができていない</li>
@@ -828,8 +829,77 @@ esbuild.<span class="hljs-title function_">build</span>({
 </li>
 <li>これでOK</li>
 <li>あとはこれを実行する <code>&gt; node esbuild-sw.js</code></li>
-<li>忘れずに package.json の <code>scripts</code> にも記述
+<li>忘れずに package.json の <code>scripts</code> にも記述</li>
+<li>続いて push 通知の諸々の実装</li>
+<li>とりま，Web Push の可能性を確認<ul>
+<li><code>window, navigator</code> オブジェクトに以下があるかを確認<ul>
+<li><code>&apos;Notification&apos; in window</code></li>
+<li><code>&apos;serviceWorker&apos; in navigator</code></li>
+<li><code>&apos;PushManager&apos; in window</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>なぜかこのタイミングで Linter を変更</p>
+<ul>
+<li>VSCode で format が自動で効いていないのと，試したかった <code>biomejs</code> を使ってみる</li>
+<li>詳しくは<a href="https://biomejs.dev/ja/guides/getting-started/" target="_blank">公式ドキュメント</a></li>
+</ul>
+<pre><code class="lang-bash">&gt; pnpm i biome -D
+
+<span class="hljs-comment"># 初期化（これで biome.json が生成される）</span>
+&gt; pnpm biome init
+
+<span class="hljs-comment"># 全ファイルをチェック，リント，修正をいっぺんにやるコマンド</span>
+&gt; pnpm biome check --apply src/**/*
+</code></pre>
+<ul>
+<li>簡単．すぐ動くし速い👍</li>
+<li>細かなルールは適宜やるとして，一旦デフォルトで <code>tabIndex</code> になっているのでそれを <code>space</code> に変更する
 -</li>
+</ul>
+</li>
+<li><p>戻って <code>FCM</code> 使った Push 通知の続き</p>
+<ul>
+<li>クライアントで <code>permission</code> を取得</li>
+</ul>
+<pre><code class="lang-js">    <span class="hljs-keyword">const</span> permission = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Notification</span>.<span class="hljs-title function_">requestPermission</span>();
+
+  <span class="hljs-comment">// こっちではだめ</span>
+  <span class="hljs-comment">// 単に今の permission を取得するだけなので，ちゃんとユーザーに聞く</span>
+  <span class="hljs-keyword">const</span> permission = <span class="hljs-title class_">Notification</span>.<span class="hljs-property">permission</span>;
+</code></pre>
+<ul>
+<li>諸々 ChatGPT が教えてくれて助かるー</li>
+<li>俺のブラウザデフォルトでは通知の設定をブロックしていたので，とりま <code>localhost:5173</code> を許可したら，permission がちゃんと <code>granted</code> になった</li>
+<li>service worker 周りの型がわからないので，悔しいが <code>any</code> を使う←</li>
+</ul>
+<pre><code class="lang-ts"><span class="hljs-comment">// ↓↓こういうやつと</span>
+<span class="hljs-comment">// biome-ignore lint/suspicious/noExplicitAny: &lt;explanation&gt;</span>
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">let</span> <span class="hljs-attr">self</span>: <span class="hljs-built_in">any</span>; <span class="hljs-comment">// ← 本当は ServiceWorkerGlobalScope と書き方買った</span>
+<span class="hljs-keyword">const</span> app = <span class="hljs-title function_">initializeApp</span>(firebaseConfig);
+
+<span class="hljs-comment">// ↓↓こういうやつ</span>
+<span class="hljs-comment">// biome-ignore lint/suspicious/noExplicitAny: &lt;explanation&gt;</span>
+self.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;activate&quot;</span>, <span class="hljs-function">(<span class="hljs-params">event: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
+  event.<span class="hljs-title function_">waitUntil</span>(self.<span class="hljs-property">clients</span>.<span class="hljs-title function_">claim</span>());
+});
+</code></pre>
+<ul>
+<li>今日はここで限界かも</li>
+<li>とりま <a href="https://github.com/kkeeth/pwa-sample-react" target="_blank">リポジトリ</a> はここ</li>
+<li><p>一旦 PWA アプリから <code>granted</code> と登録のメッセージがきた！
+<img src="src/images/push_notification_confirm.png" alt="push通知の許可ダイアログ">
+<img src="../../../src/images/token_register.png" alt="push通知の許可設定完了"></p>
+</li>
+<li><p>実機でも試したかったが，取得した <code>token</code> どうする問題</p>
+</li>
+<li>雑に画面に表示することでお茶を濁す</li>
+</ul>
+</li>
+<li>ここで眠くて終了</li>
 </ul>
 
                                 
@@ -870,7 +940,7 @@ esbuild.<span class="hljs-title function_">build</span>({
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"0414","level":"1.2.1.3.1","depth":4,"next":{"title":"🌩 DAILY LOG","level":"1.3","depth":1,"ref":"","articles":[{"title":"2024","level":"1.3.1","depth":2,"ref":"","articles":[{"title":"JANUARY","level":"1.3.1.1","depth":3,"ref":"","articles":[{"title":"0119","level":"1.3.1.1.1","depth":4,"path":"DAILY/2024/JAN/0119.md","ref":"DAILY/2024/JAN/0119.md","articles":[]},{"title":"0120","level":"1.3.1.1.2","depth":4,"path":"DAILY/2024/JAN/0120.md","ref":"DAILY/2024/JAN/0120.md","articles":[]},{"title":"0122","level":"1.3.1.1.3","depth":4,"path":"DAILY/2024/JAN/0122.md","ref":"DAILY/2024/JAN/0122.md","articles":[]},{"title":"0123","level":"1.3.1.1.4","depth":4,"path":"DAILY/2024/JAN/0123.md","ref":"DAILY/2024/JAN/0123.md","articles":[]},{"title":"0124","level":"1.3.1.1.5","depth":4,"path":"DAILY/2024/JAN/0124.md","ref":"DAILY/2024/JAN/0124.md","articles":[]},{"title":"0125","level":"1.3.1.1.6","depth":4,"path":"DAILY/2024/JAN/0125.md","ref":"DAILY/2024/JAN/0125.md","articles":[]},{"title":"0126","level":"1.3.1.1.7","depth":4,"path":"DAILY/2024/JAN/0126.md","ref":"DAILY/2024/JAN/0126.md","articles":[]},{"title":"0128","level":"1.3.1.1.8","depth":4,"path":"DAILY/2024/JAN/0128.md","ref":"DAILY/2024/JAN/0128.md","articles":[]},{"title":"0130","level":"1.3.1.1.9","depth":4,"path":"DAILY/2024/JAN/0130.md","ref":"DAILY/2024/JAN/0130.md","articles":[]}]},{"title":"FEBUARY","level":"1.3.1.2","depth":3,"ref":"","articles":[{"title":"0213","level":"1.3.1.2.1","depth":4,"path":"DAILY/2024/FEB/0213.md","ref":"DAILY/2024/FEB/0213.md","articles":[]}]}]}]},"previous":{"title":"APRIL","level":"1.2.1.3","depth":3,"path":"DEVELOPMENT/2024/APR/README.md","ref":"DEVELOPMENT/2024/APR/README.md","articles":[{"title":"0414","level":"1.2.1.3.1","depth":4,"path":"DEVELOPMENT/2024/APR/0414.md","ref":"DEVELOPMENT/2024/APR/0414.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"DEVELOPMENT/2024/APR/0414.md","mtime":"2024-04-14T08:42:14.892Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-04-14T08:43:17.527Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"0414","level":"1.2.1.3.1","depth":4,"next":{"title":"🌩 DAILY LOG","level":"1.3","depth":1,"ref":"","articles":[{"title":"2024","level":"1.3.1","depth":2,"ref":"","articles":[{"title":"JANUARY","level":"1.3.1.1","depth":3,"ref":"","articles":[{"title":"0119","level":"1.3.1.1.1","depth":4,"path":"DAILY/2024/JAN/0119.md","ref":"DAILY/2024/JAN/0119.md","articles":[]},{"title":"0120","level":"1.3.1.1.2","depth":4,"path":"DAILY/2024/JAN/0120.md","ref":"DAILY/2024/JAN/0120.md","articles":[]},{"title":"0122","level":"1.3.1.1.3","depth":4,"path":"DAILY/2024/JAN/0122.md","ref":"DAILY/2024/JAN/0122.md","articles":[]},{"title":"0123","level":"1.3.1.1.4","depth":4,"path":"DAILY/2024/JAN/0123.md","ref":"DAILY/2024/JAN/0123.md","articles":[]},{"title":"0124","level":"1.3.1.1.5","depth":4,"path":"DAILY/2024/JAN/0124.md","ref":"DAILY/2024/JAN/0124.md","articles":[]},{"title":"0125","level":"1.3.1.1.6","depth":4,"path":"DAILY/2024/JAN/0125.md","ref":"DAILY/2024/JAN/0125.md","articles":[]},{"title":"0126","level":"1.3.1.1.7","depth":4,"path":"DAILY/2024/JAN/0126.md","ref":"DAILY/2024/JAN/0126.md","articles":[]},{"title":"0128","level":"1.3.1.1.8","depth":4,"path":"DAILY/2024/JAN/0128.md","ref":"DAILY/2024/JAN/0128.md","articles":[]},{"title":"0130","level":"1.3.1.1.9","depth":4,"path":"DAILY/2024/JAN/0130.md","ref":"DAILY/2024/JAN/0130.md","articles":[]}]},{"title":"FEBUARY","level":"1.3.1.2","depth":3,"ref":"","articles":[{"title":"0213","level":"1.3.1.2.1","depth":4,"path":"DAILY/2024/FEB/0213.md","ref":"DAILY/2024/FEB/0213.md","articles":[]}]}]}]},"previous":{"title":"APRIL","level":"1.2.1.3","depth":3,"path":"DEVELOPMENT/2024/APR/README.md","ref":"DEVELOPMENT/2024/APR/README.md","articles":[{"title":"0414","level":"1.2.1.3.1","depth":4,"path":"DEVELOPMENT/2024/APR/0414.md","ref":"DEVELOPMENT/2024/APR/0414.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"DEVELOPMENT/2024/APR/0414.md","mtime":"2024-04-15T00:10:09.490Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-04-15T00:10:28.790Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
