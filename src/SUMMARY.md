@@ -22,7 +22,7 @@
       - [0226](DEVELOPMENT/2024/FEB/0226.md)
     - APRIL
       - [0414](DEVELOPMENT/2024/APR/0414.md)
-      - [0415](DEVELOPMENT/2024/APR/0415.md)
+      - [0427](DEVELOPMENT/2024/APR/0427.md)
 - 🌩 DAILY LOG
   - 2024
     - JANUARY
@@ -39,6 +39,7 @@
       - [0213](DAILY/2024/FEB/0213.md)
     - APRIL
       - [0415](DAILY/2024/APR/0415.md)
+      - [0427](DAILY/2024/APR/0427.md)
 - 📚 BOOKS
   - 2024
     - [エンジニア組織論への招待](BOOKS/2024/engineering_organization_theory.md)
