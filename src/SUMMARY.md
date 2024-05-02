@@ -40,6 +40,8 @@
     - APRIL
       - [0415](DAILY/2024/APR/0415.md)
       - [0427](DAILY/2024/APR/0427.md)
+    - MAY
+      - [0502](DAILY/2024/MAY/0502.md)
 - 📚 BOOKS
   - 2024
     - [エンジニア組織論への招待](BOOKS/2024/engineering_organization_theory.md)
