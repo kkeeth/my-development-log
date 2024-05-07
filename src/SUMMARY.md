@@ -23,6 +23,8 @@
     - APRIL
       - [0414](DEVELOPMENT/2024/APR/0414.md)
       - [0427](DEVELOPMENT/2024/APR/0427.md)
+    - MAY
+      - [0507](DEVELOPMENT/2024/MAY/0507.md)
 - 🌩 DAILY LOG
   - 2024
     - JANUARY
