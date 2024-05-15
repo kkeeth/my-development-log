@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>0511 · HonKit</title>
+        <title>0514 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -64,10 +64,8 @@
     <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="0514.html" />
     
-    
-    <link rel="prev" href="0507.html" />
+    <link rel="prev" href="0511.html" />
     
 
     </head>
@@ -443,7 +441,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.1.4.2" data-path="0511.html">
+        <li class="chapter " data-level="1.2.1.4.2" data-path="0511.html">
             
                 <a href="0511.html">
             
@@ -456,7 +454,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.1.4.3" data-path="0514.html">
+        <li class="chapter active" data-level="1.2.1.4.3" data-path="0514.html">
             
                 <a href="0514.html">
             
@@ -937,7 +935,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../../.." >0511</a>
+        <a href="../../.." >0514</a>
     </h1>
 </div>
 
@@ -952,76 +950,76 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="0511">0511</h1>
+                                <h1 id="0514">0514</h1>
 <h2 id="logs">LOGS</h2>
 <ul>
-<li><a href="https://tskaigi.org/" target="_blank">TSKaigi</a> に参加している</li>
-<li><a href="https://tskaigi.org/talks/takezoux2" target="_blank">Step by Stepで学ぶ、ADT(代数的データ型)、モナドからEffect-TSまで</a><ul>
-<li>お品書き<ul>
-<li>ADT（代数的データ型）<ul>
-<li>直積型と直和型を組み合わせて表現される型</li>
-<li>宣言的な分，if 文が増える可能性<ul>
-<li>それによりミスやバグが生じやすい</li>
+<li><p><code>React Suspense</code> の復習</p>
+<ul>
+<li><a href="https://ja.react.dev/reference/react/Suspense" target="_blank">https://ja.react.dev/reference/react/Suspense</a></li>
+<li><code>fallback</code> は React ノードであれば何でも受け付ける<ul>
+<li>実際にはローディングスピナやスケルトンだろう</li>
+</ul>
+</li>
+<li><code>children</code> がサスペンドしたら <code>&lt;Suspense&gt;</code> は fallback に切り替わる<ul>
+<li>fallback 自体がレンダー中にサスペンドしたら，親のサスペンスバウンダリのうち最も近いものがアクティブになる．なるほど．</li>
+</ul>
+</li>
+<li>逆に，初回マウント前にレンダリングされた UI は消える．一切の <code>state</code> は保持しないから．</li>
+<li><p><code>&lt;Suspense&gt;</code> が再度サスペンドしたら，もちろん再度 fallback が表示される</p>
+<ul>
+<li><code>children</code> すべてのコードとデータが読み込まれるまで</li>
+<li><p>ただし，それが <code>startTransition</code> または <code>useDeferredValue</code> によって引き起こされた場合は除く</p>
+<ul>
+<li><code>startTransition</code></li>
+<li>UI をブロックせずに state を更新できるもの</li>
+<li><code>startTransition(scope)</code> と書く<ul>
+<li><code>scope</code> 最低１個 <code>set()</code> 関数を呼び出して state を更新する関数<pre><code class="lang-js"><span class="hljs-title function_">startTransition</span>(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">setHoge</span>(nextHoge);
+});
+</code></pre>
+</li>
+<li>要は <code>useState</code> といっしょに使うイメージ？</li>
+</ul>
+</li>
+<li>この更新はノンブロッキングになり，ローディングインジケーターは表示しない</li>
+<li>トランジションが <code>pending</code> であるかどうかを知るための方法を提供しないのか…<ul>
+<li>知りたいなら，代わりに <code>useTransition</code> が必要となる</li>
+<li>scope は即座に実行されるので，非同期関数は渡せない</li>
+<li>他にも注意事項がたくさんあるのでドキュメントを見る</li>
+</ul>
+</li>
+<li>レスポンスなし</li>
+<li><p><code>useDeferredValue</code> UI の一部の更新を遅延させるための React フック</p>
+<ul>
+<li><code>useDeferredValue(value, initialValue?)</code> と書く
+```js
+import { useState, useDeferredValue } from &apos;react&apos;;</li>
+</ul>
+<p>function SearchPage() {
+  const [query, setQuery] = useState(&apos;&apos;);
+  const deferredQuery = useDeferredValue(query);
+  // ...
+}
+```</p>
+<ul>
+<li><code>value</code> 遅延させたい値．任意の型．</li>
+<li><code>initialValue</code> 名前の通り初期値<ul>
+<li>省略すると，前のバージョンの value が存在しないので，遅延しない</li>
+</ul>
+</li>
+<li>戻り値は更新後の値．初回は，与えた初期値がそのまま返ってくる</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>Either（Result型）<ul>
-<li><code>Either&lt;Left, Right&gt;</code> の型定義を持つ Monad</li>
-<li>Right = 成功を意味</li>
-<li>なので，<code>&lt;Either&lt;hogehoge, void&gt;</code> としても良い</li>
-</ul>
-</li>
-<li>TaskEither<ul>
-<li>Promise も含め，一緒くたに扱いたい</li>
-</ul>
-</li>
-<li>Effect-ts<ul>
-<li>厳密には <code>Effect</code> というライブラリ</li>
-<li>step by step の説明のため色々喋ったが，<code>Effect</code> だけ使えば良い</li>
-</ul>
-</li>
-<li>バックエンドなら恩恵があるが，React などを使ったフロントエンドは細かく分割はできるのであんまないかも</li>
+<li>また, <code>children</code> のどれか１つでもデータ待ちでサスペンドしていたら fallback が表示され，すべてが揃ったら一斉にレンダリングされるとな</li>
+<li>他にも，いろんな非同期処理や状態ごとに見た目や処理を変えるケースが公式サイトに載っているので，都度必要に応じたら見るということで，一旦ここでストップ</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="https://tskaigi.org/talks/karan_corons" target="_blank">サービス開発におけるVue3とTypeScriptの親和性について</a><ul>
-<li>vue3 が正式にリリースされて4年弱経っているが，typescript との親和性がどうなっているか</li>
-<li>TypeScript における親和性とは<ul>
-<li>Type Inference × Logic Composition</li>
-</ul>
-</li>
-<li>vue2 の頃はまぁ親和性悪い<ul>
-<li><code>mixin</code> が型の恩恵を受けられない</li>
-<li>store で型の恩恵を受けづらい</li>
-</ul>
-</li>
-<li>vue3 では，関数やロジックを切り出すことで型の恩恵を受けられる</li>
-</ul>
-</li>
-<li><a href="https://tskaigi.org/talks/__sosukeSuzuki" target="_blank">Prettierの未来を考える</a><ul>
-<li>prettier はフォーマッターであって，リンターではない<ul>
-<li>リンターは eslint が今はデファクト</li>
-<li>biome の強み<ul>
-<li>リンター・フォフォーマッターがどちらも搭載</li>
-<li>高速に動く</li>
-</ul>
-</li>
-<li>中の人も biome 大好き</li>
-</ul>
-</li>
-<li>biome が出たので，prettier や eslint は未来について考えなくてはならなくなった<ul>
-<li>時間の問題だが</li>
-</ul>
-</li>
-<li>prettier はパーサーを外部に依存しているので，限界はある</li>
-<li>eslint 本体のルールに従うより，独自のルールに倒すと，<strong>このチームはこういうルールや決めでコードを書いているがそのルールの記述を見れば良くなるので，コードレビューで説明をしなくても良くなる</strong><ul>
-<li>なるほどなー</li>
-</ul>
-</li>
-</ul>
-</li>
+<li>ChatGPT 4o が出たので早速 p5.js のコードをいくつか書かせてみている
+*</li>
 </ul>
 
                                 
@@ -1050,14 +1048,10 @@
 
             
                 
-                <a href="0507.html" class="navigation navigation-prev " aria-label="Previous page: 0507">
+                <a href="0511.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 0511">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="0514.html" class="navigation navigation-next " aria-label="Next page: 0514">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -1066,7 +1060,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"0511","level":"1.2.1.4.2","depth":4,"next":{"title":"0514","level":"1.2.1.4.3","depth":4,"path":"DEVELOPMENT/2024/MAY/0514.md","ref":"DEVELOPMENT/2024/MAY/0514.md","articles":[]},"previous":{"title":"0507","level":"1.2.1.4.1","depth":4,"path":"DEVELOPMENT/2024/MAY/0507.md","ref":"DEVELOPMENT/2024/MAY/0507.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"DEVELOPMENT/2024/MAY/0511.md","mtime":"2024-05-11T08:35:04.642Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-05-15T00:44:25.342Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"0514","level":"1.2.1.4.3","depth":4,"next":{"title":"🌩 DAILY LOG","level":"1.3","depth":1,"ref":"","articles":[{"title":"2024","level":"1.3.1","depth":2,"ref":"","articles":[{"title":"JANUARY","level":"1.3.1.1","depth":3,"ref":"","articles":[{"title":"0119","level":"1.3.1.1.1","depth":4,"path":"DAILY/2024/JAN/0119.md","ref":"DAILY/2024/JAN/0119.md","articles":[]},{"title":"0120","level":"1.3.1.1.2","depth":4,"path":"DAILY/2024/JAN/0120.md","ref":"DAILY/2024/JAN/0120.md","articles":[]},{"title":"0122","level":"1.3.1.1.3","depth":4,"path":"DAILY/2024/JAN/0122.md","ref":"DAILY/2024/JAN/0122.md","articles":[]},{"title":"0123","level":"1.3.1.1.4","depth":4,"path":"DAILY/2024/JAN/0123.md","ref":"DAILY/2024/JAN/0123.md","articles":[]},{"title":"0124","level":"1.3.1.1.5","depth":4,"path":"DAILY/2024/JAN/0124.md","ref":"DAILY/2024/JAN/0124.md","articles":[]},{"title":"0125","level":"1.3.1.1.6","depth":4,"path":"DAILY/2024/JAN/0125.md","ref":"DAILY/2024/JAN/0125.md","articles":[]},{"title":"0126","level":"1.3.1.1.7","depth":4,"path":"DAILY/2024/JAN/0126.md","ref":"DAILY/2024/JAN/0126.md","articles":[]},{"title":"0128","level":"1.3.1.1.8","depth":4,"path":"DAILY/2024/JAN/0128.md","ref":"DAILY/2024/JAN/0128.md","articles":[]},{"title":"0130","level":"1.3.1.1.9","depth":4,"path":"DAILY/2024/JAN/0130.md","ref":"DAILY/2024/JAN/0130.md","articles":[]}]},{"title":"FEBUARY","level":"1.3.1.2","depth":3,"ref":"","articles":[{"title":"0213","level":"1.3.1.2.1","depth":4,"path":"DAILY/2024/FEB/0213.md","ref":"DAILY/2024/FEB/0213.md","articles":[]}]},{"title":"APRIL","level":"1.3.1.3","depth":3,"ref":"","articles":[{"title":"0415","level":"1.3.1.3.1","depth":4,"path":"DAILY/2024/APR/0415.md","ref":"DAILY/2024/APR/0415.md","articles":[]},{"title":"0427","level":"1.3.1.3.2","depth":4,"path":"DAILY/2024/APR/0427.md","ref":"DAILY/2024/APR/0427.md","articles":[]}]},{"title":"MAY","level":"1.3.1.4","depth":3,"ref":"","articles":[{"title":"0502","level":"1.3.1.4.1","depth":4,"path":"DAILY/2024/MAY/0502.md","ref":"DAILY/2024/MAY/0502.md","articles":[]}]}]}]},"previous":{"title":"0511","level":"1.2.1.4.2","depth":4,"path":"DEVELOPMENT/2024/MAY/0511.md","ref":"DEVELOPMENT/2024/MAY/0511.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"DEVELOPMENT/2024/MAY/0514.md","mtime":"2024-05-14T14:00:47.944Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-05-15T00:44:25.342Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
