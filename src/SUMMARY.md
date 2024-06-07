@@ -29,6 +29,8 @@
       - [0514](DEVELOPMENT/2024/MAY/0514.md)
       - [0520](DEVELOPMENT/2024/MAY/0520.md)
       - [0523](DEVELOPMENT/2024/MAY/0523.md)
+    - JUNE
+      - [0606](DEVELOPMENT/2024/JUN/0606.md)
 - 🌩 DAILY LOG
   - 2024
     - JANUARY
@@ -48,6 +50,8 @@
       - [0427](DAILY/2024/APR/0427.md)
     - MAY
       - [0502](DAILY/2024/MAY/0502.md)
+    - JUNE
+      - [0606](DAILY/2024/JUN/0606.md)
 - 📚 BOOKS
   - 2024
     - [エンジニア組織論への招待](BOOKS/2024/engineering_organization_theory.md)

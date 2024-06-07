@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>0205 · HonKit</title>
+        <title>0606 · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -64,10 +64,6 @@
     <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="0222.html" />
-    
-    
-    <link rel="prev" href="0203.html" />
     
 
     </head>
@@ -288,9 +284,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.1.2.1" data-path="0201.html">
+        <li class="chapter " data-level="1.2.1.2.1" data-path="../FEB/0201.html">
             
-                <a href="0201.html">
+                <a href="../FEB/0201.html">
             
                     
                     0201
@@ -301,9 +297,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.1.2.2" data-path="0202.html">
+        <li class="chapter " data-level="1.2.1.2.2" data-path="../FEB/0202.html">
             
-                <a href="0202.html">
+                <a href="../FEB/0202.html">
             
                     
                     0202
@@ -314,9 +310,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.1.2.3" data-path="0203.html">
+        <li class="chapter " data-level="1.2.1.2.3" data-path="../FEB/0203.html">
             
-                <a href="0203.html">
+                <a href="../FEB/0203.html">
             
                     
                     0203
@@ -327,9 +323,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.1.2.4" data-path="0205.html">
+        <li class="chapter " data-level="1.2.1.2.4" data-path="../FEB/0205.html">
             
-                <a href="0205.html">
+                <a href="../FEB/0205.html">
             
                     
                     0205
@@ -340,9 +336,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.1.2.5" data-path="0222.html">
+        <li class="chapter " data-level="1.2.1.2.5" data-path="../FEB/0222.html">
             
-                <a href="0222.html">
+                <a href="../FEB/0222.html">
             
                     
                     0222
@@ -353,9 +349,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.1.2.6" data-path="0226.html">
+        <li class="chapter " data-level="1.2.1.2.6" data-path="../FEB/0226.html">
             
-                <a href="0226.html">
+                <a href="../FEB/0226.html">
             
                     
                     0226
@@ -514,9 +510,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.1.5.1" data-path="../JUN/0606.html">
+        <li class="chapter active" data-level="1.2.1.5.1" data-path="0606.html">
             
-                <a href="../JUN/0606.html">
+                <a href="0606.html">
             
                     
                     0606
@@ -1027,7 +1023,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../../.." >0205</a>
+        <a href="../../.." >0606</a>
     </h1>
 </div>
 
@@ -1042,89 +1038,39 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="0205">0205</h1>
+                                <h1 id="0606">0606</h1>
 <h2 id="logs">LOGS</h2>
 <ul>
-<li>新 Mac に <code>ghq</code> + <code>peco</code> でリポジトリ管理環境を揃える</li>
-<li>また同じようなことをググり，また同じような手順でコケて，また同じように時間使っている…アホか</li>
-<li><p>まとめないけどここで手順を書き連ねる</p>
-<ol>
-<li><code>brew</code> のインストール<ul>
-<li><code>&gt; /bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;</code></li>
+<li>自分のリポジトリの自動PRを見る<ul>
+<li><code>npm-stats-api</code><ul>
+<li><a href="https://github.com/kkeeth/npm-stats-api/pulls/" target="_blank">https://github.com/kkeeth/npm-stats-api/pulls/</a></li>
+<li>9個もPR溜まっとる</li>
+<li><code>superagent</code> がメジャーバージョンアップしてたので手元でも動作確認したが問題なさそう</li>
+<li><code>@rollup/plugin-commonjs</code> も同様</li>
+<li>無事にすべてアップデート<ul>
+<li>リリースタグも発行</li>
+<li><code>npm publish</code></li>
 </ul>
-</li>
-<li><p><code>fish</code> のインストール</p>
-<pre><code class="lang-bash"> <span class="hljs-comment"># fish のインストール</span>
- &gt; brew install fish
- &gt; <span class="hljs-built_in">which</span> fish
-   /opt/homebrew/bin/fish
-
- <span class="hljs-comment"># mac に fish を認識させる（であってる？）</span>
- &gt; sudo vim /etc/shells
-   /bin/bash
-   /bin/csh
-   /bin/dash
-   /bin/ksh
-   /bin/sh
-   /bin/tcsh
-   /bin/zsh
-   /opt/homebrew/bin/fish  ←これを追記
-
- <span class="hljs-comment"># デフォルトシェルの設定</span>
- &gt; chsh -s /opt/homebrew/bin/fish
-</code></pre>
-</li>
-<li><p><code>fisher</code> およびプラグインのインストール</p>
-<ul>
-<li><p>これ必要だったのかわからんがやったので書き残す</p>
-<pre><code class="lang-bash">&gt; curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
-
-&gt; fisher install oh-my-fish/plugin-peco
-&gt; fisher install decors/fish-ghq
-</code></pre>
 </li>
 </ul>
 </li>
-<li><p>fish で brew のパスを通す</p>
-<pre><code class="lang-bash"> <span class="hljs-keyword">if</span> status is-interactive
-     <span class="hljs-comment"># Commands to run in interactive sessions can go here</span>
-     <span class="hljs-built_in">eval</span> (/opt/homebrew/bin/brew shellenv) <span class="hljs-comment"># &lt;= これを追加</span>
- end
-
- <span class="hljs-comment"># 再起動</span>
- &gt; <span class="hljs-built_in">exec</span> <span class="hljs-variable">$SHELL</span> -l
-</code></pre>
-</li>
-<li><p>config の設定</p>
-<pre><code class="lang-bash"> &gt; vim ~/.config/fish/config.fish
-
- <span class="hljs-comment"># 以下を追記</span>
- <span class="hljs-built_in">set</span> GHQ_SELECTOR peco
-
- <span class="hljs-comment"># 再起動</span>
- <span class="hljs-built_in">exec</span> <span class="hljs-variable">$SHELL</span> -l
-</code></pre>
-</li>
-</ol>
-</li>
-<li>本当は単なるaliasでいけると思ったが，シェル起動時に自動で peco が走ってしまうので断念<ul>
-<li>ちなみにこういう感じ（<a href="https://github.com/peco/peco" target="_blank">公式ドキュメント</a>より）</li>
-<li><code>alias pe=&quot;cd $(ghq list --full-path | peco)&quot;</code></li>
-<li>これは <code>zsh</code> 用なので，<code>fish</code> 用の書き方なら行けるのかもしれーぬ</li>
 </ul>
 </li>
-<li><p>git でSSH鍵のパスフレーズを毎回聞かれるのがダルい</p>
-<pre><code class="lang-bash">  &gt; ssh-add /Users/[name]/.ssh/id_ed25519
-
-  <span class="hljs-comment"># 確認</span>
-  &gt; ssh-add -l
-
-  <span class="hljs-comment"># ~/.ssh/config にパスフレーズを記憶させる</span>
-  <span class="hljs-comment"># common</span>
-  Host *
-      UseKeychain <span class="hljs-built_in">yes</span>
-      AddKeysToAgent <span class="hljs-built_in">yes</span>
-</code></pre>
+<li>iwashi86 さんのスライドを見る<ul>
+<li><a href="https://speakerdeck.com/iwashi86/elegant-puzzle-33a18089-3d8e-48b2-8ac9-fbe0a0204e52" target="_blank">https://speakerdeck.com/iwashi86/elegant-puzzle-33a18089-3d8e-48b2-8ac9-fbe0a0204e52</a></li>
+<li>研究による裏付けではなく，実践知の書籍<ul>
+<li>俺はこっちが大好物なので楽しみだが，ちゃんと裏付け有りのものもインプットしないとな</li>
+<li>何事もバランスや</li>
+</ul>
+</li>
+<li><a href="https://speakerdeck.com/iwashi86/elegant-puzzle-33a18089-3d8e-48b2-8ac9-fbe0a0204e52?slide=8" target="_blank">このページ</a>で上げられている雑マッピングの書籍全部読んでねぇ…</li>
+<li>はじめに<ul>
+<li><a href="https://bookplus.nikkei.com/atcl/column/032900009/051300596/" target="_blank">https://bookplus.nikkei.com/atcl/column/032900009/051300596/</a></li>
+<li>これを読めと</li>
+<li>軽く見たが，書籍とほぼ全く同じだったので読まなくても良さそう</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 
@@ -1154,14 +1100,6 @@
 
             
                 
-                <a href="0203.html" class="navigation navigation-prev " aria-label="Previous page: 0203">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-                
-                
-                <a href="0222.html" class="navigation navigation-next " aria-label="Next page: 0222">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -1170,7 +1108,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"0205","level":"1.2.1.2.4","depth":4,"next":{"title":"0222","level":"1.2.1.2.5","depth":4,"path":"DEVELOPMENT/2024/FEB/0222.md","ref":"DEVELOPMENT/2024/FEB/0222.md","articles":[]},"previous":{"title":"0203","level":"1.2.1.2.3","depth":4,"path":"DEVELOPMENT/2024/FEB/0203.md","ref":"DEVELOPMENT/2024/FEB/0203.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"DEVELOPMENT/2024/FEB/0205.md","mtime":"2024-02-05T08:15:29.561Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-06-07T01:55:47.563Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"0606","level":"1.2.1.5.1","depth":4,"next":{"title":"🌩 DAILY LOG","level":"1.3","depth":1,"ref":"","articles":[{"title":"2024","level":"1.3.1","depth":2,"ref":"","articles":[{"title":"JANUARY","level":"1.3.1.1","depth":3,"ref":"","articles":[{"title":"0119","level":"1.3.1.1.1","depth":4,"path":"DAILY/2024/JAN/0119.md","ref":"DAILY/2024/JAN/0119.md","articles":[]},{"title":"0120","level":"1.3.1.1.2","depth":4,"path":"DAILY/2024/JAN/0120.md","ref":"DAILY/2024/JAN/0120.md","articles":[]},{"title":"0122","level":"1.3.1.1.3","depth":4,"path":"DAILY/2024/JAN/0122.md","ref":"DAILY/2024/JAN/0122.md","articles":[]},{"title":"0123","level":"1.3.1.1.4","depth":4,"path":"DAILY/2024/JAN/0123.md","ref":"DAILY/2024/JAN/0123.md","articles":[]},{"title":"0124","level":"1.3.1.1.5","depth":4,"path":"DAILY/2024/JAN/0124.md","ref":"DAILY/2024/JAN/0124.md","articles":[]},{"title":"0125","level":"1.3.1.1.6","depth":4,"path":"DAILY/2024/JAN/0125.md","ref":"DAILY/2024/JAN/0125.md","articles":[]},{"title":"0126","level":"1.3.1.1.7","depth":4,"path":"DAILY/2024/JAN/0126.md","ref":"DAILY/2024/JAN/0126.md","articles":[]},{"title":"0128","level":"1.3.1.1.8","depth":4,"path":"DAILY/2024/JAN/0128.md","ref":"DAILY/2024/JAN/0128.md","articles":[]},{"title":"0130","level":"1.3.1.1.9","depth":4,"path":"DAILY/2024/JAN/0130.md","ref":"DAILY/2024/JAN/0130.md","articles":[]}]},{"title":"FEBUARY","level":"1.3.1.2","depth":3,"ref":"","articles":[{"title":"0213","level":"1.3.1.2.1","depth":4,"path":"DAILY/2024/FEB/0213.md","ref":"DAILY/2024/FEB/0213.md","articles":[]}]},{"title":"APRIL","level":"1.3.1.3","depth":3,"ref":"","articles":[{"title":"0415","level":"1.3.1.3.1","depth":4,"path":"DAILY/2024/APR/0415.md","ref":"DAILY/2024/APR/0415.md","articles":[]},{"title":"0427","level":"1.3.1.3.2","depth":4,"path":"DAILY/2024/APR/0427.md","ref":"DAILY/2024/APR/0427.md","articles":[]}]},{"title":"MAY","level":"1.3.1.4","depth":3,"ref":"","articles":[{"title":"0502","level":"1.3.1.4.1","depth":4,"path":"DAILY/2024/MAY/0502.md","ref":"DAILY/2024/MAY/0502.md","articles":[]}]},{"title":"JUNE","level":"1.3.1.5","depth":3,"ref":"","articles":[{"title":"0606","level":"1.3.1.5.1","depth":4,"path":"DAILY/2024/JUN/0606.md","ref":"DAILY/2024/JUN/0606.md","articles":[]}]}]}]},"previous":{"title":"JUNE","level":"1.2.1.5","depth":3,"ref":"","articles":[{"title":"0606","level":"1.2.1.5.1","depth":4,"path":"DEVELOPMENT/2024/JUN/0606.md","ref":"DEVELOPMENT/2024/JUN/0606.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"DEVELOPMENT/2024/JUN/0606.md","mtime":"2024-06-06T12:25:46.429Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-06-07T01:55:47.563Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
