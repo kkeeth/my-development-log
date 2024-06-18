@@ -52,6 +52,7 @@
       - [0502](DAILY/2024/MAY/0502.md)
     - JUNE
       - [0606](DAILY/2024/JUN/0606.md)
+      - [0607](DAILY/2024/JUN/0607.md)
 - 📚 BOOKS
   - 2024
     - [エンジニア組織論への招待](BOOKS/2024/engineering_organization_theory.md)
