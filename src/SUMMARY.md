@@ -61,4 +61,4 @@
     - [体系的に学ぶ 安全な WEB アプリケーションの作り方](BOOKS/2024/learn_howto_create_web_applications_systematically.md)
 - 📝 DRAFTS
   - [ゆめみを退職します](DRAFTS/yumemi_retirement.md)
-  - [入社エントリ](DRAFTS/kaminashi_join.md)
+  - [カミナシ入社エントリ](DRAFTS/kaminashi_join.md)
