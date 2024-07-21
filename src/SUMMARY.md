@@ -32,6 +32,8 @@
     - JUNE
       - [0606](DEVELOPMENT/2024/JUN/0606.md)
       - [0619](DEVELOPMENT/2024/JUN//0619.md)
+    - JUL
+      - [0721](DEVELOPMENT/2024/JUL/0721.md)
 - 🌩 DAILY LOG
   - 2024
     - JANUARY
