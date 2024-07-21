@@ -1,5 +1,6 @@
 {
   "author": "Keeth Kuwahara(kkeeth)",
+  "title": "kkeeth の日常ログ",
   "copyright": "Keeth Kuwahara",
   "root": "src",
   "plugins": ["sidebar-ad", "folding-chapters"],
