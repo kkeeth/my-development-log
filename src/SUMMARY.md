@@ -54,11 +54,11 @@
     - JUNE
       - [0606](DAILY/2024/JUN/0606.md)
       - [0607](DAILY/2024/JUN/0607.md)
+    - JULY
+      - [0721](DAILY/2024/JUL/0721.md)
 - 📚 BOOKS
   - 2024
     - [エンジニア組織論への招待](BOOKS/2024/engineering_organization_theory.md)
     - [金より価値ある時間の使い方](BOOKS/2024/how_to_live_on_24_hours_a_day.md)
     - [体系的に学ぶ 安全な WEB アプリケーションの作り方](BOOKS/2024/learn_howto_create_web_applications_systematically.md)
 - 📝 DRAFTS
-  - [ゆめみを退職します](DRAFTS/yumemi_retirement.md)
-  - [カミナシ入社エントリ](DRAFTS/kaminashi_join.md)
