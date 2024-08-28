@@ -62,6 +62,8 @@
     - JULY
       - [0721](DAILY/2024/JUL/0721.md)
       - [0722](DAILY/2024/JUL/0722.md)
+    - AUG
+      - [0828](DAILY/2024/AUG/0828.md)
 - 📚 BOOKS
   - 2024
     - [エンジニア組織論への招待](BOOKS/2024/engineering_organization_theory.md)

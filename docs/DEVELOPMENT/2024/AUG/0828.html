@@ -993,6 +993,38 @@
             
         </li>
     
+        <li class="chapter " data-level="1.3.1.7" >
+            
+                <span>
+            
+                    
+                    AUG
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.7.1" data-path="../../../DAILY/2024/AUG/0828.html">
+            
+                <a href="../../../DAILY/2024/AUG/0828.html">
+            
+                    
+                    0828
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
             </ul>
             
@@ -1163,7 +1195,8 @@
 <li><a href="https://kaminashi-developer.hatenablog.jp/entry/2024/08/28/080000" target="_blank">https://kaminashi-developer.hatenablog.jp/entry/2024/08/28/080000</a></li>
 </ul>
 </li>
-<li>以前学ぶために，雑誌 WEBDEV の terraform 回を購入して夏休みに勉強すると言って，早1年が過ぎようとしている</li>
+<li>以前学ぶために，雑誌 WEBDB PRESS の terraform 回を購入して夏休みに勉強すると言って，早1年が過ぎようとしている</li>
+<li>WEBDB PRESS ちゃうかった． <code>SoftwareDesign</code> やった</li>
 <li>チームのリポジトリにインフラを管理するものもあるので，そこの <code>.tf</code> ファイルを眺めてみるのもあり</li>
 <li>つうか，AWS もやらんとな<ul>
 <li>全部をいっぺんにやろうとしたら無理なので，ちょっとずつ</li>
@@ -1172,8 +1205,52 @@
 <li>SQS</li>
 <li>Chatbot</li>
 <li>SNS</li>
-<li>CloudWatch Logs
-*</li>
+<li>CloudWatch Logs</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>知りたかった IaC 実践術 <code>Terraform ではじめる AWS 構成管理</code></strong><ul>
+<li><code>Terraform</code> はインフラを安全で効率的に管理するツール</li>
+<li>IaC を実践でき，宣言的にコードを記述する</li>
+<li>利点：変更前に何が起きるか確認できるので，反映前に判断する機会があり，安心してシステムを変更できる</li>
+<li><code>Terraform</code> を使えば，作って壊して，が簡単にできる</li>
+<li>また，このツールからインフラを操る全能感は格別な体験らしい</li>
+<li>実践！<ul>
+<li>まずはローカルにインストール</li>
+<li>俺は mac ユーザーなので <code>brew</code> で<pre><code class="lang-bash">&gt; brew tap hashicorp/tap
+&gt; brew install hashicorp/tap/terraform
+&gt; terraform --version
+Terraform v1.9.5
+on darwin_arm64
+</code></pre>
+</li>
+<li>続いて，AWS を操作できるようにクレデンシャルを設定</li>
+<li>久し振りに AWS のマネコンにアクセス<ul>
+<li>IAM ユーザー覚えてないので，ルートユーザーでアクセス</li>
+</ul>
+</li>
+<li>セキュリティ対策覚えていないので，公式のハンズオンをやる<ul>
+<li>当分 Terraform に戻れなさそうだ</li>
+<li><a href="https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-Security-1-2022-confirmation_556.html" target="_blank">https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-Security-1-2022-confirmation_556.html</a></li>
+<li>AWS におけるセキュリティの考え方 - <code>責任共有モデル</code></li>
+<li>コンプライアンスに関するドキュメントのご紹介<ul>
+<li>クライアントから求められたら提出する感じだな</li>
+<li>取得したコンプライアンスのドキュメントも，マネコンからも取得済みのものをダウンロードできる</li>
+</ul>
+</li>
+<li>IAM はグループを作成し，グループにポリシーを設定</li>
+<li>続いてユーザーを作成し，ユーザーをそのグループに属させる<ul>
+<li>IAM ユーザーにも MFA を設定</li>
+<li><code>IAM Identify Center</code> なるものが生えており，これなんぞ？となったので，今回は使わない方向で</li>
+<li>とりあえず，今回の terraform のハンズオン用の IAM ユーザーの作成は完了<ul>
+<li><code>ADMINISTRATOR</code> ポリシーで</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1218,7 +1295,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"0828","level":"1.2.1.7.2","depth":4,"next":{"title":"🌩 DAILY LOG","level":"1.3","depth":1,"ref":"","articles":[{"title":"2024","level":"1.3.1","depth":2,"ref":"","articles":[{"title":"JANUARY","level":"1.3.1.1","depth":3,"ref":"","articles":[{"title":"0119","level":"1.3.1.1.1","depth":4,"path":"DAILY/2024/JAN/0119.md","ref":"DAILY/2024/JAN/0119.md","articles":[]},{"title":"0120","level":"1.3.1.1.2","depth":4,"path":"DAILY/2024/JAN/0120.md","ref":"DAILY/2024/JAN/0120.md","articles":[]},{"title":"0122","level":"1.3.1.1.3","depth":4,"path":"DAILY/2024/JAN/0122.md","ref":"DAILY/2024/JAN/0122.md","articles":[]},{"title":"0123","level":"1.3.1.1.4","depth":4,"path":"DAILY/2024/JAN/0123.md","ref":"DAILY/2024/JAN/0123.md","articles":[]},{"title":"0124","level":"1.3.1.1.5","depth":4,"path":"DAILY/2024/JAN/0124.md","ref":"DAILY/2024/JAN/0124.md","articles":[]},{"title":"0125","level":"1.3.1.1.6","depth":4,"path":"DAILY/2024/JAN/0125.md","ref":"DAILY/2024/JAN/0125.md","articles":[]},{"title":"0126","level":"1.3.1.1.7","depth":4,"path":"DAILY/2024/JAN/0126.md","ref":"DAILY/2024/JAN/0126.md","articles":[]},{"title":"0128","level":"1.3.1.1.8","depth":4,"path":"DAILY/2024/JAN/0128.md","ref":"DAILY/2024/JAN/0128.md","articles":[]},{"title":"0130","level":"1.3.1.1.9","depth":4,"path":"DAILY/2024/JAN/0130.md","ref":"DAILY/2024/JAN/0130.md","articles":[]}]},{"title":"FEBUARY","level":"1.3.1.2","depth":3,"ref":"","articles":[{"title":"0213","level":"1.3.1.2.1","depth":4,"path":"DAILY/2024/FEB/0213.md","ref":"DAILY/2024/FEB/0213.md","articles":[]}]},{"title":"APRIL","level":"1.3.1.3","depth":3,"ref":"","articles":[{"title":"0415","level":"1.3.1.3.1","depth":4,"path":"DAILY/2024/APR/0415.md","ref":"DAILY/2024/APR/0415.md","articles":[]},{"title":"0427","level":"1.3.1.3.2","depth":4,"path":"DAILY/2024/APR/0427.md","ref":"DAILY/2024/APR/0427.md","articles":[]}]},{"title":"MAY","level":"1.3.1.4","depth":3,"ref":"","articles":[{"title":"0502","level":"1.3.1.4.1","depth":4,"path":"DAILY/2024/MAY/0502.md","ref":"DAILY/2024/MAY/0502.md","articles":[]}]},{"title":"JUNE","level":"1.3.1.5","depth":3,"ref":"","articles":[{"title":"0606","level":"1.3.1.5.1","depth":4,"path":"DAILY/2024/JUN/0606.md","ref":"DAILY/2024/JUN/0606.md","articles":[]},{"title":"0607","level":"1.3.1.5.2","depth":4,"path":"DAILY/2024/JUN/0607.md","ref":"DAILY/2024/JUN/0607.md","articles":[]}]},{"title":"JULY","level":"1.3.1.6","depth":3,"ref":"","articles":[{"title":"0721","level":"1.3.1.6.1","depth":4,"path":"DAILY/2024/JUL/0721.md","ref":"DAILY/2024/JUL/0721.md","articles":[]},{"title":"0722","level":"1.3.1.6.2","depth":4,"path":"DAILY/2024/JUL/0722.md","ref":"DAILY/2024/JUL/0722.md","articles":[]}]}]}]},"previous":{"title":"0826","level":"1.2.1.7.1","depth":4,"path":"DEVELOPMENT/2024/AUG/0826.md","ref":"DEVELOPMENT/2024/AUG/0826.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"DEVELOPMENT/2024/AUG/0828.md","mtime":"2024-08-28T00:39:18.041Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-28T00:51:26.870Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"0828","level":"1.2.1.7.2","depth":4,"next":{"title":"🌩 DAILY LOG","level":"1.3","depth":1,"ref":"","articles":[{"title":"2024","level":"1.3.1","depth":2,"ref":"","articles":[{"title":"JANUARY","level":"1.3.1.1","depth":3,"ref":"","articles":[{"title":"0119","level":"1.3.1.1.1","depth":4,"path":"DAILY/2024/JAN/0119.md","ref":"DAILY/2024/JAN/0119.md","articles":[]},{"title":"0120","level":"1.3.1.1.2","depth":4,"path":"DAILY/2024/JAN/0120.md","ref":"DAILY/2024/JAN/0120.md","articles":[]},{"title":"0122","level":"1.3.1.1.3","depth":4,"path":"DAILY/2024/JAN/0122.md","ref":"DAILY/2024/JAN/0122.md","articles":[]},{"title":"0123","level":"1.3.1.1.4","depth":4,"path":"DAILY/2024/JAN/0123.md","ref":"DAILY/2024/JAN/0123.md","articles":[]},{"title":"0124","level":"1.3.1.1.5","depth":4,"path":"DAILY/2024/JAN/0124.md","ref":"DAILY/2024/JAN/0124.md","articles":[]},{"title":"0125","level":"1.3.1.1.6","depth":4,"path":"DAILY/2024/JAN/0125.md","ref":"DAILY/2024/JAN/0125.md","articles":[]},{"title":"0126","level":"1.3.1.1.7","depth":4,"path":"DAILY/2024/JAN/0126.md","ref":"DAILY/2024/JAN/0126.md","articles":[]},{"title":"0128","level":"1.3.1.1.8","depth":4,"path":"DAILY/2024/JAN/0128.md","ref":"DAILY/2024/JAN/0128.md","articles":[]},{"title":"0130","level":"1.3.1.1.9","depth":4,"path":"DAILY/2024/JAN/0130.md","ref":"DAILY/2024/JAN/0130.md","articles":[]}]},{"title":"FEBUARY","level":"1.3.1.2","depth":3,"ref":"","articles":[{"title":"0213","level":"1.3.1.2.1","depth":4,"path":"DAILY/2024/FEB/0213.md","ref":"DAILY/2024/FEB/0213.md","articles":[]}]},{"title":"APRIL","level":"1.3.1.3","depth":3,"ref":"","articles":[{"title":"0415","level":"1.3.1.3.1","depth":4,"path":"DAILY/2024/APR/0415.md","ref":"DAILY/2024/APR/0415.md","articles":[]},{"title":"0427","level":"1.3.1.3.2","depth":4,"path":"DAILY/2024/APR/0427.md","ref":"DAILY/2024/APR/0427.md","articles":[]}]},{"title":"MAY","level":"1.3.1.4","depth":3,"ref":"","articles":[{"title":"0502","level":"1.3.1.4.1","depth":4,"path":"DAILY/2024/MAY/0502.md","ref":"DAILY/2024/MAY/0502.md","articles":[]}]},{"title":"JUNE","level":"1.3.1.5","depth":3,"ref":"","articles":[{"title":"0606","level":"1.3.1.5.1","depth":4,"path":"DAILY/2024/JUN/0606.md","ref":"DAILY/2024/JUN/0606.md","articles":[]},{"title":"0607","level":"1.3.1.5.2","depth":4,"path":"DAILY/2024/JUN/0607.md","ref":"DAILY/2024/JUN/0607.md","articles":[]}]},{"title":"JULY","level":"1.3.1.6","depth":3,"ref":"","articles":[{"title":"0721","level":"1.3.1.6.1","depth":4,"path":"DAILY/2024/JUL/0721.md","ref":"DAILY/2024/JUL/0721.md","articles":[]},{"title":"0722","level":"1.3.1.6.2","depth":4,"path":"DAILY/2024/JUL/0722.md","ref":"DAILY/2024/JUL/0722.md","articles":[]}]},{"title":"AUG","level":"1.3.1.7","depth":3,"ref":"","articles":[{"title":"0828","level":"1.3.1.7.1","depth":4,"path":"DAILY/2024/AUG/0828.md","ref":"DAILY/2024/AUG/0828.md","articles":[]}]}]}]},"previous":{"title":"0826","level":"1.2.1.7.1","depth":4,"path":"DEVELOPMENT/2024/AUG/0826.md","ref":"DEVELOPMENT/2024/AUG/0826.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"DEVELOPMENT/2024/AUG/0828.md","mtime":"2024-08-28T13:34:33.834Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-28T13:34:42.144Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
