@@ -37,6 +37,7 @@
     - AUG
       - [0826](DEVELOPMENT/2024/AUG/0826.md)
       - [0828](DEVELOPMENT/2024/AUG/0828.md)
+      - [0829](DEVELOPMENT/2024/AUG/0829.md)
 - 🌩 DAILY LOG
   - 2024
     - JANUARY
@@ -64,9 +65,11 @@
       - [0722](DAILY/2024/JUL/0722.md)
     - AUG
       - [0828](DAILY/2024/AUG/0828.md)
+      - [0828](DAILY/2024/AUG/0828.md)
 - 📚 BOOKS
   - 2024
     - [エンジニア組織論への招待](BOOKS/2024/engineering_organization_theory.md)
     - [金より価値ある時間の使い方](BOOKS/2024/how_to_live_on_24_hours_a_day.md)
     - [体系的に学ぶ 安全な WEB アプリケーションの作り方](BOOKS/2024/learn_howto_create_web_applications_systematically.md)
+    - [エレガントパズル](BOOKS/2024/elegant_pazzle.md)
 - 📝 DRAFTS
