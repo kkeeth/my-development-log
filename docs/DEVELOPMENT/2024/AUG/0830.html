@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>0507 · kkeeth の日常ログ</title>
+        <title>0830 · kkeeth の日常ログ</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -64,8 +64,8 @@
     <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="0511.html" />
     
+    <link rel="prev" href="0829.html" />
     
 
     </head>
@@ -428,9 +428,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.2.1.4.1" data-path="0507.html">
+        <li class="chapter " data-level="1.2.1.4.1" data-path="../MAY/0507.html">
             
-                <a href="0507.html">
+                <a href="../MAY/0507.html">
             
                     
                     0507
@@ -441,9 +441,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.1.4.2" data-path="0511.html">
+        <li class="chapter " data-level="1.2.1.4.2" data-path="../MAY/0511.html">
             
-                <a href="0511.html">
+                <a href="../MAY/0511.html">
             
                     
                     0511
@@ -454,9 +454,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.1.4.3" data-path="0514.html">
+        <li class="chapter " data-level="1.2.1.4.3" data-path="../MAY/0514.html">
             
-                <a href="0514.html">
+                <a href="../MAY/0514.html">
             
                     
                     0514
@@ -467,7 +467,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.1.4.4" data-path="0520.md">
+        <li class="chapter " data-level="1.2.1.4.4" data-path="../MAY/0520.md">
             
                 <span>
             
@@ -480,9 +480,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.1.4.5" data-path="0523.html">
+        <li class="chapter " data-level="1.2.1.4.5" data-path="../MAY/0523.html">
             
-                <a href="0523.html">
+                <a href="../MAY/0523.html">
             
                     
                     0523
@@ -589,9 +589,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.2.1.7.1" data-path="../AUG/0826.html">
+        <li class="chapter " data-level="1.2.1.7.1" data-path="0826.html">
             
-                <a href="../AUG/0826.html">
+                <a href="0826.html">
             
                     
                     0826
@@ -602,9 +602,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.1.7.2" data-path="../AUG/0828.html">
+        <li class="chapter " data-level="1.2.1.7.2" data-path="0828.html">
             
-                <a href="../AUG/0828.html">
+                <a href="0828.html">
             
                     
                     0828
@@ -615,9 +615,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.1.7.3" data-path="../AUG/0829.html">
+        <li class="chapter " data-level="1.2.1.7.3" data-path="0829.html">
             
-                <a href="../AUG/0829.html">
+                <a href="0829.html">
             
                     
                     0829
@@ -628,9 +628,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.1.7.4" data-path="../AUG/0830.html">
+        <li class="chapter active" data-level="1.2.1.7.4" data-path="0830.html">
             
-                <a href="../AUG/0830.html">
+                <a href="0830.html">
             
                     
                     0830
@@ -1225,7 +1225,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../../.." >0507</a>
+        <a href="../../.." >0830</a>
     </h1>
 </div>
 
@@ -1240,110 +1240,21 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="0507">0507</h1>
+                                <h1 id="0830">0830</h1>
 <h2 id="logs">LOGS</h2>
 <ul>
-<li><p><code>カプレカ数</code> なるものを知る</p>
-<ul>
-<li>早速計算するプログラムを golang で AI に書かせてみる</li>
-<li>先にモジュールをインストールする必要があるので以下のコマンドを実行</li>
-</ul>
-<pre><code class="lang-bash">&gt; go mod download github.com/google/go-github/v32
-</code></pre>
-<ul>
-<li>できたらコードを書く</li>
-<li>以下は3桁のカプレカ数を手続き的に計算するコード</li>
-</ul>
-<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
-
-<span class="hljs-keyword">import</span> (
-  <span class="hljs-string">&quot;fmt&quot;</span>
-  <span class="hljs-string">&quot;sort&quot;</span>
-  <span class="hljs-string">&quot;strconv&quot;</span>
-)
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
-  <span class="hljs-keyword">for</span> i := <span class="hljs-number">100</span>; i &lt;= <span class="hljs-number">999</span>; i++ {
-    <span class="hljs-keyword">if</span> isCaprekarNumber(i) {
-      fmt.Printf(<span class="hljs-string">&quot;%d is a Kaprekar number\n&quot;</span>, i)
-    }
-  }
-}
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">isCaprekarNumber</span><span class="hljs-params">(n <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">bool</span> {
-  str := strconv.Itoa(n)
-  digits := <span class="hljs-built_in">make</span>([]<span class="hljs-type">rune</span>, <span class="hljs-built_in">len</span>(str))
-  <span class="hljs-keyword">for</span> i, c := <span class="hljs-keyword">range</span> str {
-    digits[i] = c
-  }
-
-  sort.Slice(digits, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i, j <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">bool</span> {
-    <span class="hljs-keyword">return</span> digits[i] &lt; digits[j]
-  })
-  ascending := atoi(<span class="hljs-type">string</span>(digits))
-
-  sort.Slice(digits, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(i, j <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">bool</span> {
-    <span class="hljs-keyword">return</span> digits[i] &gt; digits[j]
-  })
-  descending := atoi(<span class="hljs-type">string</span>(digits))
-
-  diff := descending - ascending
-  <span class="hljs-keyword">if</span> diff == n {
-    fmt.Printf(<span class="hljs-string">&quot;%d - %d = %d\n&quot;</span>, descending, ascending, diff)
-  }
-
-  <span class="hljs-keyword">return</span> n == diff
-}
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">atoi</span><span class="hljs-params">(s <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">int</span> {
-  n, _ := strconv.Atoi(s)
-  <span class="hljs-keyword">return</span> n
-}
-</code></pre>
-<ul>
-<li><p>実行してみた</p>
-<pre><code class="lang-bash">954 - 459 = 495
-495 is a Kaprekar number
-</code></pre>
-</li>
-<li><p>よしよし．できている．</p>
+<li><code>Rate Limiting</code>レートリミットとは<ul>
+<li><blockquote>
+<p>ネットワークトラフィックを制限するための戦略です。特定の時間枠内で誰かがアクションを繰り返すことができる頻度（たとえば、アカウントへのログイン試行）に上限を設けます。</p>
+</blockquote>
 </li>
 </ul>
 </li>
-<li><p><a href="https://go-tour-jp.appspot.com/basics/" target="_blank">Tour of Go</a> の続き</p>
-<ul>
-<li>頭大文字はエクスポートされたもの．小文字はエクスポートされていない．<ul>
-<li>e.g.</li>
-<li><code>math.Pi</code> ←◯</li>
-<li><code>math.pi</code> ←✕</li>
+<li>ポストモーテム（<code>postmortem</code>）<ul>
+<li>SRE 用語らしい</li>
+<li>事後検証と訳される</li>
+<li>サービス運用時のシステム障害やデータの損失など、インシデントについてまとめた文書のこと</li>
 </ul>
-</li>
-<li>関数の書き方</li>
-<li>引数には型をつける（<code>変数名 型</code> の書き方）<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">add</span><span class="hljs-params">(x <span class="hljs-type">int</span>, y <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> {
-<span class="hljs-comment">// こう書くこともできる</span>
-<span class="hljs-comment">// func add(x, y int) int {</span>
-<span class="hljs-keyword">return</span> x + y
-}
-</code></pre>
-</li>
-<li><code>fmt</code> もインポートしないとだめなんだな</li>
-<li>関数のレスポンスの型の書き方<pre><code class="lang-go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">swap</span><span class="hljs-params">(x, y <span class="hljs-type">string</span>)</span></span> (<span class="hljs-type">string</span>, <span class="hljs-type">string</span>) {
-  <span class="hljs-keyword">return</span> y, x
-}
-</code></pre>
-</li>
-<li>変数宣言は <code>var</code> で，後ろに型</li>
-</ul>
-<pre><code class="lang-go"><span class="hljs-keyword">var</span> c, python, java <span class="hljs-type">bool</span>
-
-<span class="hljs-comment">// 初期値も設定できる</span>
-<span class="hljs-keyword">var</span> i, j <span class="hljs-type">int</span> = <span class="hljs-number">1</span>, <span class="hljs-number">2</span>
-
-<span class="hljs-comment">// 関数内なら := の代入文を用いて暗黙の型宣言ができる</span>
-k := <span class="hljs-number">3</span>
-</code></pre>
-</li>
-<li><p>中途半端だが，今日はここまで</p>
 </li>
 </ul>
 
@@ -1373,10 +1284,10 @@ k := <span class="hljs-number">3</span>
 
             
                 
-                
-                <a href="0511.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 0511">
-                    <i class="fa fa-angle-right"></i>
+                <a href="0829.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 0829">
+                    <i class="fa fa-angle-left"></i>
                 </a>
+                
                 
             
         
@@ -1385,7 +1296,7 @@ k := <span class="hljs-number">3</span>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"0507","level":"1.2.1.4.1","depth":4,"next":{"title":"0511","level":"1.2.1.4.2","depth":4,"path":"DEVELOPMENT/2024/MAY/0511.md","ref":"DEVELOPMENT/2024/MAY/0511.md","articles":[]},"previous":{"title":"MAY","level":"1.2.1.4","depth":3,"ref":"","articles":[{"title":"0507","level":"1.2.1.4.1","depth":4,"path":"DEVELOPMENT/2024/MAY/0507.md","ref":"DEVELOPMENT/2024/MAY/0507.md","articles":[]},{"title":"0511","level":"1.2.1.4.2","depth":4,"path":"DEVELOPMENT/2024/MAY/0511.md","ref":"DEVELOPMENT/2024/MAY/0511.md","articles":[]},{"title":"0514","level":"1.2.1.4.3","depth":4,"path":"DEVELOPMENT/2024/MAY/0514.md","ref":"DEVELOPMENT/2024/MAY/0514.md","articles":[]},{"title":"0520","level":"1.2.1.4.4","depth":4,"path":"DEVELOPMENT/2024/MAY/0520.md","ref":"DEVELOPMENT/2024/MAY/0520.md","articles":[]},{"title":"0523","level":"1.2.1.4.5","depth":4,"path":"DEVELOPMENT/2024/MAY/0523.md","ref":"DEVELOPMENT/2024/MAY/0523.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"DEVELOPMENT/2024/MAY/0507.md","mtime":"2024-06-19T11:32:26.173Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-30T14:16:40.987Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"0830","level":"1.2.1.7.4","depth":4,"next":{"title":"🌩 DAILY LOG","level":"1.3","depth":1,"ref":"","articles":[{"title":"2024","level":"1.3.1","depth":2,"ref":"","articles":[{"title":"JANUARY","level":"1.3.1.1","depth":3,"ref":"","articles":[{"title":"0119","level":"1.3.1.1.1","depth":4,"path":"DAILY/2024/JAN/0119.md","ref":"DAILY/2024/JAN/0119.md","articles":[]},{"title":"0120","level":"1.3.1.1.2","depth":4,"path":"DAILY/2024/JAN/0120.md","ref":"DAILY/2024/JAN/0120.md","articles":[]},{"title":"0122","level":"1.3.1.1.3","depth":4,"path":"DAILY/2024/JAN/0122.md","ref":"DAILY/2024/JAN/0122.md","articles":[]},{"title":"0123","level":"1.3.1.1.4","depth":4,"path":"DAILY/2024/JAN/0123.md","ref":"DAILY/2024/JAN/0123.md","articles":[]},{"title":"0124","level":"1.3.1.1.5","depth":4,"path":"DAILY/2024/JAN/0124.md","ref":"DAILY/2024/JAN/0124.md","articles":[]},{"title":"0125","level":"1.3.1.1.6","depth":4,"path":"DAILY/2024/JAN/0125.md","ref":"DAILY/2024/JAN/0125.md","articles":[]},{"title":"0126","level":"1.3.1.1.7","depth":4,"path":"DAILY/2024/JAN/0126.md","ref":"DAILY/2024/JAN/0126.md","articles":[]},{"title":"0128","level":"1.3.1.1.8","depth":4,"path":"DAILY/2024/JAN/0128.md","ref":"DAILY/2024/JAN/0128.md","articles":[]},{"title":"0130","level":"1.3.1.1.9","depth":4,"path":"DAILY/2024/JAN/0130.md","ref":"DAILY/2024/JAN/0130.md","articles":[]}]},{"title":"FEBUARY","level":"1.3.1.2","depth":3,"ref":"","articles":[{"title":"0213","level":"1.3.1.2.1","depth":4,"path":"DAILY/2024/FEB/0213.md","ref":"DAILY/2024/FEB/0213.md","articles":[]}]},{"title":"APRIL","level":"1.3.1.3","depth":3,"ref":"","articles":[{"title":"0415","level":"1.3.1.3.1","depth":4,"path":"DAILY/2024/APR/0415.md","ref":"DAILY/2024/APR/0415.md","articles":[]},{"title":"0427","level":"1.3.1.3.2","depth":4,"path":"DAILY/2024/APR/0427.md","ref":"DAILY/2024/APR/0427.md","articles":[]}]},{"title":"MAY","level":"1.3.1.4","depth":3,"ref":"","articles":[{"title":"0502","level":"1.3.1.4.1","depth":4,"path":"DAILY/2024/MAY/0502.md","ref":"DAILY/2024/MAY/0502.md","articles":[]}]},{"title":"JUNE","level":"1.3.1.5","depth":3,"ref":"","articles":[{"title":"0606","level":"1.3.1.5.1","depth":4,"path":"DAILY/2024/JUN/0606.md","ref":"DAILY/2024/JUN/0606.md","articles":[]},{"title":"0607","level":"1.3.1.5.2","depth":4,"path":"DAILY/2024/JUN/0607.md","ref":"DAILY/2024/JUN/0607.md","articles":[]}]},{"title":"JULY","level":"1.3.1.6","depth":3,"ref":"","articles":[{"title":"0721","level":"1.3.1.6.1","depth":4,"path":"DAILY/2024/JUL/0721.md","ref":"DAILY/2024/JUL/0721.md","articles":[]},{"title":"0722","level":"1.3.1.6.2","depth":4,"path":"DAILY/2024/JUL/0722.md","ref":"DAILY/2024/JUL/0722.md","articles":[]}]},{"title":"AUG","level":"1.3.1.7","depth":3,"ref":"","articles":[{"title":"0828","level":"1.3.1.7.1","depth":4,"path":"DAILY/2024/AUG/0828.md","ref":"DAILY/2024/AUG/0828.md","articles":[]},{"title":"0828","level":"1.3.1.7.2","depth":4,"path":"DAILY/2024/AUG/0828.md","ref":"DAILY/2024/AUG/0828.md","articles":[]}]}]}]},"previous":{"title":"0829","level":"1.2.1.7.3","depth":4,"path":"DEVELOPMENT/2024/AUG/0829.md","ref":"DEVELOPMENT/2024/AUG/0829.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"DEVELOPMENT/2024/AUG/0830.md","mtime":"2024-08-30T14:16:32.949Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-08-30T14:16:40.987Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
