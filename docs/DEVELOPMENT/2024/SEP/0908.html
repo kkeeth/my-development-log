@@ -1342,18 +1342,20 @@ aws_instance.hello: Creation complete after 13s [id=i-0cdca69978ab4596b]</li>
 <li>よしよし，できた</li>
 </ul>
 </li>
-<li><code>Name</code> タグを追加<ul>
-<li><code>main.tf</code> の <code>recource</code> に以下を追記
-```diff
-resource &quot;aws_instance&quot; &quot;hello&quot; {
- ami           = &quot;ami-0701e21c502689c31&quot;
- instance_type = &quot;t2.nano&quot;
-+</li>
-<li>tags = {</li>
-<li>Name = &quot;hello&quot;</li>
-<li>}
-}
-```</li>
+<li><p><code>Name</code> タグを追加</p>
+<ul>
+<li><code>main.tf</code> の <code>recource</code> に以下を追記</li>
+</ul>
+<pre><code class="lang-diff"> resource &quot;aws_instance&quot; &quot;hello&quot; {
+   ami           = &quot;ami-0701e21c502689c31&quot;
+   instance_type = &quot;t2.nano&quot;
+<span class="hljs-addition">+</span>
+<span class="hljs-addition">+  tags = {</span>
+<span class="hljs-addition">+    Name = &quot;hello&quot;</span>
+<span class="hljs-addition">+  }</span>
+ }
+</code></pre>
+<ul>
 <li><code>&gt; terraform plan</code>, <code>&gt; terraform apply</code> を実行</li>
 <li><code>yes</code> を入力</li>
 <li>よしよし，成功</li>
@@ -1363,9 +1365,9 @@ resource &quot;aws_instance&quot; &quot;hello&quot; {
 <li><p>続いて，<code>ami</code> を変更</p>
 <ul>
 <li>要はリソースの再作成をする</li>
-<li>値は長いので割愛（<a href="https://github.com/kkeeth/my-terraform-sandbox/blob/main/main.tf" target="_blank">リポジトリのコード</a>を見て）
-```shell
-aws_instance.hello: Destroying... [id=i-0cdca69978ab4596b]
+<li>値は長いので割愛（<a href="https://github.com/kkeeth/my-terraform-sandbox/blob/main/main.tf" target="_blank">リポジトリのコード</a>を見て）</li>
+</ul>
+<pre><code class="lang-shell">aws_instance.hello: Destroying... [id=i-0cdca69978ab4596b]
 aws_instance.hello: Still destroying... [id=i-0cdca69978ab4596b, 10s elapsed]
 aws_instance.hello: Still destroying... [id=i-0cdca69978ab4596b, 20s elapsed]
 aws_instance.hello: Still destroying... [id=i-0cdca69978ab4596b, 30s elapsed]
@@ -1373,10 +1375,10 @@ aws_instance.hello: Still destroying... [id=i-0cdca69978ab4596b, 40s elapsed]
 aws_instance.hello: Destruction complete after 40s
 aws_instance.hello: Creating...
 aws_instance.hello: Still creating... [10s elapsed]
-aws_instance.hello: Creation complete after 13s [id=i-00e4893ced35a5f26]</li>
-</ul>
-<p>Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
-```</p>
+aws_instance.hello: Creation complete after 13s [id=i-00e4893ced35a5f26]
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+</code></pre>
 <ul>
 <li>なるほど．変更というが，過去のものは削除し，新しく作るのね</li>
 <li><code>&gt; terraform plan</code> のラストの <code>1 to destroy.</code> の部分が大事</li>
@@ -1385,9 +1387,9 @@ aws_instance.hello: Creation complete after 13s [id=i-00e4893ced35a5f26]</li>
 <li><p>では，今後は意図的にリソースを削除する</p>
 <ul>
 <li><code>&gt; terraform destroy</code> を実行</li>
-<li>おー．<code>plan</code> を実行したときのように確認がちゃんとでる
-```
-aws_instance.hello: Destroying... [id=i-00e4893ced35a5f26]
+<li>おー．<code>plan</code> を実行したときのように確認がちゃんとでる</li>
+</ul>
+<pre><code>aws_instance.hello: Destroying... [id=i-00e4893ced35a5f26]
 aws_instance.hello: Still destroying... [id=i-00e4893ced35a5f26, 10s elapsed]
 aws_instance.hello: Still destroying... [id=i-00e4893ced35a5f26, 20s elapsed]
 aws_instance.hello: Still destroying... [id=i-00e4893ced35a5f26, 30s elapsed]
@@ -1397,11 +1399,10 @@ aws_instance.hello: Still destroying... [id=i-00e4893ced35a5f26, 1m0s elapsed]
 aws_instance.hello: Still destroying... [id=i-00e4893ced35a5f26, 1m10s elapsed]
 aws_instance.hello: Still destroying... [id=i-00e4893ced35a5f26, 1m20s elapsed]
 aws_instance.hello: Still destroying... [id=i-00e4893ced35a5f26, 1m30s elapsed]
-aws_instance.hello: Destruction complete after 1m31s</li>
-</ul>
-<p>Destroy complete! Resources: 1 destroyed.
-```</p>
-<ul>
+aws_instance.hello: Destruction complete after 1m31s
+
+Destroy complete! Resources: 1 destroyed.
+</code></pre><ul>
 <li>削除完了</li>
 <li>ちなみに削除途中は，インスタンスの状態が <code>シャットダウン</code> となる</li>
 </ul>
@@ -1457,7 +1458,7 @@ aws_instance.hello: Destruction complete after 1m31s</li>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"0908","level":"1.2.1.8.2","depth":4,"next":{"title":"🌩 DAILY LOG","level":"1.3","depth":1,"ref":"","articles":[{"title":"2024","level":"1.3.1","depth":2,"ref":"","articles":[{"title":"JANUARY","level":"1.3.1.1","depth":3,"ref":"","articles":[{"title":"0119","level":"1.3.1.1.1","depth":4,"path":"DAILY/2024/JAN/0119.md","ref":"DAILY/2024/JAN/0119.md","articles":[]},{"title":"0120","level":"1.3.1.1.2","depth":4,"path":"DAILY/2024/JAN/0120.md","ref":"DAILY/2024/JAN/0120.md","articles":[]},{"title":"0122","level":"1.3.1.1.3","depth":4,"path":"DAILY/2024/JAN/0122.md","ref":"DAILY/2024/JAN/0122.md","articles":[]},{"title":"0123","level":"1.3.1.1.4","depth":4,"path":"DAILY/2024/JAN/0123.md","ref":"DAILY/2024/JAN/0123.md","articles":[]},{"title":"0124","level":"1.3.1.1.5","depth":4,"path":"DAILY/2024/JAN/0124.md","ref":"DAILY/2024/JAN/0124.md","articles":[]},{"title":"0125","level":"1.3.1.1.6","depth":4,"path":"DAILY/2024/JAN/0125.md","ref":"DAILY/2024/JAN/0125.md","articles":[]},{"title":"0126","level":"1.3.1.1.7","depth":4,"path":"DAILY/2024/JAN/0126.md","ref":"DAILY/2024/JAN/0126.md","articles":[]},{"title":"0128","level":"1.3.1.1.8","depth":4,"path":"DAILY/2024/JAN/0128.md","ref":"DAILY/2024/JAN/0128.md","articles":[]},{"title":"0130","level":"1.3.1.1.9","depth":4,"path":"DAILY/2024/JAN/0130.md","ref":"DAILY/2024/JAN/0130.md","articles":[]}]},{"title":"FEBUARY","level":"1.3.1.2","depth":3,"ref":"","articles":[{"title":"0213","level":"1.3.1.2.1","depth":4,"path":"DAILY/2024/FEB/0213.md","ref":"DAILY/2024/FEB/0213.md","articles":[]}]},{"title":"APRIL","level":"1.3.1.3","depth":3,"ref":"","articles":[{"title":"0415","level":"1.3.1.3.1","depth":4,"path":"DAILY/2024/APR/0415.md","ref":"DAILY/2024/APR/0415.md","articles":[]},{"title":"0427","level":"1.3.1.3.2","depth":4,"path":"DAILY/2024/APR/0427.md","ref":"DAILY/2024/APR/0427.md","articles":[]}]},{"title":"MAY","level":"1.3.1.4","depth":3,"ref":"","articles":[{"title":"0502","level":"1.3.1.4.1","depth":4,"path":"DAILY/2024/MAY/0502.md","ref":"DAILY/2024/MAY/0502.md","articles":[]}]},{"title":"JUNE","level":"1.3.1.5","depth":3,"ref":"","articles":[{"title":"0606","level":"1.3.1.5.1","depth":4,"path":"DAILY/2024/JUN/0606.md","ref":"DAILY/2024/JUN/0606.md","articles":[]},{"title":"0607","level":"1.3.1.5.2","depth":4,"path":"DAILY/2024/JUN/0607.md","ref":"DAILY/2024/JUN/0607.md","articles":[]}]},{"title":"JULY","level":"1.3.1.6","depth":3,"ref":"","articles":[{"title":"0721","level":"1.3.1.6.1","depth":4,"path":"DAILY/2024/JUL/0721.md","ref":"DAILY/2024/JUL/0721.md","articles":[]},{"title":"0722","level":"1.3.1.6.2","depth":4,"path":"DAILY/2024/JUL/0722.md","ref":"DAILY/2024/JUL/0722.md","articles":[]}]},{"title":"AUG","level":"1.3.1.7","depth":3,"ref":"","articles":[{"title":"0828","level":"1.3.1.7.1","depth":4,"path":"DAILY/2024/AUG/0828.md","ref":"DAILY/2024/AUG/0828.md","articles":[]},{"title":"0828","level":"1.3.1.7.2","depth":4,"path":"DAILY/2024/AUG/0828.md","ref":"DAILY/2024/AUG/0828.md","articles":[]}]}]}]},"previous":{"title":"0902","level":"1.2.1.8.1","depth":4,"path":"DEVELOPMENT/2024/SEP/0902.md","ref":"DEVELOPMENT/2024/SEP/0902.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"DEVELOPMENT/2024/SEP/0908.md","mtime":"2024-09-08T11:03:01.902Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-09-08T11:03:08.911Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"0908","level":"1.2.1.8.2","depth":4,"next":{"title":"🌩 DAILY LOG","level":"1.3","depth":1,"ref":"","articles":[{"title":"2024","level":"1.3.1","depth":2,"ref":"","articles":[{"title":"JANUARY","level":"1.3.1.1","depth":3,"ref":"","articles":[{"title":"0119","level":"1.3.1.1.1","depth":4,"path":"DAILY/2024/JAN/0119.md","ref":"DAILY/2024/JAN/0119.md","articles":[]},{"title":"0120","level":"1.3.1.1.2","depth":4,"path":"DAILY/2024/JAN/0120.md","ref":"DAILY/2024/JAN/0120.md","articles":[]},{"title":"0122","level":"1.3.1.1.3","depth":4,"path":"DAILY/2024/JAN/0122.md","ref":"DAILY/2024/JAN/0122.md","articles":[]},{"title":"0123","level":"1.3.1.1.4","depth":4,"path":"DAILY/2024/JAN/0123.md","ref":"DAILY/2024/JAN/0123.md","articles":[]},{"title":"0124","level":"1.3.1.1.5","depth":4,"path":"DAILY/2024/JAN/0124.md","ref":"DAILY/2024/JAN/0124.md","articles":[]},{"title":"0125","level":"1.3.1.1.6","depth":4,"path":"DAILY/2024/JAN/0125.md","ref":"DAILY/2024/JAN/0125.md","articles":[]},{"title":"0126","level":"1.3.1.1.7","depth":4,"path":"DAILY/2024/JAN/0126.md","ref":"DAILY/2024/JAN/0126.md","articles":[]},{"title":"0128","level":"1.3.1.1.8","depth":4,"path":"DAILY/2024/JAN/0128.md","ref":"DAILY/2024/JAN/0128.md","articles":[]},{"title":"0130","level":"1.3.1.1.9","depth":4,"path":"DAILY/2024/JAN/0130.md","ref":"DAILY/2024/JAN/0130.md","articles":[]}]},{"title":"FEBUARY","level":"1.3.1.2","depth":3,"ref":"","articles":[{"title":"0213","level":"1.3.1.2.1","depth":4,"path":"DAILY/2024/FEB/0213.md","ref":"DAILY/2024/FEB/0213.md","articles":[]}]},{"title":"APRIL","level":"1.3.1.3","depth":3,"ref":"","articles":[{"title":"0415","level":"1.3.1.3.1","depth":4,"path":"DAILY/2024/APR/0415.md","ref":"DAILY/2024/APR/0415.md","articles":[]},{"title":"0427","level":"1.3.1.3.2","depth":4,"path":"DAILY/2024/APR/0427.md","ref":"DAILY/2024/APR/0427.md","articles":[]}]},{"title":"MAY","level":"1.3.1.4","depth":3,"ref":"","articles":[{"title":"0502","level":"1.3.1.4.1","depth":4,"path":"DAILY/2024/MAY/0502.md","ref":"DAILY/2024/MAY/0502.md","articles":[]}]},{"title":"JUNE","level":"1.3.1.5","depth":3,"ref":"","articles":[{"title":"0606","level":"1.3.1.5.1","depth":4,"path":"DAILY/2024/JUN/0606.md","ref":"DAILY/2024/JUN/0606.md","articles":[]},{"title":"0607","level":"1.3.1.5.2","depth":4,"path":"DAILY/2024/JUN/0607.md","ref":"DAILY/2024/JUN/0607.md","articles":[]}]},{"title":"JULY","level":"1.3.1.6","depth":3,"ref":"","articles":[{"title":"0721","level":"1.3.1.6.1","depth":4,"path":"DAILY/2024/JUL/0721.md","ref":"DAILY/2024/JUL/0721.md","articles":[]},{"title":"0722","level":"1.3.1.6.2","depth":4,"path":"DAILY/2024/JUL/0722.md","ref":"DAILY/2024/JUL/0722.md","articles":[]}]},{"title":"AUG","level":"1.3.1.7","depth":3,"ref":"","articles":[{"title":"0828","level":"1.3.1.7.1","depth":4,"path":"DAILY/2024/AUG/0828.md","ref":"DAILY/2024/AUG/0828.md","articles":[]},{"title":"0828","level":"1.3.1.7.2","depth":4,"path":"DAILY/2024/AUG/0828.md","ref":"DAILY/2024/AUG/0828.md","articles":[]}]}]}]},"previous":{"title":"0902","level":"1.2.1.8.1","depth":4,"path":"DEVELOPMENT/2024/SEP/0902.md","ref":"DEVELOPMENT/2024/SEP/0902.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"DEVELOPMENT/2024/SEP/0908.md","mtime":"2024-09-08T11:07:02.444Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2024-09-08T11:07:17.793Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
