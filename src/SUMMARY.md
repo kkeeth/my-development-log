@@ -77,5 +77,5 @@
     - [金より価値ある時間の使い方](BOOKS/2024/how_to_live_on_24_hours_a_day.md)
     - [体系的に学ぶ 安全な WEB アプリケーションの作り方](BOOKS/2024/learn_howto_create_web_applications_systematically.md)
     - [エレガントパズル](BOOKS/2024/elegant_pazzle.md)
-    - [アジャイルチームによる目標づくりガイドブック]()
+    - [アジャイルチームによる目標づくりガイドブック](BOOKS/2024/guidebook_abou_tobjective.md)
 - 📝 DRAFTS
