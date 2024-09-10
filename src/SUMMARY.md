@@ -42,6 +42,7 @@
     - SEP
       - [0902](DEVELOPMENT/2024/SEP/0902.md)
       - [0908](DEVELOPMENT/2024/SEP/0908.md)
+      - [0909](DEVELOPMENT/2024/SEP/0909.md)
 - 🌩 DAILY LOG
   - 2024
     - JANUARY
@@ -76,4 +77,5 @@
     - [金より価値ある時間の使い方](BOOKS/2024/how_to_live_on_24_hours_a_day.md)
     - [体系的に学ぶ 安全な WEB アプリケーションの作り方](BOOKS/2024/learn_howto_create_web_applications_systematically.md)
     - [エレガントパズル](BOOKS/2024/elegant_pazzle.md)
+    - [アジャイルチームによる目標づくりガイドブック]()
 - 📝 DRAFTS
