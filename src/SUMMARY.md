@@ -53,6 +53,7 @@
       - [1130](DEVELOPMENT/2024/NOV/1130.md)
     - DEC
       - [1202](DEVELOPMENT/2024/DEC/1202.md)
+      - [1209](DEVELOPMENT/2024/DEC/1209.md)
 - 🌩 DAILY LOG
   - 2024
     - JANUARY
@@ -89,3 +90,4 @@
     - [エレガントパズル](BOOKS/2024/elegant_pazzle.md)
     - [アジャイルチームによる目標づくりガイドブック](BOOKS/2024/guidebook_abou_tobjective.md)
 - 📝 DRAFTS
+  - [ワシの印象に残っている広島の方言たちを紹介するんじゃ](DRAFTS/hiroshima_18.md)
