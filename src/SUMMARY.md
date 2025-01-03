@@ -92,3 +92,12 @@
     - [アジャイルチームによる目標づくりガイドブック](BOOKS/2024/guidebook_abou_tobjective.md)
 - 📝 DRAFTS
   - [ワシの印象に残っている広島の方言たちを紹介するんじゃ](DRAFTS/hiroshima_18.md)
+- 🎤 PODCASTS
+  - WEB 小噺
+    - [インターネットの複雑さのジョーク](PODCASTS/WEB小噺/jokes_about_the_complexity_of_the_Internet.md)
+    - [Why vitejs](PODCASTS/WEB小噺/why_vitejs.md)
+    - [eslint から biome の乗り換え](PODCASTS/WEB小噺/eslint_to_biome.md)
+  - すきより
+    - [好きな漫画「数学教師もげきはじめの考察」](PODCASTS/すきより/mogeki_hajime.md)
+  - 余談ですが
+    - [しろくまは皆左利き？](PODCASTS/余談ですが/polar_bear_left_hander.md)
