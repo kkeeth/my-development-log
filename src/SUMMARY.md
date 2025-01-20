@@ -32,29 +32,32 @@
     - JUNE
       - [0606](DEVELOPMENT/2024/JUN/0606.md)
       - [0619](DEVELOPMENT/2024/JUN//0619.md)
-    - JUL
+    - JULY
       - [0721](DEVELOPMENT/2024/JUL/0721.md)
-    - AUG
+    - AUGUST
       - [0826](DEVELOPMENT/2024/AUG/0826.md)
       - [0828](DEVELOPMENT/2024/AUG/0828.md)
       - [0829](DEVELOPMENT/2024/AUG/0829.md)
       - [0830](DEVELOPMENT/2024/AUG/0830.md)
-    - SEP
+    - SEPTEMBER
       - [0902](DEVELOPMENT/2024/SEP/0902.md)
       - [0908](DEVELOPMENT/2024/SEP/0908.md)
       - [0909](DEVELOPMENT/2024/SEP/0909.md)
       - [0927](DEVELOPMENT/2024/SEP/0927.md)
       - [0930](DEVELOPMENT/2024/SEP/0930.md)
-    - OCT
+    - OCTOBER
       - [1011](DEVELOPMENT/2024/OCT/1011.md)
-    - NOV
+    - NOVEMBER
       - [1109](DEVELOPMENT/2024/NOV/1109.md)
       - [1124](DEVELOPMENT/2024/NOV/1124.md)
       - [1130](DEVELOPMENT/2024/NOV/1130.md)
-    - DEC
+    - DECEMBER
       - [1202](DEVELOPMENT/2024/DEC/1202.md)
       - [1209](DEVELOPMENT/2024/DEC/1209.md)
       - [1220](DEVELOPMENT/2024/DEC/1220.md)
+  - 2025
+    - JANUARY
+      - [0114](DEVELOPMENT/2025/JAN/0114.md)
 - 🌩 DAILY LOG
   - 2024
     - JANUARY
@@ -84,12 +87,11 @@
       - [0828](DAILY/2024/AUG/0828.md)
       - [0828](DAILY/2024/AUG/0828.md)
 - 📚 BOOKS
-  - 2024
-    - [エンジニア組織論への招待](BOOKS/2024/engineering_organization_theory.md)
-    - [金より価値ある時間の使い方](BOOKS/2024/how_to_live_on_24_hours_a_day.md)
-    - [体系的に学ぶ 安全な WEB アプリケーションの作り方](BOOKS/2024/learn_howto_create_web_applications_systematically.md)
-    - [エレガントパズル](BOOKS/2024/elegant_pazzle.md)
-    - [アジャイルチームによる目標づくりガイドブック](BOOKS/2024/guidebook_abou_tobjective.md)
+  - [エンジニア組織論への招待](BOOKS/2024/engineering_organization_theory.md)
+  - [金より価値ある時間の使い方](BOOKS/2024/how_to_live_on_24_hours_a_day.md)
+  - [体系的に学ぶ 安全な WEB アプリケーションの作り方](BOOKS/2024/learn_howto_create_web_applications_systematically.md)
+  - [エレガントパズル](BOOKS/2024/elegant_pazzle.md)
+  - [アジャイルチームによる目標づくりガイドブック](BOOKS/2024/guidebook_abou_tobjective.md)
 - 📝 DRAFTS
   - [ワシの印象に残っている広島の方言たちを紹介するんじゃ](DRAFTS/hiroshima_18.md)
 - 🎤 PODCASTS
@@ -100,6 +102,7 @@
     - [ソフトウェアライセンに関する小噺](PODCASTS/WEB小噺/short_story_about_licence.md)
     - [Turbopack の思想](PODCASTS/WEB小噺/why_turbopack.md)
     - [Recoil アーカイブ](PODCASTS/WEB小噺/goodbye_recoiljs.md)
+    - [zedux フィロソフィー](PODCASTS/WEB小噺/zedux_philosofy.md)
   - すきより
     - [好きな漫画「数学教師もげきはじめの考察」](PODCASTS/すきより/mogeki_hajime.md)
     - [デリック・ローズ選手の魅力](PODCASTS/すきより/delick_rose.md)

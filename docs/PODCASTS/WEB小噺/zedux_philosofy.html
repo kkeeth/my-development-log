@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Recoil アーカイブ · kkeeth の日常ログ</title>
+        <title>zedux フィロソフィー · kkeeth の日常ログ</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -64,10 +64,8 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="zedux_philosofy.html" />
     
-    
-    <link rel="prev" href="why_turbopack.html" />
+    <link rel="prev" href="goodbye_recoiljs.html" />
     
 
     </head>
@@ -1568,7 +1566,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6.1.6" data-path="goodbye_recoiljs.html">
+        <li class="chapter " data-level="1.6.1.6" data-path="goodbye_recoiljs.html">
             
                 <a href="goodbye_recoiljs.html">
             
@@ -1581,7 +1579,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.1.7" data-path="zedux_philosofy.html">
+        <li class="chapter active" data-level="1.6.1.7" data-path="zedux_philosofy.html">
             
                 <a href="zedux_philosofy.html">
             
@@ -1729,7 +1727,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >Recoil アーカイブ</a>
+        <a href="../.." >zedux フィロソフィー</a>
     </h1>
 </div>
 
@@ -1744,125 +1742,156 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="recoil-アーカイブ">Recoil アーカイブ</h1>
-<p>GitHub リポジトリ
-<a href="https://github.com/facebookexperimental/Recoil" target="_blank">https://github.com/facebookexperimental/Recoil</a></p>
+                                <h1 id="zedux-のブログを読んできた">Zedux のブログを読んできた</h1>
+<p>本家サイトのぶログ
+<a href="https://omnistac.github.io/zedux/blog" target="_blank">https://omnistac.github.io/zedux/blog</a></p>
 <h2 id="台本">台本</h2>
 <p>皆さんこんにちは。「雨宿りと WEB の小噺」へようこそ！ポッドキャスト配信者の Keeth こと桑原です。</p>
 <p>この番組は，日々降り注ぐ情報の中でちょっと雨宿りしながら、様々な Web テクノロジーの成り立ちや裏話を小噺としてお届けする番組です．</p>
-<p>今回の話題は「フロントエンドの状態管理ライブラリ Recoil リポジトリがアーカイブされた件」について．</p>
+<p>今回の話題は「状態管理ライブラリ zedux のブログを読んだ話」について．</p>
 <h3 id="本題">本題</h3>
 <ul>
-<li>すでに何名もブログに書いたり，𝕏 で元メンテナの方とやり取りをされていたりしている</li>
-<li>ネットを調べる限りはレイオフが原因<ul>
-<li>元々 Meta 社は大量レイオフをしたことがあり，その時 Recoil の開発者およびメンテナもレイオフされていた</li>
-<li>今回ついに最後の一人もレイオフされることになり，アーカイブに至った模様</li>
+<li>前回の続きというか，つながりの話</li>
+<li>ちょこっとだけ <code>zedux</code> というライブラリを紹介したが，どういう思想やフィロソフィーのもとに開発されたのかが気になったので，これのブログが公開されていたので読んでみた<ul>
+<li>ダウンロード数は recoil, jotai, zustand とは桁がいくつも小さい</li>
+<li>余談だが，このライブラリの公式サイト，デザインはイケているのに，TOP ページのレンダリングが遅く，ガッツリレイアウト崩れを見せられてからスタートするのものすごい勿体ない…</li>
 </ul>
 </li>
-<li><blockquote>
-<p>Although tons of internal projects still use it, no one wanted to take over the responsibility
-多くの社内プロジェクトでまた Recoil を使っていたのに，誰もその責任を引き継ごうとしなかった</p>
-<ul>
-<li>と言っているのを見る限りいろいろ察する</li>
-<li><a href="https://x.com/mengdi_en/status/1875916781950468341" target="_blank">https://x.com/mengdi_en/status/1875916781950468341</a></li>
-</ul>
-</blockquote>
-</li>
-<li>元々は OSS として世界中で使われることは想定していなかったらしい<ul>
-<li>とあるチームが作った状態管理のツール</li>
-<li>他のチームにも便利だと思ったので公開しただけ</li>
-<li>react チームも，これが公式のライブラリだと主張したことはなく，むしろ推奨する唯一の状態管理ライブラリは react だと言っている</li>
+<li>リポジトリ<ul>
+<li>5 人のコントリビューターいるが，4 人は 1commit で，事実上一人プロジェクト（bowheart さん）</li>
+<li>もちろん本ブログもその方が書いている</li>
+<li>メインブランチが <code>master</code> なので，そのあたりもこのプロジェクトが長いことを物語っていますね</li>
+<li>元々は bowheart さんの個人リポジトリだったが，後ほど今の</li>
 </ul>
 </li>
-<li>更新がずっと止まっている<ul>
-<li>リポジトリの最後の更新が 2023 年 9 月 8 日</li>
-<li>公式ブログも，2023 年の 3 月 1 日から更新がない<ul>
-<li>リンク: <a href="https://recoiljs.org/blog/2023/03/01/recoil-0.7.7-release" target="_blank">https://recoiljs.org/blog/2023/03/01/recoil-0.7.7-release</a></li>
+<li>ブログは合計４本<ul>
+<li>いずれも 2023 年に公開されたもので，それ以降はサイトにはなかった</li>
+<li>ただ，開発は今も継続されていて，atom に関する feat（機能改善） の PR が 2 週間前くらいに投げられたり，<code>v2.0.0-beta.0</code> も 2 週間前に公開されていたりする</li>
 </ul>
 </li>
-<li>そもそもブログのページに見えているが，単なるリリースノート</li>
+<li>１本目 <code>Zedux Open-Sourced and v1 Released</code><ul>
+<li><a href="https://omnistac.github.io/zedux/blog/2023/04/24/zedux-open-sourced" target="_blank">https://omnistac.github.io/zedux/blog/2023/04/24/zedux-open-sourced</a></li>
+<li>2023/4/24 1.0.0 のリリース</li>
+<li>誕生の歴史について<ul>
+<li>何やら論争もあったらしく，2 本目の記事がフォローアップのものだそう</li>
 </ul>
 </li>
-<li>色んな意見<ul>
-<li>Jotai への移行を促す良い機会と捉えるヒト<ul>
-<li>Jotai の開発者の一人は元々 Recoil の開発者でもあった</li>
+<li>筆者は元々 react を使って開発していたが，なぜかわからないが独自のステートライブラリを作り始めたらしい w<ul>
+<li>理由なんかいらない．開発者は作りたければ作れば良い．個人プロジェクトなんだし</li>
+<li>既存のツールに不満はなく，むしろどう動いているのか，長い時間を書けて分解していた</li>
 </ul>
 </li>
-<li>良くも悪くも Recoil が公式状態管理ライブラリという捉え方をされていて，これがアーカイブされたことで React のエコシステムの多様化につながるとも考えられる</li>
-<li>大企業による OSS の持続可能性や，コミュニティとの連携の重要性を再認識，改めて考えさせられる事象だった<ul>
-<li>一部では，Meta 社のオープンソースコミュニティに対する姿勢に疑問を投げる声もある</li>
+<li>FLUX にインスパイアされたコンポーザブルストアモデルのアイデアが浮かぶ<ul>
+<li>そっから数カ月かけてプロトタイプを作って微調整を繰り返したらしい</li>
+<li>ここでいう <code>composable store model</code> とは，<ul>
+<li>状態とそれに関連するロジックを関数（Composable）として定義</li>
+<li>リアクティブな状態管理</li>
+<li>アプリケーションの状態を小さな、独立したモジュールに分割</li>
+<li>などのアプローチだと思われ</li>
 </ul>
 </li>
-<li>一方で，Recoil は安定していたと言えばしていたので，このライブラリを利用していたプロジェクトは新たにライブラリの移行を検討せねばならず，その工数が取られる（幸いにも選択肢はいくつもあり，それほどドラスティックな違いはない）
--</li>
+<li>名前の <code>Z</code> は <code>zero-config</code> のことを意味する</li>
 </ul>
 </li>
-<li><p>代替</p>
-<ul>
-<li>npm trends を見る限りは， <a href>Jotai</a> か <a href>Zustand</a> の２択じゃないかなと</li>
-<li>元メンテナの人の 𝕏 のポストでは，<code>Jotai</code> の思想と設計が <code>Recoil</code> に非常に似ているとのこと<ul>
-<li><a href="https://x.com/mengdi_en/status/1876089360078258646" target="_blank">https://x.com/mengdi_en/status/1876089360078258646</a></li>
-</ul>
-</li>
-<li><code>Zedux</code> という後継ライブラリも作られている</li>
-<li><blockquote>
-<p>Recoil paved the way for some amazing new tech. I&apos;m glad it taught us the atomic model.
-As many have said, Jotai is a great, lightweight alternative. We&apos;re also building Zedux as a full replacement for Recoil.</p>
-</blockquote>
-</li>
-<li>リポジトリ：<a href="https://github.com/Omnistac/zedux" target="_blank">https://github.com/Omnistac/zedux</a></li>
-<li>公式サイト：<a href="https://omnistac.github.io/zedux/" target="_blank">https://omnistac.github.io/zedux/</a></li>
-<li>気になったのでちょっとだけ見てみた<ul>
-<li>シンプルさ，ハイパフォーマンス（高速な状態の更新，最小限の再レンダリング），柔軟性，TypeScript との親和性 を謳っている</li>
-<li>リリースノートを見た感じ <a href="https://github.com/Omnistac/zedux/releases/tag/v0.5.7" target="_blank">v0.5.7</a> がスタートだが，<a href="https://github.com/Omnistac/zedux/commit/f76992961dc6c9272a30e8720e8df61c21a36bfa" target="_blank">initial commit</a> は 2017 年 12 月 19 日と，実に 7 年とちょっと前からこのプロジェクトは開始している</li>
-<li><code>Molcular（分子の，分子からなる）</code> という概念がある<ul>
-<li>昨今の状態ライブラリによくある <code>Atoms</code> や <code>Atomic（原子の）</code> の概念の上位概念</li>
-<li>もちろん zedux にもある</li>
-</ul>
-</li>
-<li><blockquote>
-<p>Atoms talk to each other. These connections form a graph. Ecosystems control and manipulate the graph.</p>
-</blockquote>
-</li>
-<li>atoms 同士がコミュニケーションするように設計されていて，その繋がりがいわゆるグラフを形成する．これが Molecular を表していて，エコシステム側でこのグラフをコントロールするらしい</li>
-</ul>
-</li>
-<li>その他，色々対応はきっちりしている<ul>
-<li>testable（<code>completely outside react</code>と言っているので，react 以外のフレームワークでも行けそう？）, SSR 互換，最小限のボイラープレート，Rx</li>
-</ul>
-</li>
-<li>面白い話<ul>
-<li><blockquote>
-<p>An honest recommendation first: If you&apos;re using a combination of React Query, Zustand, Recoil, Jotai, and/or XState, and you haven&apos;t encountered any shortcomings with your setup, you probably don&apos;t need Zedux.
-もしあなたが React Query、Zustand、Recoil、Jotai、XState を組み合わせて使っていて、そのセットアップで何の欠点も感じていないのであれば、おそらく Zedux は必要ないだろう。</p>
-</blockquote>
-</li>
-<li>もしコードスプリッティングを使っているなら，zedux を使うのが楽しくなるかもしれない，というコメントが気になる</li>
-<li>興味深いのは，RxJS のサポートを強調していた</li>
-<li><blockquote>
-<p>edux was designed to handle everything. There should be absolutely no app requirements that Zedux can&apos;t handle well.
-Zedux はすべてを処理できるように設計されている。Zedux がうまく扱えないアプリの要件は絶対にないはずだ。</p>
-<ul>
-<li>強い</li>
-</ul>
-</blockquote>
-</li>
-<li>基本的には，Zustand, Jotai 等を使っているなら，それで十分という姿勢は崩さない<ul>
-<li>zedux も小規模なプロジェクトに最適</li>
-</ul>
-</li>
-<li>１つ大きなボーナス<ul>
-<li>スケールに強く設計されているので，アプリが時間とともに大きく複雑になったとしても、Zedux はその複雑さをエレガントに管理することができる，とな</li>
+<li>クールなコードに仕上がったが１つの問題があった<ul>
+<li>思ったほど便利ではなかったらしい</li>
+<li>ただ，当時世の中にあったその他のツールと同等の利便性はあったが，目立つほどでもなかった</li>
+<li>ようはゲームチェンジャーにはなれなく，bowheart さんもモチベがなくなった<ul>
+<li>あるある</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>気になったので，個人でも触ってみようかなと思った</li>
+<li>2018 年から 2 年，他の状態管理ツールを使いながら仕事をする中，デカいプロジェクトや不安定な状態のプロジェクトなど，厳しい状況の場合に何が不十分と感じるポイントなのかをメモ<ul>
+<li>我々はツールに多くを求める</li>
+<li>セレクタが遅くなる，副作用が乱立するなど</li>
+<li>よりスケーラブルなものを求める</li>
+<li>アトミック・モデルとサーバー・キャッシュ管理ツールが気に入る<ul>
+<li>いくつかのツールを徹底的にテスト</li>
+<li>ソケット駆動で非常に揮発性の高いアプリケーションのニーズを満たすのに十分な安定性とパワーを備えたものはないという結論に達した</li>
+</ul>
+</li>
+<li>なんか偶然の出来事が起きて，zedux に再注目</li>
+</ul>
+</li>
+<li>zedux 復活<ul>
+<li>以前の composable store model に足りないものが atomic model</li>
+<li>3 ヶ月を費やし，atomic architecture を zedux に構築</li>
+<li>状態管理レイヤー（ストア）とアーキテクチャレイヤー（アトム）を分離することで、どのフラックスベースのアプリも見たことがないような強力な DI とストア間通信を実現できることがわかった<ul>
+<li>（ここまで来ると，一つの映画を見るような感覚に陥る）</li>
+<li>結果，2021 年初頭には bowheart さんの会社のすべてのアプリを動かすようになった（大成功おめでとうの気持ちになる）</li>
+</ul>
+</li>
+<li>新しいライブラリのオープンソース化の許可も得た．（おそらく会社内のプロジェクトだったからかな？）<ul>
+<li>数回の API の反復と膨大なドキュメントの執筆を経て、私たちは 2023 年 4 月 24 日，満を持して発表，オープンソース化することになった</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>細かいディテールにまで踏み込んで、他のツールに泥を塗ることを期待していたのなら、もっと長いフォローアップ記事（２本めのやつ）「Zedux: Is this the one? 」を見てほしい．この歴史レッスンを最後まで読んでくれたなら、脱帽だ</li>
+</ul>
+</li>
+<li>２本目 <code>Zedux: Is this the one?</code><ul>
+<li><a href="https://omnistac.github.io/zedux/blog/2023/04/24/zedux-is-this-the-one" target="_blank">https://omnistac.github.io/zedux/blog/2023/04/24/zedux-is-this-the-one</a></li>
+<li>ある意味これが肝っぽい</li>
+<li>簡単な hello world のコード<ul>
+<li><code>atom</code> メソッドで atom を作成し，<code>useState</code> のように，<code>useAtomState</code> メソッドで，変数とセッターが返され，それを使って状態管理をする</li>
+<li>Zedux は、DI 駆動のアトミック・アーキテクチャに包まれたコンポーザブル・ストアモデルを特徴としている，という記述がなんとなく理解できる</li>
+</ul>
+</li>
+<li>なるほど，元々は，以前 Redux を使っていたソケット・ドリブン・アプリのパフォーマンスとメンテナンスの問題を解決するためだった</li>
+<li>bowheart さん，本当に Redux が大好きなんだな（メッチャブログ内で豪語してた）<ul>
+<li>一方向のデータフローと，不変性が与えてくれる安心感がたまらないらしい（割とこれは自分も共感）</li>
+<li>なので不本意ではあるが差別化もいるので比較する</li>
+</ul>
+</li>
+<li>遭遇した問題<ul>
+<li>reselect（というライブラリ．メモ化された selector 関数を作るためのライブラリ．redux/toolkit には標準で組み込まれているやつ）のパフォーマンス，redux saga の hogehoge．そして，redux の一般的な非干渉性．</li>
+<li>bowheart さんのチームでは，セレクタの制御ができないことが，redux の最大のパフォーマンスのボトルネックになったらしい</li>
+<li>これを zedux のアトミックモデルがこの問題を自然に解決する</li>
+<li>コードを口で喋っても難しいので，ざっくり話すが，データのツリーと派生データが集中的になると、ツリーの途中にあるセレクタを Reselect でデバウンス/スロットル/バッファの更新をさせることはできないらしい（自分は触ったことない）。これを Zedux では、ツリーの任意の場所にあるセレクタをアトムに変えることができるらしく，それができるなら問題ないね</li>
+<li>injectEffect（zedux のインジェクター）は useEffect と同じように動作するが，atom のための作りになっていて，</li>
+<li>React の世界で，ステートとその副作用をコロケーションすることができる（zedux の injectEffect を利用）</li>
+<li>これは熱いのでは？</li>
+</ul>
+</li>
+<li>キャッシュ・マネジメント<ul>
+<li>react query も大好きだったらしい<ul>
+<li>が，bowheart さんのチームにとっての欠点がいくつもあった</li>
+<li>その中，キャッシュ管理のアイデアが気に入っており，それを参考に，atom にプロミスの状態を管理する機能を持たせることで react query 的なパワーを得たとな</li>
+<li>さらにインジェクターを組み合わせると，react query できるすべてをサポートする可能性もあるらしい<ul>
+<li>まぁ聞けば確かにコントロールできる範囲も細かさも大きい．それでいてそもそも atom なので疎結合で，必要最小限に UI の状態管理ができる</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>他にも技術的な差異についてお話はあったが，この番組の趣旨とずれること，桑原自信もついていけなかったこと（）から諦めましたので，皆さんの方で読んでください<ul>
+<li>3,4 本目の記事も同様です</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <h3 id="エンディング">エンディング</h3>
 <p>さて、そろそろ今回もお時間になりましたのでエンディングです．</p>
+<ul>
+<li>最後にいいことを仰っていた<ul>
+<li>すばらしいツールが登場したら，意見の相違を脇において便利になったことを称賛するだろう</li>
+<li>ただそれは，違いを否定することになる</li>
+<li>ライブラリ同士，互いの違いは我々に多くのことを教えてくれている</li>
+<li>批評することは素晴らしいこと</li>
+<li>だから，違うライブラリにも親切にしてほしい</li>
+</ul>
+</li>
+<li>zedux ももちろん銀の弾丸ではないし，特効薬でもないが，このブログをここまで読んだのなら，もしかしたら貴方が待ち望んでいたステートマネージャーである可能性は十分にある</li>
+<li>いずれにせよ，本当の問題は，それを使って何を作るかだ．</li>
+<li>もう本当締めが素晴らしく，技術者の鏡のようなお言葉で湿られて感動した</li>
+<li>何度も言っているが，システムやアプリの肝は「データ」と「アルゴリズム」に尽きる</li>
+<li>ただシステムやアプリは手段やツールであり，解決したい課題，実現したい世界のために我々はツールを選ぶことは変わらない，ということを改めて意識させられる素晴らしいブログだったなと</li>
+<li>自分は riot.js ユーザーなので，スタンドアローンに（react 以外でも使える）物を探していたので，とても興味が湧いたたので zedux でもう少し遊んでみようと思う</li>
+</ul>
 <p>この番組面白かったよーという方は，ぜひチャンネル登録もお願いします．もし聴いていて気になることや、話してほしいトピック，感想などありましたら、概要欄のフォームや，𝕏 でハッシュタグ「WEB 小噺」でつぶやいてください！web はアルファベット，「小噺」は漢字でもひらがなでも大丈夫です！</p>
 <p>それでは、また雨宿りしに来てください。今回もお聴きくださりありがとうございました！「雨宿りと WEB の小噺」お相手は Keeth でした。さようなら！</p>
 
@@ -1892,14 +1921,10 @@ Zedux はすべてを処理できるように設計されている。Zedux が�
 
             
                 
-                <a href="why_turbopack.html" class="navigation navigation-prev " aria-label="Previous page: Turbopack の思想">
+                <a href="goodbye_recoiljs.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Recoil アーカイブ">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="zedux_philosofy.html" class="navigation navigation-next " aria-label="Next page: zedux フィロソフィー">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -1908,7 +1933,7 @@ Zedux はすべてを処理できるように設計されている。Zedux が�
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Recoil アーカイブ","level":"1.6.1.6","depth":3,"next":{"title":"zedux フィロソフィー","level":"1.6.1.7","depth":3,"path":"PODCASTS/WEB小噺/zedux_philosofy.md","ref":"PODCASTS/WEB小噺/zedux_philosofy.md","articles":[]},"previous":{"title":"Turbopack の思想","level":"1.6.1.5","depth":3,"path":"PODCASTS/WEB小噺/why_turbopack.md","ref":"PODCASTS/WEB小噺/why_turbopack.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/goodbye_recoiljs.md","mtime":"2025-01-19T16:10:44.518Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2025-01-20T14:12:27.107Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"zedux フィロソフィー","level":"1.6.1.7","depth":3,"next":{"title":"すきより","level":"1.6.2","depth":2,"ref":"","articles":[{"title":"好きな漫画「数学教師もげきはじめの考察」","level":"1.6.2.1","depth":3,"path":"PODCASTS/すきより/mogeki_hajime.md","ref":"PODCASTS/すきより/mogeki_hajime.md","articles":[]},{"title":"デリック・ローズ選手の魅力","level":"1.6.2.2","depth":3,"path":"PODCASTS/すきより/delick_rose.md","ref":"PODCASTS/すきより/delick_rose.md","articles":[]}]},"previous":{"title":"Recoil アーカイブ","level":"1.6.1.6","depth":3,"path":"PODCASTS/WEB小噺/goodbye_recoiljs.md","ref":"PODCASTS/WEB小噺/goodbye_recoiljs.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/zedux_philosofy.md","mtime":"2025-01-19T23:04:37.957Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2025-01-20T14:12:27.107Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
