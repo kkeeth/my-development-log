@@ -58,6 +58,7 @@
   - 2025
     - JANUARY
       - [0114](DEVELOPMENT/2025/JAN/0114.md)
+      - [0123](DEVELOPMENT/2025/JAN/0123.md)
 - 🌩 DAILY LOG
   - 2024
     - JANUARY
@@ -93,7 +94,6 @@
   - [エレガントパズル](BOOKS/2024/elegant_pazzle.md)
   - [アジャイルチームによる目標づくりガイドブック](BOOKS/2024/guidebook_abou_tobjective.md)
 - 📝 DRAFTS
-  - [ワシの印象に残っている広島の方言たちを紹介するんじゃ](DRAFTS/hiroshima_18.md)
 - 🎤 PODCASTS
   - WEB 小噺
     - [インターネットの複雑さのジョーク](PODCASTS/WEB小噺/jokes_about_the_complexity_of_the_Internet.md)
