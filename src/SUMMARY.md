@@ -105,6 +105,7 @@
     - [Turbopack の思想](PODCASTS/WEB小噺/why_turbopack.md)
     - [Recoil アーカイブ](PODCASTS/WEB小噺/goodbye_recoiljs.md)
     - [zedux フィロソフィー](PODCASTS/WEB小噺/zedux_philosofy.md)
+    - [エンジニアあるある第１弾「うまくいっていると不安になる」](PODCASTS/WEB小噺/engineer_a-ha_stories_1.md)
   - すきより
     - [好きな漫画「数学教師もげきはじめの考察」](PODCASTS/すきより/mogeki_hajime.md)
     - [デリック・ローズ選手の魅力](PODCASTS/すきより/delick_rose.md)
