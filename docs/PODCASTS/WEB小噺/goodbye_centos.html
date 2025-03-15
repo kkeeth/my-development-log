@@ -1799,54 +1799,90 @@
 <h3 id="オープニング">オープニング</h3>
 <p>皆さんこんにちは。「雨宿りとWEBの小噺」へようこそ！パーソナリティの Keeth こと桑原です。</p>
 <p>この番組では，目まぐるしく変化するWeb業界の中，興味深い裏話や小噺など，ホッと一息つけるお話をお届けします．</p>
-<p>今回の話題は「さようなら古き友よ - Goodbye CentOS」です。</p>
+<p>今回の話題は「Goodbye CentOS Linux」です。</p>
 <h3 id="本題">本題</h3>
-<h3 id="part-0-osの世界---windowsとmacos以外の選択肢">Part 0: OSの世界 - WindowsとmacOS以外の選択肢</h3>
+<h3 id="osの世界---windowsとmacos以外の選択肢">OSの世界 - WindowsとmacOS以外の選択肢</h3>
 <ul>
 <li>みなさんがふだん使っているパソコンといえば <code>Windows</code> か <code>Mac</code> が主流</li>
 <li>実はコンピュータの世界にはもっとたくさんの選択肢がある</li>
 <li>オペレーティングシステム、略してOS<ul>
-<li>これはコンピュータの頭脳とも言える基本ソフトウェア一般ユーザーの目に触れるのはWindows、macOSが多いですが、インターネットの裏側、つまりWebサービスやアプリを支えるサーバーの世界では、Linuxという別の種類のOSが主役なんです。
-このLinuxの中でも、大きく分けて有料の商用ディストリビューション（distribution、略してディストロとも呼ばれます）と、無料のディストリビューションがあります。有名どころでは、Red Hat Enterprise Linux（略してRHEL）という企業向けの有料版と、Ubuntu、Debian、Fedoraなどの無料版があります。
-そして今日の主役、CentOSは、このRHELをベースにした無料のディストリビューションなんです。簡単に言うと「企業品質の安定性を持ちながら、無料で使えるLinux」。だからこそ、多くの企業や個人開発者に愛されてきました。</li>
+<li>コンピュータの頭脳とも言える基本ソフトウェア</li>
+<li>一般ユーザーの目に触れるのはWindows、macOSが多いが、インターネットの裏側というか，Webサービスやアプリを支えるサーバーの世界では，Linuxという別の種類のOSが主役</li>
+<li>このLinuxの中でも、大きく分けて有料の商用ディストリビューション（distribution、略してディストロとも呼ばれる）と，無料のディストリビューションがある<ul>
+<li>ディストリビューションとは，LinuxカーネルとOSを構成するその他のソフトウェアを組み合わせた形式で配布されているもの</li>
+<li>有名どころでは、Red Hat Enterprise Linux（略してRHEL）という企業向けの有料版Ubuntu、Debian、Fedoraなどの無料版がある</li>
+</ul>
+</li>
+<li>そして今日の主役、CentOS Linux は、このRHELをベースにした，CentOS プロジェクトのコミュニティ・コントリビューターによって開発、配布、保守された、無料で利用可能でコミュニティがサポートする Linux ディストリビューション<ul>
+<li>簡単に言うと「企業品質の安定性を持ちながら、無料で使えるLinux」</li>
+<li>だからこそ、多くの企業や個人開発者に愛されてきた</li>
 </ul>
 </li>
 </ul>
-<h3 id="part-1-centosとの出会い">Part 1: CentOSとの出会い</h3>
-<p>新卒1年目、初めて自分で触るサーバーOSがCentOSでした。当時の私は「RedHatの無料版」というくらいの認識しかなかったんですよね。</p>
-<p>でも、最初のyum updateを叩いた時の、あの緊張感は今でも覚えています。「これで本番環境が壊れたらどうしよう...」って。</p>
-<p>（軽い笑い）</p>
-<p>幸い何も壊れなかったんですが、その時のターミナルの画面、update完了後のあのちょっとした達成感。エンジニアとしての第一歩を踏み出した感覚がしました。</p>
-<h3 id="part-2-centosの終焉">Part 2: CentOSの終焉</h3>
-<p>そんなCentOSが従来の形で終了するというニュースを聞いたときは、正直ショックでした。2020年12月、Red Hatが発表したCentOSプロジェクトの方向転換。CentOS 8のサポート期間が2029年から2021年末に短縮され、以降はCentOS Streamという上流開発モデルに移行すると。</p>
-<p>これが意味するのは、これまでの「RedHatのクローンとしての安定版CentOS」という位置づけからの大きな変化です。</p>
-<h3 id="part-3-なぜ私たちはcentosを愛したのか">Part 3: なぜ私たちはCentOSを愛したのか</h3>
-<p>でも、なぜこんなにショックだったのでしょうか？</p>
-<p>それは、CentOSが多くのエンジニアにとって「最初の本番環境」だったからではないでしょうか。</p>
-<p>無料でありながら、企業でも安心して使えるレベルの安定性。
-RedHatの知見がほぼそのまま使えるノウハウの共有性。
-長期サポートによる運用負荷の軽減。</p>
-<p>これらが、特にスタートアップや中小企業のインフラを支えてきました。</p>
-<p>私自身も、新卒時代に上司から「CentOSの公式ドキュメントとRedHatのドキュメントを読み比べてごらん」と言われたことがあります。ほぼ同じ内容なのに、片方は無料で読めて、実際に手元の環境で試せる。これが学習曲線を大幅に緩やかにしてくれました。</p>
-<h3 id="part-4-懐かしのcentosエピソード">Part 4: 懐かしのCentOSエピソード</h3>
-<p>ここで少し、私のCentOSにまつわる思い出話を。</p>
-<p>新卒2年目のある雨の日、社内のテスト環境がダウンしました。原因を調査すると、/varパーティションがいっぱいになっていたんです。</p>
-<p>慌ててログをクリアしようとしたところ、誤って重要なファイルまで削除してしまい...（ため息）</p>
-<p>先輩が「大丈夫、CentOSならyumでパッケージを再インストールすればいいよ」と教えてくれました。その時の安心感は今でも覚えています。</p>
-<p>また、初めてカーネルアップデートをして再起動したときの緊張感。「本当に起動するの？」という不安と、無事に立ち上がったときの喜び。</p>
-<p>これらの経験が、今の私のインフラエンジニアとしての基礎になっています。</p>
-<h3 id="part-5-centos終了の技術的影響">Part 5: CentOS終了の技術的影響</h3>
-<p>さて、技術的な観点から見ると、この変更は何を意味するのでしょうか？</p>
-<p>CentOS Streamは、RedHat Enterprise Linuxの上流（開発版）と位置付けられます。つまり、安定性を最重視していた従来のCentOSとは真逆の立ち位置になるわけです。</p>
-<p>具体的には：</p>
-<ul>
-<li>より新しい機能が早く使える反面、安定性は従来より低下</li>
-<li>本番環境での利用にはより慎重な検証が必要</li>
-<li>長期サポートの概念が変わる</li>
+</li>
 </ul>
-<h3 id="part-6-代替選択肢と今後の展望">Part 6: 代替選択肢と今後の展望</h3>
-<p>では、CentOSユーザーは今後どうすべきでしょうか？</p>
-<ol>
+<h3 id="centosとのエピソード">CentOSとのエピソード</h3>
+<ul>
+<li>まずは自分の CentOS の出会い</li>
+<li>新卒1年目、初めて自分で触るサーバー OS が CentOS，バージョンは 6.x だった記憶<ul>
+<li>当時の私が努めていた会社の開発環境が LAMP で，仮想化には VM Ware を使っていた<ul>
+<li>VirtualBox もあったが，使っていなかったし，当時は docker なんて便利なものはもちろんなかった</li>
+</ul>
+</li>
+<li>当時の私は「RedHatの無料版」というくらいの認識しかなかった</li>
+<li>たくさん <code>yum</code> コマンドを叩いたのが懐かしい<ul>
+<li>カーネルアップデートのために本番環境で初めての <code>yum update</code> を叩いて，再起動した時のあの緊張感は今でも覚えている</li>
+<li>「これ本当に起動するの？」と言う不安と，実際に起動したときの安堵した</li>
+<li>その時のターミナルの画面や <code>update</code> 完了後のあのちょっとした達成感<ul>
+<li>エンジニアとしての第一歩を踏み出した感覚</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>また社内のテスト環境がダウンしたことがある<ul>
+<li>原因を調査すると、/varパーティションがいっぱいになってた</li>
+<li><code>/var/log</code> や <code>/var/cache</code> をお掃除したり，とりあえず <code>yum clean all</code> コマンド実行したり</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>本当懐かしい</li>
+</ul>
+<h3 id="centosの終焉">CentOSの終焉</h3>
+<ul>
+<li>CentOS Linux が従来の形で終了するというニュースが流れる<ul>
+<li>ショックではなかったが，お世話になった OS が EOL を迎えるのはさみしいもの<ul>
+<li>具体的には，2020年12月，Red Hat が発表した CentOS プロジェクトの方向転換</li>
+<li>将来の Red Hat Enterprise Linux リリースのアップストリーム開発プラットフォームである CentOS Stream に全投資を移行すると発表</li>
+<li>これに伴い <code>CentOS 8</code> のサポート期間が2029年から2021年末と大幅短縮にもなった<ul>
+<li>ちなみに <code>CentOS 7</code> は 2024年6月30日までサポートされていて，<code>CentOS 9</code> はリリースもなくなった</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>これまでの「RedHatのクローンとしての安定版CentOS」という位置づけからの大きな変化</li>
+</ul>
+</li>
+</ul>
+<p>参考：<a href="https://www.redhat.com/ja/topics/linux/centos-linux-eol#:~:text=%E3%82%92%E9%81%B8%E3%81%B6%E7%90%86%E7%94%B1-,%E6%A6%82%E8%A6%81,EOL" target="_blank">CentOS Linux のサポート終了について知っておくべきこと</a>%20%E3%82%92%E8%BF%8E%E3%81%88%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82)</p>
+<h3 id="なぜ私たちはcentosを愛したのか">なぜ私たちはCentOSを愛したのか</h3>
+<ul>
+<li>CentOS が「初めての本番環境」だったエンジニアも多いのではないか<ul>
+<li>無料でありながら、企業でも安心して使えるレベルの安定性</li>
+<li>RedHatの知見がほぼそのまま使えるノウハウの共有性</li>
+<li>長期サポートによる運用負荷の軽減</li>
+</ul>
+</li>
+<li>特にスタートアップや中小企業のインフラを支えてきたでしょう</li>
+<li>CentOS の公式ドキュメントと RedHat のドキュメントを軽〜く読み比べたことがある<ul>
+<li>ほぼ同じ内容なのに、片方は無料で読めて、実際に手元の環境で試せるのはデカかった</li>
+</ul>
+</li>
+<li>色んな理由で CentOS は重宝していたし愛されていたと思う</li>
+</ul>
+<h3 id="代替選択肢と今後の展望">代替選択肢と今後の展望</h3>
+<ul>
+<li>今更語るまでもないが，CentOS Linux の後継や代替として</li>
 <li><p><strong>Rocky Linux</strong></p>
 <ul>
 <li>CentOSの創設者Greg Kurtzerが立ち上げたプロジェクト</li>
@@ -1875,18 +1911,20 @@ RedHatの知見がほぼそのまま使えるノウハウの共有性。
 <li>パッケージ管理などの違いに適応が必要</li>
 </ul>
 </li>
-</ol>
-<p>私個人としては、既存のCentOSインフラを持っている場合はRocky LinuxかAlmaLinuxへの移行を検討し、新規環境ではUbuntuも視野に入れるというアプローチが現実的かなと思います。</p>
-<h3 id="part-7-技術の変化と向き合う姿勢">Part 7: 技術の変化と向き合う姿勢</h3>
-<p>実は、このCentOSの件は、私たちエンジニアが常に向き合っている「技術の変化」を象徴しているように思います。</p>
-<p>一度習得した技術や環境が永遠に続くわけではない。
-依存している技術にも寿命がある。
-変化に適応する柔軟性が必要。</p>
-<p>新卒の頃、先輩から「技術そのものよりも、技術の学び方を学べ」と言われたことがあります。その意味を、今回のCentOSの件で改めて実感しています。</p>
+<li><p>もしくは何度も登場している，RHEL でもよいかなと</p>
+</li>
+</ul>
 <p>では、そろそろ今回もお時間になりましたのでエンディングです．</p>
 <h3 id="エンディング">エンディング</h3>
-<p>今回の話、いかがだったでしょうか？</p>
-<p><code>CentOS</code> との思い出に浸りつつも、新しい選択肢を探る。それもまた、エンジニアとしての成長なのかもしれません。</p>
+<p>CentOS の件は，私たちエンジニアが常に向き合っている「技術の変化」を象徴していると改めて感じた</p>
+<ul>
+<li>一度習得した技術や環境が永遠に続くわけではない</li>
+<li>依存している技術にも寿命がある</li>
+<li>変化に適応する柔軟性が必要</li>
+</ul>
+<p>新卒の頃，先輩から「技術そのものよりも，技術の学び方を学べ」と言われたことがあるが，まさにと言ったところ</p>
+<p>余談ですが，台本書きながら当時の大変だった記憶が掘り起こされたw
+そして，CentOS Linux にはお世話になりました！ありがとうございます！</p>
 <p>この番組面白かったよーという方は，ぜひチャンネル登録もお願いします．もし聴いていて気になることや、話してほしいトピック，感想などありましたら、概要欄のフォームや，𝕏 でハッシュタグ「WEB 小噺」でつぶやいてください！web はアルファベット，「小噺」は漢字でもひらがなでも大丈夫です！</p>
 <p>今回もお聴きくださりありがとうございました！雨宿りをしながら考える技術の変遷．次回もどうぞお楽しみに．「雨宿りと WEB の小噺」お相手は Keeth でした。さようなら！</p>
 
@@ -1928,7 +1966,7 @@ RedHatの知見がほぼそのまま使えるノウハウの共有性。
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Goodbye CentOS","level":"1.6.1.9","depth":3,"next":{"title":"すきより","level":"1.6.2","depth":2,"ref":"","articles":[{"title":"好きな漫画「数学教師もげきはじめの考察」","level":"1.6.2.1","depth":3,"path":"PODCASTS/すきより/mogeki_hajime.md","ref":"PODCASTS/すきより/mogeki_hajime.md","articles":[]},{"title":"デリック・ローズ選手の魅力","level":"1.6.2.2","depth":3,"path":"PODCASTS/すきより/delick_rose.md","ref":"PODCASTS/すきより/delick_rose.md","articles":[]}]},"previous":{"title":"エンジニアあるある第１弾「うまくいっていると不安になる」","level":"1.6.1.8","depth":3,"path":"PODCASTS/WEB小噺/engineer_a-ha_stories_1.md","ref":"PODCASTS/WEB小噺/engineer_a-ha_stories_1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/goodbye_centos.md","mtime":"2025-03-12T07:26:06.175Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2025-03-13T00:42:21.182Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Goodbye CentOS","level":"1.6.1.9","depth":3,"next":{"title":"すきより","level":"1.6.2","depth":2,"ref":"","articles":[{"title":"好きな漫画「数学教師もげきはじめの考察」","level":"1.6.2.1","depth":3,"path":"PODCASTS/すきより/mogeki_hajime.md","ref":"PODCASTS/すきより/mogeki_hajime.md","articles":[]},{"title":"デリック・ローズ選手の魅力","level":"1.6.2.2","depth":3,"path":"PODCASTS/すきより/delick_rose.md","ref":"PODCASTS/すきより/delick_rose.md","articles":[]}]},"previous":{"title":"エンジニアあるある第１弾「うまくいっていると不安になる」","level":"1.6.1.8","depth":3,"path":"PODCASTS/WEB小噺/engineer_a-ha_stories_1.md","ref":"PODCASTS/WEB小噺/engineer_a-ha_stories_1.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://content.production.cdn.art19.com/images/c7/1f/e6/af/c71fe6af-3d1b-4566-9096-cdb13e39ced9/d3b1a62a332fc491f28927f310e0d0557b2079cdea9c9538b9f0b5207cf244e23baa80a9379e3978efbab7f163e1d6c1d271614432225d67e791da0a703a0003.jpeg","url":"https://art19.com/shows/kkeethengineers","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/goodbye_centos.md","mtime":"2025-03-15T08:37:34.995Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2025-03-15T08:37:55.234Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
