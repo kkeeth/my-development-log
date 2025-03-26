@@ -112,4 +112,4 @@
     - [好きな漫画「数学教師もげきはじめの考察」](PODCASTS/すきより/mogeki_hajime.md)
     - [デリック・ローズ選手の魅力](PODCASTS/すきより/delick_rose.md)
   - 余談ですが
-    - [しろくまは皆左利き？](PODCASTS/余談ですが/polar_bear_left_hander.md)
+    - [世界最古の企業「金剛組」](PODCASTS/余談ですが/most_old_company.md)
