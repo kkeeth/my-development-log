@@ -15,6 +15,7 @@ Basically, the following three major categories are frequently updated.
 * DEVELOPMENT：開発日誌
 * DAILY：雑多な吐き出し
 * BOOKS：読書メモ
+* PODCASTS：各番組の台本
 
 ---
 
