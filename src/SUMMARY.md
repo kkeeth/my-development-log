@@ -92,6 +92,9 @@
     - AUG
       - [0828](DAILY/2024/AUG/0828.md)
       - [0828](DAILY/2024/AUG/0828.md)
+  - 2025
+    - APRIL
+      - [0405](DAILY/2025/APR/0405.md)
 - 📚 BOOKS
   - [エンジニア組織論への招待](BOOKS/2024/engineering_organization_theory.md)
   - [金より価値ある時間の使い方](BOOKS/2024/how_to_live_on_24_hours_a_day.md)
@@ -111,6 +114,7 @@
     - [エンジニアあるある第１弾「うまくいっていると不安になる」](PODCASTS/WEB小噺/engineer_a-ha_stories_1.md)
     - [Goodbye CentOS](PODCASTS/WEB小噺/goodbye_centos.md)
     - [夏のバカンスとお盆休みで学ぶグローバル開発](PODCASTS/WEB小噺/france_summer_time.md)
+    - [冪等性 - エンジニア御用達の言葉と文化](PODCASTS/WEB小噺/word_of_idempotency.md)
   - すきより
     - [好きな漫画「数学教師もげきはじめの考察」](PODCASTS/すきより/mogeki_hajime.md)
     - [デリック・ローズ選手の魅力](PODCASTS/すきより/delick_rose.md)
