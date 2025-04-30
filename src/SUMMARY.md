@@ -117,8 +117,12 @@
     - [Goodbye CentOS](PODCASTS/WEB小噺/goodbye_centos.md)
     - [夏のバカンスとお盆休みで学ぶグローバル開発](PODCASTS/WEB小噺/france_summer_time.md)
     - [冪等性 - エンジニア御用達の言葉と文化](PODCASTS/WEB小噺/word_of_idempotency.md)
+    - [アイコンの秘密 - 日常で出てくるシンボルの起源](PODCASTS/WEB小噺/origin_of_simbols.md)
+    - [ソフトウェア史上高くついたバグによる失敗たち](PODCASTS/WEB小噺/high_costly_failers.md)
   - すきより
     - [好きな漫画「数学教師もげきはじめの考察」](PODCASTS/すきより/mogeki_hajime.md)
     - [デリック・ローズ選手の魅力](PODCASTS/すきより/delick_rose.md)
   - 余談ですが
     - [世界最古の企業「金剛組」](PODCASTS/余談ですが/most_old_company.md)
+  - 声日記
+    - [春うらら つながりっすん 10days](PODCASTS/声日記/spring_10_days.md)
