@@ -106,6 +106,8 @@
       - [0405](DAILY/2025/APR/0405.md)
     - MAY
       - [0504](DAILY/2025/MAY/0504.md)
+    - AUG
+      - [0805](DEVELOPMENT/2025/AUG/0805.md)
 - 📚 BOOKS
   - [エンジニア組織論への招待](BOOKS/2024/engineering_organization_theory.md)
   - [金より価値ある時間の使い方](BOOKS/2024/how_to_live_on_24_hours_a_day.md)
