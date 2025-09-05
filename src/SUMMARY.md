@@ -73,6 +73,8 @@
     - JUN
       - [0603](DEVELOPMENT/2025/JUN/0603.md)
       - [0605](DEVELOPMENT/2025/JUN/0605.md)
+    - SEP
+      - [0903](DEVELOPMENT/2025/SEP/0903.md)
 - 🌩 DAILY LOG
   - 2024
     - JANUARY

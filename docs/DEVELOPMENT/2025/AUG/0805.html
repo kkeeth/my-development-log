@@ -1152,6 +1152,38 @@
             
         </li>
     
+        <li class="chapter " data-level="1.2.2.7" >
+            
+                <span>
+            
+                    
+                    SEP
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.7.1" data-path="../SEP/0903.html">
+            
+                <a href="../SEP/0903.html">
+            
+                    
+                    0903
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
             </ul>
             
@@ -2281,9 +2313,16 @@ scores := <span class="hljs-keyword">map</span>[<span class="hljs-type">string</
 <pre><code class="lang-go"><span class="hljs-built_in">delete</span>(scores, <span class="hljs-string">&quot;math&quot;</span>)
 </code></pre>
 <ul>
-<li>さらに，存在しないキーにアクセスするとエラーにならず <code>0</code> となる（おそらくint型の要素にアクセスしたから？）<ul>
+<li><p>さらに，存在しないキーにアクセスするとエラーにならず <code>0</code> となる（おそらくint型の要素にアクセスしたから？）</p>
+<ul>
 <li>string型の場合は <code>&quot;&quot;</code>空文字列が表示された</li>
+<li>この場合，<code>0</code> は本来の値なのか存在しない値なのか分からないが，判定する仕組みはある</li>
+<li>これを <strong>カンマOKイディオム（カンマOK慣用句）</strong> と言ったりする</li>
 </ul>
+<pre><code class="lang-go">v, ok := scores[<span class="hljs-string">&quot;history&quot;</span>]
+
+fmt.Println(v, ok)
+</code></pre>
 </li>
 </ul>
 </li>
@@ -2325,7 +2364,7 @@ scores := <span class="hljs-keyword">map</span>[<span class="hljs-type">string</
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"0805","level":"1.3.2.3.1","depth":4,"next":{"title":"📚 BOOKS","level":"1.4","depth":1,"ref":"","articles":[{"title":"エンジニア組織論への招待","level":"1.4.1","depth":2,"path":"BOOKS/2024/engineering_organization_theory.md","ref":"BOOKS/2024/engineering_organization_theory.md","articles":[]},{"title":"金より価値ある時間の使い方","level":"1.4.2","depth":2,"path":"BOOKS/2024/how_to_live_on_24_hours_a_day.md","ref":"BOOKS/2024/how_to_live_on_24_hours_a_day.md","articles":[]},{"title":"体系的に学ぶ 安全な WEB アプリケーションの作り方","level":"1.4.3","depth":2,"path":"BOOKS/2024/learn_howto_create_web_applications_systematically.md","ref":"BOOKS/2024/learn_howto_create_web_applications_systematically.md","articles":[]},{"title":"エレガントパズル","level":"1.4.4","depth":2,"path":"BOOKS/2024/elegant_pazzle.md","ref":"BOOKS/2024/elegant_pazzle.md","articles":[]},{"title":"アジャイルチームによる目標づくりガイドブック","level":"1.4.5","depth":2,"path":"BOOKS/2024/guidebook_abou_tobjective.md","ref":"BOOKS/2024/guidebook_abou_tobjective.md","articles":[]}]},"previous":{"title":"AUG","level":"1.3.2.3","depth":3,"ref":"","articles":[{"title":"0805","level":"1.3.2.3.1","depth":4,"path":"DEVELOPMENT/2025/AUG/0805.md","ref":"DEVELOPMENT/2025/AUG/0805.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://keeth.me/assets/myself-Xo-fEbkF.png","url":"https://listen.style/u/kkeeth","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"DEVELOPMENT/2025/AUG/0805.md","mtime":"2025-08-05T03:37:06.550Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2025-08-05T03:37:42.226Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"0805","level":"1.3.2.3.1","depth":4,"next":{"title":"📚 BOOKS","level":"1.4","depth":1,"ref":"","articles":[{"title":"エンジニア組織論への招待","level":"1.4.1","depth":2,"path":"BOOKS/2024/engineering_organization_theory.md","ref":"BOOKS/2024/engineering_organization_theory.md","articles":[]},{"title":"金より価値ある時間の使い方","level":"1.4.2","depth":2,"path":"BOOKS/2024/how_to_live_on_24_hours_a_day.md","ref":"BOOKS/2024/how_to_live_on_24_hours_a_day.md","articles":[]},{"title":"体系的に学ぶ 安全な WEB アプリケーションの作り方","level":"1.4.3","depth":2,"path":"BOOKS/2024/learn_howto_create_web_applications_systematically.md","ref":"BOOKS/2024/learn_howto_create_web_applications_systematically.md","articles":[]},{"title":"エレガントパズル","level":"1.4.4","depth":2,"path":"BOOKS/2024/elegant_pazzle.md","ref":"BOOKS/2024/elegant_pazzle.md","articles":[]},{"title":"アジャイルチームによる目標づくりガイドブック","level":"1.4.5","depth":2,"path":"BOOKS/2024/guidebook_abou_tobjective.md","ref":"BOOKS/2024/guidebook_abou_tobjective.md","articles":[]}]},"previous":{"title":"AUG","level":"1.3.2.3","depth":3,"ref":"","articles":[{"title":"0805","level":"1.3.2.3.1","depth":4,"path":"DEVELOPMENT/2025/AUG/0805.md","ref":"DEVELOPMENT/2025/AUG/0805.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://keeth.me/assets/myself-Xo-fEbkF.png","url":"https://listen.style/u/kkeeth","description":"I podcast what I'm learning and noticing in the web industry every day ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"DEVELOPMENT/2025/AUG/0805.md","mtime":"2025-08-05T03:49:48.838Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2025-09-05T04:25:24.363Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
