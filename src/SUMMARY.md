@@ -76,6 +76,8 @@
     - SEP
       - [0903](DEVELOPMENT/2025/SEP/0903.md)
       - [0904](DEVELOPMENT/2025/SEP/0904.md)
+    - OCT
+      - [1017](DEVELOPMENT/2025/OCT/1017.md)
 - 🌩 DAILY LOG
   - 2024
     - JANUARY
