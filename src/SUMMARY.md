@@ -2,6 +2,7 @@
 
 - [ようこそ](README.md)
 - 💻 DEVELOPMENT
+
   - 2024
     - JANUARY
       - [0118](DEVELOPMENT/2024/JAN/0118.md)
@@ -73,11 +74,16 @@
     - JUN
       - [0603](DEVELOPMENT/2025/JUN/0603.md)
       - [0605](DEVELOPMENT/2025/JUN/0605.md)
+    - AUG
+      - [0805](DAILY/2025/AUG/0805.md)
     - SEP
       - [0903](DEVELOPMENT/2025/SEP/0903.md)
       - [0904](DEVELOPMENT/2025/SEP/0904.md)
     - OCT
       - [1017](DEVELOPMENT/2025/OCT/1017.md)
+    - DEC
+      - [1202](DEVELOPMENT/2025/DEC/1202.md)
+
 - 🌩 DAILY LOG
   - 2024
     - JANUARY
@@ -111,8 +117,8 @@
       - [0405](DAILY/2025/APR/0405.md)
     - MAY
       - [0504](DAILY/2025/MAY/0504.md)
-    - AUG
-      - [0805](DEVELOPMENT/2025/AUG/0805.md)
+    - DEC
+      - [1202](DAILY/2025/DEC/1202.md)
 - 📚 BOOKS
   - [エンジニア組織論への招待](BOOKS/2024/engineering_organization_theory.md)
   - [金より価値ある時間の使い方](BOOKS/2024/how_to_live_on_24_hours_a_day.md)
