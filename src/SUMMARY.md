@@ -125,7 +125,6 @@
   - [体系的に学ぶ 安全な WEB アプリケーションの作り方](BOOKS/2024/learn_howto_create_web_applications_systematically.md)
   - [エレガントパズル](BOOKS/2024/elegant_pazzle.md)
   - [アジャイルチームによる目標づくりガイドブック](BOOKS/2024/guidebook_abou_tobjective.md)
-- 📝 DRAFTS
 - 🎤 PODCASTS
   - WEB 小噺
     - [インターネットの複雑さのジョーク](PODCASTS/WEB小噺/jokes_about_the_complexity_of_the_Internet.md)
