@@ -6,9 +6,9 @@
   "plugins": ["sidebar-ad", "folding-chapters"],
   "pluginsConfig": {
     "sidebar-ad": {
-      "imageUrl": "https://keeth.me/assets/myself-Xo-fEbkF.png",
-      "url": "https://listen.style/u/kkeeth",
-      "description": "I podcast what I'm learning and noticing in the web industry every day ✨",
+      "imageUrl": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png",
+      "url": "https://keeth.me",
+      "description": "I podcast what I'm learning and noticing in the web industry every week ✨",
       "btnText": "Listen now!"
     }
   }
