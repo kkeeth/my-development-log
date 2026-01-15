@@ -83,6 +83,9 @@
       - [1017](DEVELOPMENT/2025/OCT/1017.md)
     - DEC
       - [1202](DEVELOPMENT/2025/DEC/1202.md)
+  - 2026
+    - JANUARY
+    - [0115](DEVELOPMENT/2026/JAN/0115.md)
 
 - 🌩 DAILY LOG
   - 2024
