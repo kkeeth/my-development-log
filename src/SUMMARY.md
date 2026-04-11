@@ -2,7 +2,6 @@
 
 - [ようこそ](README.md)
 - 💻 DEVELOPMENT
-
   - 2024
     - JANUARY
       - [0118](DEVELOPMENT/2024/JAN/0118.md)
@@ -71,21 +70,24 @@
       - [0504](DEVELOPMENT/2025/MAY/0504.md)
       - [0513](DEVELOPMENT/2025/MAY/0513.md)
       - [0530](DEVELOPMENT/2025/MAY/0530.md)
-    - JUN
+    - JUNE
       - [0603](DEVELOPMENT/2025/JUN/0603.md)
       - [0605](DEVELOPMENT/2025/JUN/0605.md)
-    - AUG
+    - AUGUST
       - [0805](DAILY/2025/AUG/0805.md)
-    - SEP
+    - SEPTEMBER
       - [0903](DEVELOPMENT/2025/SEP/0903.md)
       - [0904](DEVELOPMENT/2025/SEP/0904.md)
-    - OCT
+    - OCTOBER
       - [1017](DEVELOPMENT/2025/OCT/1017.md)
-    - DEC
+    - DECEMBER
       - [1202](DEVELOPMENT/2025/DEC/1202.md)
   - 2026
     - JANUARY
-    - [0115](DEVELOPMENT/2026/JAN/0115.md)
+      - [0115](DEVELOPMENT/2026/JAN/0115.md)
+    - FEBRUARY
+      - [0224](DEVELOPMENT/2026/FEB/0224.md)
+      - [0227](DEVELOPMENT/2026/FEB/0227.md)
 
 - 🌩 DAILY LOG
   - 2024
@@ -130,19 +132,23 @@
   - [アジャイルチームによる目標づくりガイドブック](BOOKS/2024/guidebook_abou_tobjective.md)
 - 🎤 PODCASTS
   - WEB 小噺
-    - [インターネットの複雑さのジョーク](PODCASTS/WEB小噺/jokes_about_the_complexity_of_the_Internet.md)
-    - [Why vitejs](PODCASTS/WEB小噺/why_vitejs.md)
-    - [eslint から biome の乗り換え](PODCASTS/WEB小噺/eslint_to_biome.md)
-    - [ソフトウェアライセンに関する小噺](PODCASTS/WEB小噺/short_story_about_licence.md)
-    - [Turbopack の思想](PODCASTS/WEB小噺/why_turbopack.md)
-    - [Recoil アーカイブ](PODCASTS/WEB小噺/goodbye_recoiljs.md)
-    - [zedux フィロソフィー](PODCASTS/WEB小噺/zedux_philosofy.md)
-    - [エンジニアあるある第１弾「うまくいっていると不安になる」](PODCASTS/WEB小噺/engineer_a-ha_stories_1.md)
-    - [Goodbye CentOS](PODCASTS/WEB小噺/goodbye_centos.md)
-    - [夏のバカンスとお盆休みで学ぶグローバル開発](PODCASTS/WEB小噺/france_summer_time.md)
-    - [冪等性 - エンジニア御用達の言葉と文化](PODCASTS/WEB小噺/word_of_idempotency.md)
-    - [アイコンの秘密 - 日常で出てくるシンボルの起源](PODCASTS/WEB小噺/origin_of_simbols.md)
-    - [ソフトウェア史上高くついたバグによる失敗たち](PODCASTS/WEB小噺/high_costly_failers.md)
+    - Season4
+      - [インターネットの複雑さのジョーク](PODCASTS/WEB小噺/jokes_about_the_complexity_of_the_Internet.md)
+      - [Why vitejs](PODCASTS/WEB小噺/why_vitejs.md)
+      - [eslint から biome の乗り換え](PODCASTS/WEB小噺/eslint_to_biome.md)
+      - [ソフトウェアライセンに関する小噺](PODCASTS/WEB小噺/short_story_about_licence.md)
+      - [Turbopack の思想](PODCASTS/WEB小噺/why_turbopack.md)
+      - [Recoil アーカイブ](PODCASTS/WEB小噺/goodbye_recoiljs.md)
+      - [zedux フィロソフィー](PODCASTS/WEB小噺/zedux_philosofy.md)
+      - [エンジニアあるある第１弾「うまくいっていると不安になる」](PODCASTS/WEB小噺/engineer_a-ha_stories_1.md)
+      - [Goodbye CentOS](PODCASTS/WEB小噺/goodbye_centos.md)
+      - [夏のバカンスとお盆休みで学ぶグローバル開発](PODCASTS/WEB小噺/france_summer_time.md)
+      - [冪等性 - エンジニア御用達の言葉と文化](PODCASTS/WEB小噺/word_of_idempotency.md)
+      - [アイコンの秘密 - 日常で出てくるシンボルの起源](PODCASTS/WEB小噺/origin_of_simbols.md)
+      - [ソフトウェア史上高くついたバグによる失敗たち](PODCASTS/WEB小噺/high_costly_failers.md)
+    - Season5
+      - [GitHub Copilot の弱いと思うところ](PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md)
+      - [404 Not Found の誕生秘話](PODCASTS/WEB小噺/Season5/404_notfound.md)
   - すきより
     - [好きな漫画「数学教師もげきはじめの考察」](PODCASTS/すきより/mogeki_hajime.md)
     - [デリック・ローズ選手の魅力](PODCASTS/すきより/delick_rose.md)
