@@ -149,6 +149,7 @@
     - Season5
       - [GitHub Copilot の弱いと思うところ](PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md)
       - [404 Not Found の誕生秘話](PODCASTS/WEB小噺/Season5/404_notfound.md)
+      - [保守業務，当たり前のことを当たり前に保つ人にフォーカスを](PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md)
   - すきより
     - [好きな漫画「数学教師もげきはじめの考察」](PODCASTS/すきより/mogeki_hajime.md)
     - [デリック・ローズ選手の魅力](PODCASTS/すきより/delick_rose.md)
