@@ -150,6 +150,10 @@
       - [GitHub Copilot の弱いと思うところ](PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md)
       - [404 Not Found の誕生秘話](PODCASTS/WEB小噺/Season5/404_notfound.md)
       - [保守業務，当たり前のことを当たり前に保つ人にフォーカスを](PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md)
+      - [Stripeの決済は見えないところで何度も試みている 〜リトライロジックの美学〜](PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md)
+      - [DockerはなぜDockerなのか？クジラロゴと名前の裏側](PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md)
+      - [有料ポッドキャスト配信を自前で作ったら想像以上に沼だった話](PODCASTS/WEB小噺/Season5/premium-podcast-with-cloudflare-workers.md)
+      - [JSONを「発明」した男は「俺は発見しただけだ」と言った](PODCASTS/WEB小噺/Season5/json-inventor-douglas-crockford.md)
   - すきより
     - [好きな漫画「数学教師もげきはじめの考察」](PODCASTS/すきより/mogeki_hajime.md)
     - [デリック・ローズ選手の魅力](PODCASTS/すきより/delick_rose.md)
