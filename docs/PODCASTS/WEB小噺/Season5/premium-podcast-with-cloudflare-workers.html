@@ -2341,6 +2341,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5.1.2.8" data-path="axios-cve-2026-40175-header-injection.html">
+            
+                <a href="axios-cve-2026-40175-header-injection.html">
+            
+                    
+                    axiosにまた脆弱性 ── ヘッダインジェクションでクラウドのメタデータが抜かれる話（CVE-2026-40175）
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2.9" data-path="why-is-cookie-called-cookie.html">
+            
+                <a href="why-is-cookie-called-cookie.html">
+            
+                    
+                    Cookieってなんでクッキーなの？
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -2528,91 +2554,193 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="有料ポッドキャスト配信を自前で作ったら想像以上に沼だった話">有料ポッドキャスト配信を自前で作ったら想像以上に沼だった話</h1>
+                                <h1 id="有料ポッドキャスト配信を自前で作ったら沼すぎて、最終的に全部捨てた話">有料ポッドキャスト配信を自前で作ったら沼すぎて、最終的に全部捨てた話</h1>
+<blockquote>
+<p><strong>配信ステータス</strong>：未配信
+<strong>配信URL</strong>：（配信済みになったら記入）</p>
+</blockquote>
+<p>ベース記事：📎 <a href="https://zenn.dev/kkeeth/articles/podcast-premium-feed" target="_blank">https://zenn.dev/kkeeth/articles/podcast-premium-feed</a></p>
 <h2 id="台本">台本</h2>
 <h3 id="オープニング">オープニング</h3>
 <p>【ジングル】
 はい、どうもこんにちは。「雨宿りと WEB の小噺」、始まりました。Keeth こと桑原です。
 今回もちょっとだけ、雨宿りしていきませんか。
-今回のお題はですね、「有料ポッドキャスト配信を自前で作ったら想像以上に沼だった話」。ちょっと面白い話なんで、まぁ聞いてってください。</p>
+今回のお題はですね、「有料ポッドキャスト配信を自前で作ったら沼すぎて、最終的に全部捨てた話」。設計して、実装して、最後に全部捨てるまでの一部始終です。まぁ聞いてってください。</p>
 <h3 id="本題">本題</h3>
 <ul>
 <li><p><strong>そもそも何をやろうとしたか</strong></p>
 <ul>
 <li>この番組にプレミアムプラン（メンバーシッププラン）を作ろうとしている</li>
-<li>自分のポッドキャスト公式サイト（Riot.js製のSPA）に、メンバーだけが聴けるプレミアムエピソードを追加する構想</li>
+<li>やりたかったことは4つ<ul>
+<li>Art19で配信している本編に、プレミアム限定エピソードを追加する</li>
+<li>自分のポッドキャスト公式サイト（Riot.js + Vite製のSPA）で、通常・プレミアムエピソードを時系列マージして表示する</li>
+<li>Apple Podcastsなどのポッドキャストアプリでもプレミアムフィードを購読できるようにする</li>
+<li>解約したら即座にアクセスを止められるようにする</li>
+</ul>
+</li>
 <li>「外部サービスに頼らず、フルスクラッチで作ってみたい」という個人開発欲もあり、自作することに</li>
 <li>現在の配信基盤はArt19。そのAlternate Feed（限定フィード）機能を使ってプレミアムエピソードを配信する前提</li>
 </ul>
 </li>
 <li><p><strong>フェーズ1：シンプルに2つのフィードをマージすればいいんじゃない？</strong></p>
 <ul>
-<li>通常フィードとAlt Feedを<code>Promise.allSettled()</code>で両方取得して時系列マージ、で終わるかと思っていた</li>
-<li>壁1：Art19の埋め込みプレイヤー（iframeベース）が、Alternate Feedのエピソードに対して<strong>404を返す</strong></li>
+<li>通常フィードとAlt Feedを<code>Promise.allSettled()</code>で両方取得して時系列マージ、で終わるかと思っていた<ul>
+<li>片方の取得が失敗しても、もう片方だけで表示を継続できる設計</li>
+</ul>
+</li>
+<li>壁1：Art19の埋め込みプレイヤー（iframeベース）が、Alternate Feedのエピソードに対して<strong>404を返す</strong><ul>
 <li>仕方なくHTML5の<code>&lt;audio&gt;</code>タグで直接再生する方式に切り替え</li>
-<li>壁2：<code>&lt;audio&gt;</code>タグで再生するにはRSSの<code>&lt;enclosure&gt;</code>タグから音声URLを直接取得する必要がある → <strong>Alternate FeedのURLがクライアントに丸見え</strong></li>
-<li>URLを知っていれば誰でもアクセスできてしまうので、この方式はボツ</li>
+</ul>
+</li>
+<li>壁2：<code>&lt;audio&gt;</code>タグで再生するにはRSSの<code>&lt;enclosure&gt;</code>タグから音声URLを直接取得する必要がある<ul>
+<li>Viteでビルドすると、Alternate FeedのURLがバンドルに含まれて<strong>クライアントJSに丸見え</strong></li>
+<li>URLを知っていれば誰でもRSSにアクセスして、エピソード一覧も音声URLも取り放題</li>
+</ul>
+</li>
+<li>この方式はボツ</li>
 </ul>
 </li>
 <li><p><strong>フェーズ2：サーバーサイドに逃がせばURLを隠せる</strong></p>
 <ul>
-<li>Firebase Cloud Functionsにフィード取得処理を移し、クライアントからはオーディオURLを直接見せない構成に</li>
+<li>Firebase Cloud Functionsにフィード取得処理を移し、クライアントからはフィードURLを見せない構成に</li>
 <li>Cloud Functions側でFirestoreを参照し、「プレミアムユーザかどうか」の認証チェックも実装</li>
-<li>壁3：Cloud Functionsから返された<strong>音声URLをユーザがコピーして共有したら意味がない</strong></li>
-<li>URLが漏れた瞬間に誰でもアクセスできてしまう問題は解消できず、またボツ</li>
+<li>壁3：Cloud Functionsから返された<strong>音声URL自体が直リンク</strong><ul>
+<li>ユーザがURLをコピーして共有したら、誰でもアクセスできてしまう</li>
 </ul>
 </li>
-<li><p><strong>ここで外部サービスを真剣に比較してみた</strong></p>
+<li>フィードURLは隠せたが、本質的な問題は解消できず、またボツ</li>
+</ul>
+</li>
+<li><p><strong>フェーズ3：ここで外部サービスを真剣に比較してみた</strong></p>
 <ul>
-<li><strong>Memberful</strong>：月額$25固定。ユーザーごとに固有のハッシュ付きRSSを発行してくれるのが魅力。でも月額固定コストが高い</li>
 <li><strong>Supercast</strong>：月額固定なし、取引額の5.5% + Stripe手数料。ユーザーごとのRSS発行もある。手数料率が惜しい</li>
-<li><strong>Apple Podcasts</strong>：年額$19.99 + 決済手数料25〜30%。Apple独自配信方式に縛られるのも悩ましい</li>
-<li><strong>Spotify</strong>：月額・決済手数料ともにゼロ。ただし自分の配信基盤（Art19 → 各プラットフォームへRSS連携）と仕組みがバッティングしてしまう</li>
-<li><strong>note</strong>：メンバーシップで音声を載せる方法もあり、一番手っ取り早い。手数料は取られるが将来的に検討の余地あり</li>
-<li><strong>Rebuild.fm</strong>：ウェブポータル経由で完全に振り切ったスタイル。<strong>Backspace.fm</strong>：プレミアムフィードをしっかり運用している</li>
-<li>結論：ユーザーごとのRSSが発行できるSupercastが現実的。でも手数料が気になって踏み切れず…</li>
+<li><strong>Memberful</strong>：月額$25固定 + Stripe手数料。ユーザーごとに固有のハッシュ付きRSSを発行してくれるのが魅力。でも個人運営に月額固定コストは重い</li>
+<li><strong>Patreon</strong>：手数料5〜12%。ただしポッドキャスト特化ではない</li>
+<li>他番組の事例も調べた<ul>
+<li><strong>Rebuild.fm</strong>：Webポータル経由でダウンロードさせる完全に振り切ったスタイル</li>
+<li><strong>backspace.fm</strong>：Ghost + プレミアムフィードをしっかり運用している</li>
 </ul>
 </li>
-<li><p><strong>フェーズ3：Art19の認証機能を調べてみた</strong></p>
-<ul>
-<li>Art19には「共有トークン」をURLのクエリパラメーターに付与する方式がある</li>
-<li>問題：<strong>全ユーザー共通のシークレット</strong>なので、1人に漏れたら全員アウト。ローテーションしても登録済みリスナーのフィードが無効になる</li>
-<li>もう一つの方式：<code>Authorization: Bearer {token}</code>ヘッダーを使う方法</li>
-<li>問題：<code>&lt;audio&gt;</code>タグやポッドキャストアプリはHTTPリクエストに任意のヘッダーを付与できない</li>
-<li>結論：<strong>どちらの方式でも「ポッドキャストアプリが直接アクセスできる」という要件を満たせない</strong> → プロキシが必要という結論に</li>
+<li>結論（当時）：Memberfulの月額$25は厳しい。<strong>自前でSupercast相当のものを構築しよう</strong>と決意</li>
 </ul>
 </li>
-<li><p><strong>フェーズ4（最終形）：Cloudflare Workers で認証プロキシを自作</strong></p>
+<li><p><strong>フェーズ4：Art19の認証機能を調べてみた → 断念</strong></p>
 <ul>
-<li>Cloudflare Workersを選んだ理由：コールドスタートがほぼゼロ、音声ストリーミング（Range Header）への対応、無料枠が十分</li>
-<li>Firebase Functions、Lambda、Dynamoなどとも比較したが、レスポンス速度・コスト・ストリーミング対応でWorkersに軍配</li>
-<li>アーキテクチャは2段構成：<ul>
+<li>Art19サポートから提案された方式は2つ</li>
+<li>方式1：<strong>Access Token方式</strong>（共有トークンをURLのクエリパラメータに付与）<ul>
+<li>問題：<strong>全ユーザー共通のシークレット</strong>なので、1人に漏れたら全員アウト</li>
+<li>トークンをローテーションすると、登録済みリスナーのフィードURLが全部無効になる</li>
+</ul>
+</li>
+<li>方式2：<strong>JWT方式</strong>（<code>Authorization: Bearer {token}</code>ヘッダーを使う）<ul>
+<li>致命的な問題：<strong><code>&lt;audio&gt;</code>タグやポッドキャストアプリは、HTTPリクエストに任意のヘッダーを付与できない</strong></li>
+</ul>
+</li>
+<li>結論：どちらの方式でも「ポッドキャストアプリが直接アクセスできる」という要件を満たせない<ul>
+<li>プロキシが必須。そしてプロキシを立てるなら、Art19の認証に依存せず自前で制御した方がシンプル</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>フェーズ5：Cloudflare Workers で認証プロキシを自作</strong></p>
+<ul>
+<li>Cloudflare Workersを選んだ理由<ul>
+<li>コールドスタートがほぼゼロ（Firebase Functionsは数秒、Lambdaも数百ms〜）</li>
+<li>音声ストリーミング（Rangeヘッダーでのシーク）に対応できる</li>
+<li>KVが内蔵されていて、エッジでの認可チェックが数msで済む</li>
+<li>無料枠が1日10万リクエストと十分</li>
+</ul>
+</li>
+<li>R2に音声をコピーしなかった理由<ul>
+<li>Art19に新エピソードが追加されるたびに同期する手間、削除・更新時の同期問題、ストレージコスト</li>
+<li>WorkersがArt19からストリーミングで直送すれば<strong>プロキシで十分</strong></li>
+</ul>
+</li>
+<li>アーキテクチャは2段構成<ul>
 <li><strong>Firebase</strong>：ユーザー認証 + Stripeによる課金管理（Firestoreに課金状態を保持）</li>
-<li><strong>Cloudflare Workers + KV</strong>：リクエストごとの認可チェック（KVへの読み取りは数ms）</li>
+<li><strong>Cloudflare Workers + KV</strong>：リクエストごとの認可チェック</li>
 </ul>
 </li>
 <li><strong>署名付きURL + KVの2重チェック</strong>で音声へのアクセスを制御<ul>
-<li>署名が有効でも、KVから削除されていればアクセス不可 → 共有されても即時無効化できる</li>
+<li>署名が有効でも、KVから削除されていればアクセス不可 → URLが共有されても即時無効化できる</li>
 </ul>
 </li>
-<li>StripeのWebhookを起点にFirestoreとCloudflare KVの両方に書き込むイベント駆動パターン</li>
+<li>StripeのWebhookを起点に、FirestoreとCloudflare KVの両方に書き込むイベント駆動パターン</li>
 <li>音声プロキシはRangeヘッダーを透過的に転送し、206（Partial Content）のままポッドキャストアプリに返す</li>
+<li>技術的には、これでやりたいことは全部実現できる設計になった</li>
 </ul>
 </li>
-<li><p><strong>現時点での積み残しと今後の課題</strong></p>
+<li><p><strong>フェーズ6：ところが、この設計を全部捨てた</strong></p>
 <ul>
-<li>Art19の埋め込みプレイヤーがAlt Feedで使えないため、プレミアムエピソードはシンプルな<code>&lt;audio&gt;</code>タグのみ</li>
-<li>ポッドキャストアプリへの自動登録（Supercastのようなワンタップ追加）がまだ未実装。<code>podcast://</code>や<code>overcast://</code>スキームの活用を今後検討</li>
-<li>Cloudflare Workers経由だとArt19側のリスナー統計が正しく記録されない可能性があるため、独自ログの取得も将来的に必要</li>
-<li>署名付きURLはパラメーターが毎回変わるためCDNキャッシュとの相性が悪く、キャッシュ設計が課題</li>
+<li>捨てた理由は技術的な課題ではなく、<strong>メンテナンス・維持・セキュリティのコスト</strong></li>
+<li>ランニングコストを試算してみた<ul>
+<li>Cloudflare Workersの無料枠超過：$5〜/月</li>
+<li>KV操作：$0.5〜/月</li>
+<li>Firebase Functionsは無料枠内の見込み</li>
+<li>Stripe手数料：売上の3.6%</li>
+</ul>
+</li>
+<li>金額よりも重かったのが運用負担<ul>
+<li>Cloudflare Workers × Firebase の「クロスクラウド同期」が壊れたときのバグリスク</li>
+<li>HMAC署名鍵のローテーション、KVのTTL管理</li>
+<li>Stripe Webhookの冪等性保証と、失敗時のリトライ設計</li>
+<li>そして<strong>個人運営なので、この全部の責任を自分一人で持ち続ける</strong></li>
+</ul>
+</li>
+<li>ここで気づいた：「本来やりたいのは配信であって、インフラ運用ではない」</li>
+</ul>
+</li>
+<li><p><strong>最終形：Substackに一本化</strong></p>
+<ul>
+<li>Substackの条件<ul>
+<li>手数料：売上の10%（Stripe手数料込み）</li>
+<li>月額固定費：$0</li>
+<li>音声ホスティング・認証・会員管理・RSS配信、全部込み</li>
+</ul>
+</li>
+<li>決め手はSubstackの<strong>RSSの仕様</strong><ul>
+<li>無料エピソード：<code>&lt;enclosure&gt;</code>タグ（音声URL）あり</li>
+<li>有料エピソード：<code>&lt;enclosure&gt;</code>タグ<strong>なし</strong></li>
+</ul>
+</li>
+<li>つまりサイト側の判定ロジックは「<code>isPremium = !audioUrl</code>」の1行<ul>
+<li>認証も署名もKVも不要になった</li>
+</ul>
+</li>
+<li>最終アーキテクチャは劇的にシンプル<ul>
+<li>Art19のRSS（公開）とSubstackのRSS（公開）をSPAでマージして時系列表示</li>
+<li>無料エピソード → HTML5の<code>&lt;audio&gt;</code>で再生</li>
+<li>有料エピソード → Substackへリンクして、認証も再生も全部Substackに委譲</li>
+<li>Workersに残ったのはCORS対策の45行だけ</li>
+</ul>
+</li>
+<li>捨てたもの：音声プロキシのWorkers、購読管理のKV、Firebase Auth、FirestoreのユーザーDB、Stripe直接統合</li>
+<li>受け入れたトレードオフ<ul>
+<li>手数料3.6% → 10%（売上規模が大きくなったら再検討すればいい）</li>
+<li>再生UIのカスタマイズ不可、アクセス解析の完全把握不可、アプリ購読フローの自由度低下</li>
+<li>これらは「配信が軌道に乗るまでの保険料」として許容</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p><strong>学びと結論</strong></p>
 <ul>
 <li>「フィードを2つマージするだけ」のつもりが、セキュリティを真剣に考え始めると芋づる式に問題が出てきた</li>
-<li>最大の誤算：<strong><code>&lt;audio&gt;</code>タグはAuthorizationヘッダーを送れない</strong> → これがわかった瞬間にブラウザ経由での直接認証はすべて不可能になり、プロキシ一択に</li>
-<li>Firebase Firestore（本体データ）とCloudflare KV（認可キャッシュ）の役割分担は試行錯誤の末にたどり着いた設計</li>
-<li><strong>最終的な教訓：フォロワーが少ないうちは素直にSupercastを使いましょう</strong>。自前実装は学びにはなるが、Supercastなら手数料を払うだけで全部解決する</li>
+<li>最大の誤算：<strong><code>&lt;audio&gt;</code>タグはAuthorizationヘッダーを送れない</strong><ul>
+<li>これがわかった瞬間にブラウザ経由での直接認証はすべて不可能になり、プロキシ一択になった</li>
+</ul>
+</li>
+<li>Firestore（本体データ）とCloudflare KV（認可キャッシュ）の役割分担は、試行錯誤の末に自然にたどり着いた設計で、これ自体は良い学びだった</li>
+<li>設計を捨てる判断について<ul>
+<li>サンクコストの感情はもちろんあった</li>
+<li>でも「自分が本当にやりたいのは配信であってインフラ運用ではない」という本質に立ち返った</li>
+<li>フェーズ1〜5の過程は「問題の解像度を上げるための学習投資」として意味があった</li>
+</ul>
+</li>
+<li><strong>最終的な教訓：認証・課金・配信のインフラは、個人運営なら素直に外部サービスに委譲しましょう</strong><ul>
+<li>自前実装は学びにはなるが、維持し続けるのは別の話</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -2665,7 +2793,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"有料ポッドキャスト配信を自前で作ったら想像以上に沼だった話","level":"1.5.1.2.6","depth":4,"next":{"title":"JSONを「発明」した男は「俺は発見しただけだ」と言った","level":"1.5.1.2.7","depth":4,"path":"PODCASTS/WEB小噺/Season5/json-inventor-douglas-crockford.md","ref":"PODCASTS/WEB小噺/Season5/json-inventor-douglas-crockford.md","articles":[]},"previous":{"title":"DockerはなぜDockerなのか？クジラロゴと名前の裏側","level":"1.5.1.2.5","depth":4,"path":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","ref":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/premium-podcast-with-cloudflare-workers.md","mtime":"2026-04-12T03:38:48.178Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-04-12T13:17:54.156Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"有料ポッドキャスト配信を自前で作ったら想像以上に沼だった話","level":"1.5.1.2.6","depth":4,"next":{"title":"JSONを「発明」した男は「俺は発見しただけだ」と言った","level":"1.5.1.2.7","depth":4,"path":"PODCASTS/WEB小噺/Season5/json-inventor-douglas-crockford.md","ref":"PODCASTS/WEB小噺/Season5/json-inventor-douglas-crockford.md","articles":[]},"previous":{"title":"DockerはなぜDockerなのか？クジラロゴと名前の裏側","level":"1.5.1.2.5","depth":4,"path":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","ref":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/premium-podcast-with-cloudflare-workers.md","mtime":"2026-07-17T14:49:37.691Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-07-17T14:58:12.014Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

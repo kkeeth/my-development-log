@@ -2341,6 +2341,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5.1.2.8" data-path="axios-cve-2026-40175-header-injection.html">
+            
+                <a href="axios-cve-2026-40175-header-injection.html">
+            
+                    
+                    axiosにまた脆弱性 ── ヘッダインジェクションでクラウドのメタデータが抜かれる話（CVE-2026-40175）
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2.9" data-path="why-is-cookie-called-cookie.html">
+            
+                <a href="why-is-cookie-called-cookie.html">
+            
+                    
+                    Cookieってなんでクッキーなの？
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -2529,6 +2555,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="縁の下のコード〜保守・運用エンジニアが評価されない理由と変わりつつある現実〜">縁の下のコード〜保守・運用エンジニアが評価されない理由と変わりつつある現実〜</h1>
+<blockquote>
+<p><strong>配信ステータス</strong>：未配信
+<strong>配信URL</strong>：（配信済みになったら記入）</p>
+</blockquote>
 <h2 id="台本">台本</h2>
 <h3 id="オープニング">オープニング</h3>
 <p>【ジングル】
@@ -2538,74 +2568,121 @@
 ちょっとエモい話なんで、まぁ聞いてってください。</p>
 <h3 id="本題">本題</h3>
 <ul>
-<li><p>最近ちょっと気になってることがあって。洗濯機の話から始めてもいいですか。
-うちの洗濯機、底の方に排水フィルターがあって、そこに糸くずとか髪の毛とかが溜まるんですよ。
-定期的に外して掃除しないと排水が詰まる。なんですけど、これ奥さん知らないんですよね。
-別に責めてるわけじゃなくて、知らなくて当然で。なぜかというと、<strong>僕がやってるから</strong>「当たり前に洗濯機が動いてる」んです。
-これ、ITの保守・運用の話にそのまま繋がるなと思ってて。</p>
+<li><p><strong>つかみ：洗濯機の話から</strong></p>
+<ul>
+<li>最近ちょっと気になってることがあって。洗濯機の話から始めてもいいですか</li>
+<li>うちの洗濯機、底の方に排水フィルターがあって、そこに糸くずとか髪の毛とかが溜まる<ul>
+<li>定期的に外して掃除しないと排水が詰まる</li>
+</ul>
 </li>
-<li><p><strong>保守・運用エンジニアって何をしている人たちか</strong>、まず整理すると。
-システムやアプリケーションが<strong>今日も正常に動いていることを担保する人たち</strong>ですよね。
-障害が起きたら即対応する。パフォーマンスが落ちてきたら原因を調べる。
-セキュリティパッチを当てる。ログを見て異常の予兆を拾う。
-表に出ることはほぼない。でもこの人たちがいなかったら、サービスは止まる。</p>
+<li>なんですけど、これ奥さん知らないんですよね<ul>
+<li>別に責めてるわけじゃなくて、知らなくて当然</li>
+<li>なぜかというと、<strong>僕がやってるから</strong>「当たり前に洗濯機が動いてる」</li>
+</ul>
 </li>
-<li><p>で、この人たちの評価が<strong>低いケースが多い</strong>。なぜか。
-一言で言うと「<strong>新しいお金を生まない</strong>」と見られるから。
-新機能をリリースすれば売上が上がるかもしれない。新規事業を立ち上げれば次の柱になるかもしれない。
-でも保守は「今あるものを壊さない」仕事なので、貢献がマイナスを防ぐ方向にしか働かない。
-財務的には見えにくい価値なんですよね。</p>
+<li>これ、ITの保守・運用の話にそのまま繋がるなと思ってて</li>
+</ul>
 </li>
-<li><p>それだけじゃなくて、<strong>悪循環</strong>もある。
-保守にいると新規プロジェクトにアサインされない
-→ 新しい技術に触れる機会が減る
-→ 「最近のこと知らなそう」と思われる
-→ さらにアサインされない
-この負のループにハマっている人、僕の周りにも結構いた。
-能力がないからじゃなくて、<strong>チャンスが与えられていないだけ</strong>のことが多い。</p>
+<li><p><strong>保守・運用エンジニアって何をしている人たちか</strong></p>
+<ul>
+<li>システムやアプリケーションが<strong>今日も正常に動いていることを担保する人たち</strong><ul>
+<li>障害が起きたら即対応する</li>
+<li>パフォーマンスが落ちてきたら原因を調べる</li>
+<li>セキュリティパッチを当てる</li>
+<li>ログを見て異常の予兆を拾う</li>
+</ul>
 </li>
-<li><p>僕の仮説として、もう1個あって。
-「保守ばかりやってる＝チャレンジ意欲がない」という<strong>誤った前提</strong>で判断してる上司・組織が一定数ある。
-ちゃんと自己研鑽してる、新しい技術も追ってる、でもポジションが「保守担当」というだけで次の機会が回ってこない。
-これは完全に<strong>もったいない</strong>と思う。スキルの持ち腐れ。</p>
+<li>表に出ることはほぼない。でもこの人たちがいなかったら、サービスは止まる</li>
+</ul>
 </li>
-<li><p>ただ、<strong>すべての保守エンジニアが評価されないかというと、そうでもない</strong>という話もしておきたい。
-例えばGoogleが提唱した <strong>SRE（Site Reliability Engineering）</strong> というロール。
-「ソフトウェアエンジニアリングの手法で運用問題を解く」というアプローチで、
-保守・運用を<strong>エンジニアリングの仕事として再定義</strong>したんです。
-📎 <a href="https://sre.google/sre-book/eliminating-toil/" target="_blank">https://sre.google/sre-book/eliminating-toil/</a></p>
+<li><p><strong>なぜこの人たちの評価が低いケースが多いのか</strong></p>
+<ul>
+<li>一言で言うと「<strong>新しいお金を生まない</strong>」と見られるから<ul>
+<li>新機能をリリースすれば売上が上がるかもしれない</li>
+<li>新規事業を立ち上げれば次の柱になるかもしれない</li>
+</ul>
 </li>
-<li><p>SREで面白いのが <strong>「Toil（トイル）50%ルール」</strong>。
-Toilというのは「手作業で繰り返し発生する、自動化できるはずの作業」のこと。
-Googleは「SREがToilに費やす時間は全体の50%以下にすること」をルールにしていて、
-残り50%は<strong>自動化・改善・新しいエンジニアリング</strong>に充てるべきだと言っている。
-つまり「保守＝ひたすら手を動かすだけ」ではなく、保守の中にちゃんと<strong>開発・創造の時間を組み込む</strong>設計をしている。</p>
+<li>でも保守は「今あるものを壊さない」仕事なので、貢献がマイナスを防ぐ方向にしか働かない<ul>
+<li>財務的には見えにくい価値</li>
+</ul>
 </li>
-<li><p>もうひとつ面白い概念が <strong>「エラーバジェット」</strong>。
-サービスの「壊れていい許容量」をあらかじめ決めておくやり方で、
-例えば「月間99.9%稼働」を目標にするなら「0.1%=約44分」の停止は許容範囲。
-このバジェットが余ってる間は新機能をどんどんリリースしていい、使い切ったら開発を止めて信頼性改善に集中する。
-これ、<strong>「信頼性」を数字で語れるようにした</strong>というのがすごくて、保守の価値を定量化しているんですよ。
-📎 <a href="https://renue.co.jp/posts/sre-site-reliability-engineering-slo-error-budget-practice-guide" target="_blank">https://renue.co.jp/posts/sre-site-reliability-engineering-slo-error-budget-practice-guide</a></p>
+</ul>
 </li>
-<li><p>日本のコンテキストだと、<strong>「2025年の崖」</strong> って言葉がありましたよね。
-老朽化したレガシーシステムを刷新できないとDXが進まない、という経産省が言った話ですけど、
-その裏で「そのレガシーを今まさに支えている人たち」の存在がある。
-大規模な基幹システムの保守は属人化していて、その人がいなくなったら終わる、というケースが6割以上。
-これって評価が低い話どころか、<strong>組織のリスクそのもの</strong>なんですよね。
-📎 <a href="https://www.seraku.co.jp/tectec-note/feature/hrlp_2025gake/" target="_blank">https://www.seraku.co.jp/tectec-note/feature/hrlp_2025gake/</a></p>
+<li><p><strong>それだけじゃなくて、悪循環もある</strong></p>
+<ul>
+<li>保守にいると新規プロジェクトにアサインされない<ul>
+<li>→ 新しい技術に触れる機会が減る</li>
+<li>→ 「最近のこと知らなそう」と思われる</li>
+<li>→ さらにアサインされない</li>
+</ul>
 </li>
-<li><p>まとめると、保守・運用エンジニアの置かれている状況って3パターンある気がしていて。
-① 実際にスキルアップをサボっていて評価が低い（これは正直な話）
-② スキルはあるのに、ポジションのせいでチャンスが回ってこないという構造的な問題
-③ SREみたいなアプローチで保守を再定義して、ちゃんと評価されているケース
-日本の多くの会社は②が多いんじゃないかな、というのが僕の仮説。</p>
+<li>この負のループにハマっている人、僕の周りにも結構いた</li>
+<li>能力がないからじゃなくて、<strong>チャンスが与えられていないだけ</strong>のことが多い</li>
+</ul>
 </li>
-<li><p>最後に言いたいのは、<strong>「当たり前を当たり前にできる人」はすごい</strong>ということ。
-洗濯機が動く、サービスが止まらない、メールが届く。
-誰かがそれを支えているから「当たり前」になっている。
-それを「目に見えないから価値がない」ではなくて、「目に見えないからこそきちんと評価する仕組み」が必要だと思う。
-SREのエラーバジェットみたいに、「信頼性を数字にする」という方向性はその一つの答えだと思います。</p>
+<li><p><strong>僕の仮説：もう1個ある</strong></p>
+<ul>
+<li>「保守ばかりやってる＝チャレンジ意欲がない」という<strong>誤った前提</strong>で判断してる上司・組織が一定数ある</li>
+<li>ちゃんと自己研鑽してる、新しい技術も追ってる、でもポジションが「保守担当」というだけで次の機会が回ってこない</li>
+<li>これは完全に<strong>もったいない</strong>と思う。スキルの持ち腐れ</li>
+</ul>
+</li>
+<li><p><strong>すべての保守エンジニアが評価されないかというと、そうでもない</strong></p>
+<ul>
+<li>例えばGoogleが提唱した <strong>SRE（Site Reliability Engineering）</strong> というロール</li>
+<li>「ソフトウェアエンジニアリングの手法で運用問題を解く」というアプローチ</li>
+<li>保守・運用を<strong>エンジニアリングの仕事として再定義</strong>した</li>
+<li>📎 <a href="https://sre.google/sre-book/eliminating-toil/" target="_blank">https://sre.google/sre-book/eliminating-toil/</a></li>
+</ul>
+</li>
+<li><p><strong>SREで面白い「Toil（トイル）50%ルール」</strong></p>
+<ul>
+<li>Toilというのは「手作業で繰り返し発生する、自動化できるはずの作業」のこと</li>
+<li>Googleは「SREがToilに費やす時間は全体の50%以下にすること」をルールにしている<ul>
+<li>残り50%は<strong>自動化・改善・新しいエンジニアリング</strong>に充てるべき</li>
+</ul>
+</li>
+<li>つまり「保守＝ひたすら手を動かすだけ」ではなく、保守の中にちゃんと<strong>開発・創造の時間を組み込む</strong>設計をしている</li>
+</ul>
+</li>
+<li><p><strong>もうひとつ面白い概念「エラーバジェット」</strong></p>
+<ul>
+<li>サービスの「壊れていい許容量」をあらかじめ決めておくやり方<ul>
+<li>例えば「月間99.9%稼働」を目標にするなら「0.1%=約44分」の停止は許容範囲</li>
+<li>このバジェットが余ってる間は新機能をどんどんリリースしていい</li>
+<li>使い切ったら開発を止めて信頼性改善に集中する</li>
+</ul>
+</li>
+<li><strong>「信頼性」を数字で語れるようにした</strong>というのがすごくて、保守の価値を定量化している</li>
+<li>📎 <a href="https://renue.co.jp/posts/sre-site-reliability-engineering-slo-error-budget-practice-guide" target="_blank">https://renue.co.jp/posts/sre-site-reliability-engineering-slo-error-budget-practice-guide</a></li>
+</ul>
+</li>
+<li><p><strong>日本のコンテキスト：「2025年の崖」</strong></p>
+<ul>
+<li>老朽化したレガシーシステムを刷新できないとDXが進まない、という経産省が言った話</li>
+<li>その裏で「そのレガシーを今まさに支えている人たち」の存在がある<ul>
+<li>大規模な基幹システムの保守は属人化していて、その人がいなくなったら終わる、というケースが6割以上</li>
+</ul>
+</li>
+<li>これって評価が低い話どころか、<strong>組織のリスクそのもの</strong></li>
+<li>📎 <a href="https://www.seraku.co.jp/tectec-note/feature/hrlp_2025gake/" target="_blank">https://www.seraku.co.jp/tectec-note/feature/hrlp_2025gake/</a></li>
+</ul>
+</li>
+<li><p><strong>まとめ：保守・運用エンジニアの置かれている状況は3パターン</strong></p>
+<ul>
+<li>① 実際にスキルアップをサボっていて評価が低い（これは正直な話）</li>
+<li>② スキルはあるのに、ポジションのせいでチャンスが回ってこないという構造的な問題</li>
+<li>③ SREみたいなアプローチで保守を再定義して、ちゃんと評価されているケース</li>
+<li>日本の多くの会社は②が多いんじゃないかな、というのが僕の仮説</li>
+</ul>
+</li>
+<li><p><strong>最後に言いたいこと：「当たり前を当たり前にできる人」はすごい</strong></p>
+<ul>
+<li>洗濯機が動く、サービスが止まらない、メールが届く</li>
+<li>誰かがそれを支えているから「当たり前」になっている</li>
+<li>それを「目に見えないから価値がない」ではなくて、「目に見えないからこそきちんと評価する仕組み」が必要</li>
+<li>SREのエラーバジェットみたいに、「信頼性を数字にする」という方向性はその一つの答えだと思う</li>
+</ul>
 </li>
 </ul>
 <h3 id="エンディング">エンディング</h3>
@@ -2657,7 +2734,7 @@ SREのエラーバジェットみたいに、「信頼性を数字にする」�
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"保守業務，当たり前のことを当たり前に保つ人にフォーカスを","level":"1.5.1.2.3","depth":4,"next":{"title":"Stripeの決済は見えないところで何度も試みている 〜リトライロジックの美学〜","level":"1.5.1.2.4","depth":4,"path":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","ref":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","articles":[]},"previous":{"title":"404 Not Found の誕生秘話","level":"1.5.1.2.2","depth":4,"path":"PODCASTS/WEB小噺/Season5/404_notfound.md","ref":"PODCASTS/WEB小噺/Season5/404_notfound.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","mtime":"2026-04-12T02:24:40.319Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-04-12T13:17:54.156Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"保守業務，当たり前のことを当たり前に保つ人にフォーカスを","level":"1.5.1.2.3","depth":4,"next":{"title":"Stripeの決済は見えないところで何度も試みている 〜リトライロジックの美学〜","level":"1.5.1.2.4","depth":4,"path":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","ref":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","articles":[]},"previous":{"title":"404 Not Found の誕生秘話","level":"1.5.1.2.2","depth":4,"path":"PODCASTS/WEB小噺/Season5/404_notfound.md","ref":"PODCASTS/WEB小噺/Season5/404_notfound.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","mtime":"2026-07-17T14:48:39.356Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-07-17T14:58:12.014Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

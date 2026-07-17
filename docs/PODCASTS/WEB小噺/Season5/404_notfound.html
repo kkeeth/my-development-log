@@ -2341,6 +2341,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5.1.2.8" data-path="axios-cve-2026-40175-header-injection.html">
+            
+                <a href="axios-cve-2026-40175-header-injection.html">
+            
+                    
+                    axiosにまた脆弱性 ── ヘッダインジェクションでクラウドのメタデータが抜かれる話（CVE-2026-40175）
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2.9" data-path="why-is-cookie-called-cookie.html">
+            
+                <a href="why-is-cookie-called-cookie.html">
+            
+                    
+                    Cookieってなんでクッキーなの？
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -2529,8 +2555,14 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="404エラーはcernの部屋番号だった？">404エラーはCERNの部屋番号だった？</h1>
-<h2 id="導入">導入</h2>
-<p>はい、どうもこんにちは。「雨宿りとWEBの小噺」、始まりました。Keethこと桑原です。
+<blockquote>
+<p><strong>配信ステータス</strong>：未配信
+<strong>配信URL</strong>：（配信済みになったら記入）</p>
+</blockquote>
+<h2 id="台本">台本</h2>
+<h3 id="オープニング">オープニング</h3>
+<p>【ジングル】
+はい、どうもこんにちは。「雨宿りとWEBの小噺」、始まりました。Keethこと桑原です。
 この番組では、Webテクノロジーの歴史や裏側にある、ちょっとした小噺を紹介しています。</p>
 <ul>
 <li>リンクをクリックして「404 Not Found」って出たこと、ありますよね？<ul>
@@ -2540,11 +2572,15 @@
 </li>
 <li>今日はこの404エラーの誕生について話します。</li>
 </ul>
-<h2 id="都市伝説の紹介">都市伝説の紹介</h2>
+<h3 id="本題">本題</h3>
+<ul>
+<li><p><strong>都市伝説の紹介：Room 404の物語</strong></p>
 <ul>
 <li>まず、インターネット上で広まっているエピソード<ul>
 <li>2000年代初頭から広まった話によると、こんな感じ</li>
 <li>1980年代後半、スイスのCERN（欧州原子核研究機構）で、若い科学者たちがWorld Wide Webの開発に取り組んでいた</li>
+</ul>
+</li>
 <li>彼らは建物の4階、部屋番号404にWebの中央データベースを設置した<ul>
 <li>当時はまだいろんなことが自動化されていなく、ファイルのリクエストが来ると、その部屋にいる2〜3人のスタッフが手動でファイルを探して転送していた</li>
 <li>でも、存在しないファイルや、間違ったファイル名でリクエストが来ることもよくあった</li>
@@ -2559,105 +2595,226 @@
 <li>そして、その部屋404は「Webが生まれた場所」として保存されているというストーリー</li>
 </ul>
 </li>
+<li>この話を最初読んだ時、まだ技術が人の手で育てられていた時代の温かみを感じるなぁと。エラーコードにさえ、こんな物語があるのかと<ul>
+<li>昨今の生成AI全盛の流れとは全然違うのも妙に自分に刺さった</li>
+<li>とはいえ、ネットで広まった作り話で、今では否定されている説</li>
 </ul>
 </li>
 </ul>
-<p>この話を最初読んだ時，まだ技術が人の手で育てられていた時代の温かみを感じるなぁと．エラーコードにさえ、こんな物語があるのかと．昨今の生成 AI 全盛の流れとは全然違うのも妙に自分に刺さった．とはいえ，ネットで広まった作り話で、今では否定されている説</p>
-<h2 id="実際に行った人の証言">実際に行った人の証言</h2>
-<p>ところが、です。
-実際にCERNを訪れた人たちが、この物語に疑問を投げかけ始めました。
-「CERNの部屋番号システムは、そんな風に機能していない」と。
-CERNでは、最初の数字が建物番号を、次の2桁が部屋番号を示します。つまり「404」なら、建物4の04号室という意味になる。でも、不思議なことに建物4には「04」号室が存在しない。部屋番号は410から始まるんです。
-つまり、Room 404はCERNに存在しない。
-それどころか、Webが生まれた場所として保存されている部屋もない。この「Room 404の物語」は、完全な都市伝説だったんです。</p>
-<p>【当事者の証言：Robert Cailliauの「ため息」】(2分30秒)
-この都市伝説について、World Wide Webの共同開発者の一人、Robert Cailliau（ロベール・カイヨー）さんに、2017年にWIREDがインタビューしました。
-彼の反応は？「はぁ...」という、ため息混じりの一言から始まりました。
-Cailliauさんは断言しました。「404は決して、CERNのどの部屋とも、どの物理的な場所とも関連していない。完全な神話だ」と。
-彼は続けます。「新しいシステムのコードを書くとき、エラーを検出する状況で長いメッセージを書くのに時間を無駄にしない」。
-当時はメモリが貴重だった時代。長いエラーメッセージは非現実的でした。「64KBのメモリでプログラムを組んでいた時代を、現代のギークたちは想像すらできない」とCailliauさんは言います。
-そこで解決策はシンプルでした。エラーのカテゴリーごとに数値の範囲を割り当てる。これは、Cailliauさんの言葉を借りれば「プログラマーの気まぐれによって」決められました。
-クライアントエラーは400番台に分類された。だから「404」は、「not found」（見つからない）を表す、比較的恣意的な割り当てだったんです。</p>
-<p>【本当の由来：HTTPステータスコードの設計】(2分)
-では、本当の由来は何だったのか？
-HTTPステータスコードは、1990年にTim Berners-Lee（ティム・バーナーズ＝リー）によって定義され、その後の仕様作成で整理され，World Wide Web Consortium（W3C）によって正式に確立されました。
-Berners-Leeは、すでに確立されていたFTP（ファイル転送プロトコル）のステータスコードを基にしました。1980年代に標準化されたFTPのステータスコードを参考にしつつ、実際にはもっと前から使われていました。
-「404」を分解してみましょう。
-最初の「4」: クライアント側のエラーを示します。つまり「あなた（ユーザー）が何か間違えた」という意味。逆に「5」で始まるとサーバー側のエラーです。
-真ん中の「0」: 真ん中の『0』は、400番台の中でも比較的ベーシックな種類のエラーとしてグループ化された数字だと考えられています
-最後の「4」: 400番台の中の特定のエラー、つまり「not found」を示します。
-他にも400番台には、400（Bad Request）、401（Unauthorized）、403（Forbidden）などがあります。全部、クライアント側のエラーですね。
-つまり、404は単に「プログラマーが便利だと思った番号体系の中で、たまたまnot foundに割り当てられた番号」だったんです。</p>
-<p>【404の革命的な意味】(2分30秒)
-でも、404エラーの存在自体は、実は革命的なアイデアだったんです。
-それまでのハイパーテキストシステムは、すべてのリンクがどこかに通じることを保証していました。新しいリンクは、中央のデータベースに登録される必要がありました。
-Berners-Leeは、この考えを180度ひっくり返しました。「リンクの検証なんてしない」と。
-新しいWorld Wide Webでは、リンクの情報はリンクを含むドキュメントにだけ存在します。リンク先のドキュメントが移動したり削除されたりしても、それはリンク元の責任。更新してもいいし、しなくてもいい。
-もちろん、この仕組みだと、存在しないデータを指すリンクが生まれる可能性があります。だから404エラーが必要になった。
-Berners-Leeは、「コンテンツが存在しない」という概念を受け入れて、それを仕組みの一部にしたんです。
-Popular Mechanicsの記事は、これを「404は、ハイパーテキストにとって、ゼロが数学にとってやったことと同じことをした」と表現しています。ある意味では当たり前なんだけど、それを形式化して表記法を作ることで、システム全体に革命をもたらした、と。
-この「リンク切れを許容する」設計があったからこそ、Webは爆発的に成長できたんです。誰の許可も取らずに、どこへでもリンクを張れる。もしリンク先がなくなっても、それは404エラーで処理される。</p>
-<p>【なぜ都市伝説は生まれたのか】(2分)
-でも、なぜこんな魅力的な都市伝説が生まれたんでしょう？
-Cailliauさんは、少し皮肉を込めてこう言います。「おそらく、人間という種に共通する、非合理性、証拠の否定、そして現実よりもおとぎ話を好む傾向によるものだろう」。
-404エラーは、私たちにとって身近すぎる存在です。誰もが経験する、ちょっとしたイライラ。そんな日常的なものに、ロマンティックな起源があったら素敵じゃないですか。
-「小さな部屋で、若い科学者たちが夜遅くまで働いて、手動でファイルを探していた」。その努力の記憶として、404という番号が残った。この物語には、技術の温かみがあるんです。
-でも現実は、もっとシンプルでした。プログラマーが気まぐれに決めた、エラーコード体系の中の一つの番号。メモリ節約のために、短い数字で表現した、ただそれだけ。</p>
-<p>【404の文化的影響】(1分30秒)
-面白いことに、404は技術の枠を超えて、文化的な存在になりました。
-「404」は今や、「存在しない」「見つからない」を表す普遍的な表現になっています。
-面白くないジョークに対して「404: Humor Not Found」
-なくした鍵や盗まれた物に「404」
-脱獄した囚人にさえ「404」
-企業は404エラーページをクリエイティブにデザインして、ブランドの個性を表現します。Spotifyはカニエ・ウェストの「808s and Heartbreak」をもじって「404s and Heartbreak」と表示したり。
-404をモチーフにしたTシャツやグッズまで売られています。本や漫画、ミームにも登場する。404は、デジタル文化のアイコンになったんです。</p>
-<p>【クロージング：真実とロマンスと】(1分30秒)
-というわけで、404エラーのRoom 404説は、残念ながら都市伝説でした。
-でも、私はこの都市伝説が嫌いじゃないんです。むしろ、この物語が生まれて広まったこと自体が、404エラーの文化的な影響力を示しているんじゃないかと思います。
-技術的な真実は、シンプルでちょっと味気ない。プログラマーの気まぐれで決まった番号。メモリを節約するための数字。
-でも、その数字が革命を起こした。リンク切れを許容することで、Webは自由に成長できた。そして今、404は単なるエラーコードを超えて、「ない」を表す普遍的な言葉になった。
-真実はロマンティックじゃないかもしれないけど、404が歩んできた道のりは、十分にドラマチックだと思いませんか？
-次に404エラーに出会ったら、この小さな数字が持つ大きな物語を、ちょっと思い出してみてください。そして、企業のクリエイティブな404ページを楽しんでいただければと思います。
-今日の小噺は以上です。それでは、また次回お会いしましょう。</p>
-<p>📚 参考情報
-主要な事実
-HTTPステータスコードは1990年にTim Berners-Leeによって定義
-1992年にW3Cによって正式化
-FTPステータスコードを基に設計
-4xx = クライアントエラー、5xx = サーバーエラー
-404の真ん中の「0」= 一般的な構文エラー
-Room 404神話の否定
-CERNにRoom 404は存在しない
-CERNの部屋番号は「建物番号+部屋番号」方式
-建物4の部屋は410から始まる
-Robert Cailliauが複数のインタビューで否定
-404の文化的影響
-エラーコードを超えた普遍的な表現に
-ミーム、商品、カスタム404ページ
-「存在しない」を表す言葉として定着
-引用元
-WIRED &quot;Page Not Found: A Brief History of the 404 Error&quot; (2017)
-Popular Mechanics &quot;How the 404 Error Created the World Wide Web&quot; (2019)
-Robert Cailliau（WWW共同開発者）の証言</p>
-<p>🎙️ 収録メモ
-トーン
-冒頭：興味を引く、ミステリアス
-都市伝説部分：ロマンティック、ワクワク感
-真実部分：少し残念だけど、新しい発見
-技術部分：敬意を込めて、でも分かりやすく
-クロージング：肯定的、温かみ
-強調ポイント
-「Room 404は存在しない」
-「プログラマーの気まぐれ」
-「404の革命的な意味」
-「リンク切れを許容する設計」
-尺
-合計: 約19〜21分
-オープニング: 1分
-本編: 17〜18分
-クロージング: 1分30秒</p>
-<p>タグ</p>
-<h1 id="404エラー-http-cern-timbernerslee-都市伝説-web歴史-インターネット-ステータスコード">404エラー #HTTP #CERN #TimBernersLee #都市伝説 #Web歴史 #インターネット #ステータスコード</h1>
+</li>
+<li><p><strong>実際に行った人の証言</strong></p>
+<ul>
+<li>ところが、です。実際にCERNを訪れた人たちが、この物語に疑問を投げかけ始めた<ul>
+<li>「CERNの部屋番号システムは、そんな風に機能していない」と</li>
+</ul>
+</li>
+<li>CERNの部屋番号の仕組み<ul>
+<li>最初の数字が建物番号を、次の2桁が部屋番号を示す</li>
+<li>つまり「404」なら、建物4の04号室という意味になる</li>
+<li>でも、不思議なことに建物4には「04」号室が存在しない。部屋番号は410から始まる</li>
+</ul>
+</li>
+<li>つまり、Room 404はCERNに存在しない<ul>
+<li>それどころか、Webが生まれた場所として保存されている部屋もない</li>
+<li>この「Room 404の物語」は、完全な都市伝説だった</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>当事者の証言：Robert Cailliauの「ため息」</strong></p>
+<ul>
+<li>World Wide Webの共同開発者の一人、Robert Cailliau（ロベール・カイヨー）さんに、2017年にWIREDがインタビュー<ul>
+<li>彼の反応は？「はぁ...」という、ため息混じりの一言から始まった</li>
+</ul>
+</li>
+<li>Cailliauさんの断言：「404は決して、CERNのどの部屋とも、どの物理的な場所とも関連していない。完全な神話だ」</li>
+<li>「新しいシステムのコードを書くとき、エラーを検出する状況で長いメッセージを書くのに時間を無駄にしない」<ul>
+<li>当時はメモリが貴重だった時代。長いエラーメッセージは非現実的だった</li>
+<li>「64KBのメモリでプログラムを組んでいた時代を、現代のギークたちは想像すらできない」とCailliauさん</li>
+</ul>
+</li>
+<li>解決策はシンプル：エラーのカテゴリーごとに数値の範囲を割り当てる<ul>
+<li>これは、Cailliauさんの言葉を借りれば「プログラマーの気まぐれによって」決められた</li>
+<li>クライアントエラーは400番台に分類された</li>
+<li>だから「404」は、「not found」（見つからない）を表す、比較的恣意的な割り当てだった</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>本当の由来：HTTPステータスコードの設計</strong></p>
+<ul>
+<li>HTTPステータスコードは、1990年にTim Berners-Lee（ティム・バーナーズ＝リー）によって定義された<ul>
+<li>その後の仕様作成で整理され、World Wide Web Consortium（W3C）によって正式に確立</li>
+</ul>
+</li>
+<li>Berners-Leeは、すでに確立されていたFTP（ファイル転送プロトコル）のステータスコードを基にした<ul>
+<li>1980年代に標準化されたFTPのステータスコードを参考にしつつ、実際にはもっと前から使われていた</li>
+</ul>
+</li>
+<li>「404」を分解してみると<ul>
+<li>最初の「4」：クライアント側のエラーを示す。つまり「あなた（ユーザー）が何か間違えた」という意味。逆に「5」で始まるとサーバー側のエラー</li>
+<li>真ん中の「0」：400番台の中でも比較的ベーシックな種類のエラーとしてグループ化された数字だと考えられている</li>
+<li>最後の「4」：400番台の中の特定のエラー、つまり「not found」を示す</li>
+</ul>
+</li>
+<li>他にも400番台には、400（Bad Request）、401（Unauthorized）、403（Forbidden）などがある。全部、クライアント側のエラー</li>
+<li>つまり、404は単に「プログラマーが便利だと思った番号体系の中で、たまたまnot foundに割り当てられた番号」だった</li>
+</ul>
+</li>
+<li><p><strong>404の革命的な意味</strong></p>
+<ul>
+<li>でも、404エラーの存在自体は、実は革命的なアイデアだった</li>
+<li>それまでのハイパーテキストシステムは、すべてのリンクがどこかに通じることを保証していた<ul>
+<li>新しいリンクは、中央のデータベースに登録される必要があった</li>
+</ul>
+</li>
+<li>Berners-Leeは、この考えを180度ひっくり返した。「リンクの検証なんてしない」と<ul>
+<li>新しいWorld Wide Webでは、リンクの情報はリンクを含むドキュメントにだけ存在する</li>
+<li>リンク先のドキュメントが移動したり削除されたりしても、それはリンク元の責任。更新してもいいし、しなくてもいい</li>
+</ul>
+</li>
+<li>この仕組みだと、存在しないデータを指すリンクが生まれる可能性がある。だから404エラーが必要になった<ul>
+<li>Berners-Leeは、「コンテンツが存在しない」という概念を受け入れて、それを仕組みの一部にした</li>
+</ul>
+</li>
+<li>Popular Mechanicsの記事：「404は、ハイパーテキストにとって、ゼロが数学にとってやったことと同じことをした」<ul>
+<li>ある意味では当たり前なんだけど、それを形式化して表記法を作ることで、システム全体に革命をもたらした</li>
+</ul>
+</li>
+<li>この「リンク切れを許容する」設計があったからこそ、Webは爆発的に成長できた<ul>
+<li>誰の許可も取らずに、どこへでもリンクを張れる。もしリンク先がなくなっても、それは404エラーで処理される</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>なぜ都市伝説は生まれたのか</strong></p>
+<ul>
+<li>Cailliauさんは、少し皮肉を込めてこう言う<ul>
+<li>「おそらく、人間という種に共通する、非合理性、証拠の否定、そして現実よりもおとぎ話を好む傾向によるものだろう」</li>
+</ul>
+</li>
+<li>404エラーは、私たちにとって身近すぎる存在<ul>
+<li>誰もが経験する、ちょっとしたイライラ。そんな日常的なものに、ロマンティックな起源があったら素敵じゃないですか</li>
+</ul>
+</li>
+<li>「小さな部屋で、若い科学者たちが夜遅くまで働いて、手動でファイルを探していた」<ul>
+<li>その努力の記憶として、404という番号が残った。この物語には、技術の温かみがある</li>
+</ul>
+</li>
+<li>でも現実は、もっとシンプルだった<ul>
+<li>プログラマーが気まぐれに決めた、エラーコード体系の中の一つの番号</li>
+<li>メモリ節約のために、短い数字で表現した、ただそれだけ</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>404の文化的影響</strong></p>
+<ul>
+<li>面白いことに、404は技術の枠を超えて、文化的な存在になった</li>
+<li>「404」は今や、「存在しない」「見つからない」を表す普遍的な表現に<ul>
+<li>面白くないジョークに対して「404: Humor Not Found」</li>
+<li>なくした鍵や盗まれた物に「404」</li>
+<li>脱獄した囚人にさえ「404」</li>
+</ul>
+</li>
+<li>企業は404エラーページをクリエイティブにデザインして、ブランドの個性を表現<ul>
+<li>Spotifyはカニエ・ウェストの「808s and Heartbreak」をもじって「404s and Heartbreak」と表示したり</li>
+</ul>
+</li>
+<li>404をモチーフにしたTシャツやグッズまで売られている<ul>
+<li>本や漫画、ミームにも登場する。404は、デジタル文化のアイコンになった</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>クロージング：真実とロマンスと</strong></p>
+<ul>
+<li>というわけで、404エラーのRoom 404説は、残念ながら都市伝説でした</li>
+<li>でも、私はこの都市伝説が嫌いじゃない<ul>
+<li>この物語が生まれて広まったこと自体が、404エラーの文化的な影響力を示しているんじゃないか</li>
+</ul>
+</li>
+<li>技術的な真実は、シンプルでちょっと味気ない<ul>
+<li>プログラマーの気まぐれで決まった番号。メモリを節約するための数字</li>
+</ul>
+</li>
+<li>でも、その数字が革命を起こした<ul>
+<li>リンク切れを許容することで、Webは自由に成長できた</li>
+<li>そして今、404は単なるエラーコードを超えて、「ない」を表す普遍的な言葉になった</li>
+</ul>
+</li>
+<li>真実はロマンティックじゃないかもしれないけど、404が歩んできた道のりは、十分にドラマチックだと思いませんか？</li>
+<li>次に404エラーに出会ったら、この小さな数字が持つ大きな物語を、ちょっと思い出してみてください<ul>
+<li>そして、企業のクリエイティブな404ページを楽しんでいただければと思います</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="エンディング">エンディング</h3>
+<p>【ジングル】
+今日の小噺は以上です。それでは、また次回お会いしましょう。
+【ジングル】</p>
+<h2 id="📚-参考情報">📚 参考情報</h2>
+<ul>
+<li>主要な事実<ul>
+<li>HTTPステータスコードは1990年にTim Berners-Leeによって定義</li>
+<li>1992年にW3Cによって正式化</li>
+<li>FTPステータスコードを基に設計</li>
+<li>4xx = クライアントエラー、5xx = サーバーエラー</li>
+<li>404の真ん中の「0」= 一般的な構文エラー</li>
+</ul>
+</li>
+<li>Room 404神話の否定<ul>
+<li>CERNにRoom 404は存在しない</li>
+<li>CERNの部屋番号は「建物番号+部屋番号」方式</li>
+<li>建物4の部屋は410から始まる</li>
+<li>Robert Cailliauが複数のインタビューで否定</li>
+</ul>
+</li>
+<li>404の文化的影響<ul>
+<li>エラーコードを超えた普遍的な表現に</li>
+<li>ミーム、商品、カスタム404ページ</li>
+<li>「存在しない」を表す言葉として定着</li>
+</ul>
+</li>
+<li>引用元<ul>
+<li>📎 WIRED &quot;Page Not Found: A Brief History of the 404 Error&quot; (2017)</li>
+<li>📎 Popular Mechanics &quot;How the 404 Error Created the World Wide Web&quot; (2019)</li>
+<li>📎 Robert Cailliau（WWW共同開発者）の証言</li>
+</ul>
+</li>
+</ul>
+<h2 id="🎙️-収録メモ">🎙️ 収録メモ</h2>
+<ul>
+<li>トーン<ul>
+<li>冒頭：興味を引く、ミステリアス</li>
+<li>都市伝説部分：ロマンティック、ワクワク感</li>
+<li>真実部分：少し残念だけど、新しい発見</li>
+<li>技術部分：敬意を込めて、でも分かりやすく</li>
+<li>クロージング：肯定的、温かみ</li>
+</ul>
+</li>
+<li>強調ポイント<ul>
+<li>「Room 404は存在しない」</li>
+<li>「プログラマーの気まぐれ」</li>
+<li>「404の革命的な意味」</li>
+<li>「リンク切れを許容する設計」</li>
+</ul>
+</li>
+<li>尺<ul>
+<li>合計: 約19〜21分</li>
+<li>オープニング: 1分</li>
+<li>本編: 17〜18分</li>
+<li>クロージング: 1分30秒</li>
+</ul>
+</li>
+<li>タグ<ul>
+<li><h1 id="404エラー-http-cern-timbernerslee-都市伝説-web歴史-インターネット-ステータスコード">404エラー #HTTP #CERN #TimBernersLee #都市伝説 #Web歴史 #インターネット #ステータスコード</h1>
+</li>
+</ul>
+</li>
+</ul>
 
                                 
                                 </section>
@@ -2701,7 +2858,7 @@ Robert Cailliau（WWW共同開発者）の証言</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"404 Not Found の誕生秘話","level":"1.5.1.2.2","depth":4,"next":{"title":"保守業務，当たり前のことを当たり前に保つ人にフォーカスを","level":"1.5.1.2.3","depth":4,"path":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","ref":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","articles":[]},"previous":{"title":"GitHub Copilot の弱いと思うところ","level":"1.5.1.2.1","depth":4,"path":"PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md","ref":"PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/404_notfound.md","mtime":"2026-04-12T03:06:21.721Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-04-12T13:17:54.156Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"404 Not Found の誕生秘話","level":"1.5.1.2.2","depth":4,"next":{"title":"保守業務，当たり前のことを当たり前に保つ人にフォーカスを","level":"1.5.1.2.3","depth":4,"path":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","ref":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","articles":[]},"previous":{"title":"GitHub Copilot の弱いと思うところ","level":"1.5.1.2.1","depth":4,"path":"PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md","ref":"PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/404_notfound.md","mtime":"2026-07-17T14:48:02.068Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-07-17T14:58:12.014Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
