@@ -156,6 +156,8 @@
       - [JSONを「発明」した男は「俺は発見しただけだ」と言った](PODCASTS/WEB小噺/Season5/json-inventor-douglas-crockford.md)
       - [axiosにまた脆弱性 ── ヘッダインジェクションでクラウドのメタデータが抜かれる話（CVE-2026-40175）](PODCASTS/WEB小噺/Season5/axios-cve-2026-40175-header-injection.md)
       - [Cookieってなんでクッキーなの？](PODCASTS/WEB小噺/Season5/why-is-cookie-called-cookie.md)
+      - [Rubyの名前に隠された宝石の秘密](PODCASTS/WEB小噺/Season5/ruby-name-origin-gem-secret.md)
+      - [PHP作者は元々Perl使いだった](PODCASTS/WEB小噺/Season5/php-creator-was-a-perl-user.md))
   - すきより
     - [好きな漫画「数学教師もげきはじめの考察」](PODCASTS/すきより/mogeki_hajime.md)
     - [デリック・ローズ選手の魅力](PODCASTS/すきより/delick_rose.md)

@@ -12,7 +12,7 @@
 
 この番組では、Webテクノロジーの歴史や裏側にある、ちょっとした小噺を紹介しています。
 
-今回のお題は「Next.js の待ち時間にキレて JS ランタイムを自作した話──Bun の誕生から Anthropic 買収まで」です
+今回のお題は「Next.js の待ち時間にキレて JS ランタイムを自作した話──Bun の誕生から Anthropic 買収まで」です。
 
 ### 本題
 
@@ -24,7 +24,6 @@
   - 日本でも馴染みの深い決済 SaaS の Stripe で働いていたエンジニアが個人プロジェクトとして作り始めた
   - 開発動機がユニーク：Minecraft 風のボクセルゲームをブラウザで作っていたところ、Next.js の hot reload が毎回 45 秒かかってイライラした
   - 「待てない」という欲求不満が、JS ランタイムをゼロから自作するという行動に結びついた
-  - 📎 https://www.infoworld.com/article/2338698/interview-with-jarred-sumner-buns-creator-talks-tech-funding-and-startups.html
 
 - **V8 ではなく JavaScriptCore を採用した理由**
   - Node.js や Deno が使う V8 は Chrome のエンジン。Bun は Safari が持つ JavaScriptCore（JSCore）を採用
@@ -41,13 +40,11 @@
   - 2021 年 5 月に最初のツイートで存在を公開
   - 2022 年 7 月に v0.1 をリリース。その直後、シリコンバレーの老舗 VC Kleiner Perkins（Google や Amazon にも初期投資した）から 700 万ドル（約 10 億円）を調達
   - 2023 年 9 月に v1.0 がリリースされ「Node.js 終わったな」と Web 界隈がざわついた
-  - 📎 https://bun.com/blog/bun-v1.0
 
 - **2025 年 12 月、Anthropic に買収される**
   - AI コーディングツール Claude Code の基盤ランタイムとして採用されることが決まり、Anthropic が Bun を買収
   - 「JS ランタイムが AI 企業に買収される」という異色のニュースとして話題になった
   - Bun はオープンソース・MIT ライセンスを維持したまま、Anthropic の傘下で開発が続いている
-  - 📎 https://bun.com/blog/bun-joins-anthropic
 
 - **Bun の「全部入り」設計が Node.js と根本的に違う部分**
   - Node.js はランタイムだけを提供し、パッケージ管理（npm）、テスト（Jest）、バンドル（webpack）は別ツールで揃える必要があった
@@ -59,21 +56,58 @@
   - Node.js API の約 95% をカバーしており、ほとんどのプロジェクトは設定を少し変えるだけで動く
   - ただし、C++ で書かれたネイティブアドオン（node-gyp を使うもの）は一部非対応
   - 「まずパッケージマネージャだけ Bun に替える」段階的移行が現実的
-  - 📎 https://bun.sh/docs/runtime/nodejs-apis
 
 ### エンディング
 
 【エンディングBGM】
-さて、そろそろ今回もクロージングです
+さて、そろそろ今回もクロージングです。
 今回は Bun の誕生秘話と、Node.js との違いについて話しました。
 
 「ゲームの hot reload が遅い」という欲求不満が JS ランタイムを生んで、それが 10 億円調達されて、AI 企業に買収される──Web の世界はやっぱり面白いですね。
 
 次回も、Webテクノロジーの小噺をお届けします。
 
-この番組が気に入った方は、ぜひチャンネル登録をお願いします．
-また，あなたからの感想やリクエストもお待ちしております！
-𝕏で #WEB小噺 をつけて投稿していただくか，概要欄のお便りフォームからお送りください．
+この番組が気に入った方は、ぜひチャンネル登録をお願いします。
+また、あなたからの感想やリクエストもお待ちしております！
+𝕏で #WEB小噺 をつけて投稿していただくか、概要欄のお便りフォームからお送りください。
 
 それでは、また次回の雨宿りでお会いしましょう！「雨宿りとWEBの小噺」お相手は Keeth でした。さようなら！
 【ジングル】
+
+## 📚 参考情報
+
+- Bunの誕生経緯
+  - 作者は元Stripeのフロントエンドエンジニア Jarred Sumner
+  - Next.jsのhot reloadの遅さ（毎回45秒）への欲求不満が開発の発端
+  - 2021年5月に存在を公開、2022年7月にv0.1リリース、2023年9月にv1.0リリース
+- 技術的な特徴
+  - V8ではなくSafari由来のJavaScriptCore（JSCore）を採用。起動時間はNode.jsの約10倍速い
+  - 実装言語はC言語に近い低レベル言語Zig
+  - ランタイム・パッケージマネージャ・テストランナー・バンドラーを1つに統合
+  - Node.js APIの約95%をカバー
+- 資金調達と買収
+  - 2022年、Kleiner Perkinsなどから700万ドル（約10億円）を調達
+  - 2025年12月、Claude Codeの基盤ランタイムとしてAnthropicが買収。MITライセンスは維持
+- 引用元
+  - 📎 https://www.infoworld.com/article/2338698/interview-with-jarred-sumner-buns-creator-talks-tech-funding-and-startups.html
+  - 📎 https://bun.com/blog/bun-v1.0
+  - 📎 https://bun.com/blog/bun-joins-anthropic
+  - 📎 https://bun.sh/docs/runtime/nodejs-apis
+
+## 🎙️ 収録メモ
+
+- トーン
+  - 冒頭：軽快、興味を引く
+  - 技術解説部分：テンポよく、比較を強調
+  - Anthropic買収の下り：驚き、ちょっとした感慨
+- 強調ポイント
+  - 「Next.jsのhot reloadの遅さにキレた」という開発動機
+  - V8ではなくJavaScriptCoreを選んだ理由
+  - Anthropicによる買収という異色の展開
+- 尺
+  - 合計：約9〜11分
+  - オープニング：30秒
+  - 本編：8〜10分
+  - クロージング：30秒
+- タグ
+  - #Bun #Nodejs #JavaScript #JSランタイム #Anthropic #ClaudeCode #Web歴史

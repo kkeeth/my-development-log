@@ -2365,6 +2365,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5.1.2.10" data-path="ruby-name-origin-gem-secret.html">
+            
+                <a href="ruby-name-origin-gem-secret.html">
+            
+                    
+                    Rubyの名前に隠された宝石の秘密
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2.11" data-path="php-creator-was-a-perl-user.html">
+            
+                <a href="php-creator-was-a-perl-user.html">
+            
+                    
+                    PHP作者は元々Perl使いだった
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -2557,72 +2583,143 @@
 <p><strong>配信ステータス</strong>：未配信
 <strong>配信URL</strong>：（配信済みになったら記入）</p>
 </blockquote>
-<h2 id="今回の-pr-で起きたこと">今回の PR で起きたこと</h2>
+<h2 id="台本">台本</h2>
+<h3 id="オープニング">オープニング</h3>
+<p>【ジングル】
+はい、どうもこんにちは。「雨宿りと WEB の小噺」、始まりました。Keeth こと桑原です。
+今回もちょっとだけ、雨宿りしていきませんか。
+今回のお題はですね、「GitHub Copilot Code Review の誤検知が多い理由」。実際に自分のPRで起きたことをベースに、ちょっと実務寄りの話をします。まぁ聞いてってください。</p>
+<h3 id="本題">本題</h3>
+<ul>
+<li><p><strong>今回の PR で起きたこと</strong></p>
 <ul>
 <li>PR に対して Copilot から 26 件のレビューコメントが届いた</li>
 <li>実際に修正が必要だったのは 2〜3 件程度</li>
 <li>残りは誤検知・意図的設計・既対処済みに分類できた</li>
 <li>つまり適合率（precision）は 1 割未満</li>
 </ul>
-<hr>
-<p>● 理由 1：ファイルをまたいだ実行フローを追えない</p>
+</li>
+<li><p><strong>理由1：ファイルをまたいだ実行フローを追えない</strong></p>
 <ul>
 <li>個々のファイルの内容は読めている</li>
 <li>ただし「どこから呼ばれるか」「呼ばれる前提条件は何か」を接続できない</li>
-<li>例：auth-store.ts の sendEmailChangeVerification で auth.currentUser! を使っている
-→ 「null になるかも」と指摘
-→ でも account.riot の onMounted() にログインガードがあり、未ログインなら画面自体が開けない
-→ この 2 ファイルにまたがる因果関係を Copilot はつなげられていない</li>
+<li>例：<code>auth-store.ts</code> の <code>sendEmailChangeVerification</code> で <code>auth.currentUser!</code> を使っている<ul>
+<li>→「null になるかも」と指摘</li>
+<li>→ でも <code>account.riot</code> の <code>onMounted()</code> にログインガードがあり、未ログインなら画面自体が開けない</li>
+<li>→ この2ファイルにまたがる因果関係を Copilot はつなげられていない</li>
+</ul>
+</li>
 <li>「コードを読んでいる」のではなく「コードのパターンを認識している」状態</li>
 </ul>
-<hr>
-<p>● 理由 2：コードの見た目のパターンで判断している</p>
+</li>
+<li><p><strong>理由2：コードの見た目のパターンで判断している</strong></p>
 <ul>
 <li>実行時に何が起きるかではなく、コードの見た目の特徴だけで「危険に見える」と判断する</li>
 <li>具体例<ul>
-<li>href なしの <a> に onclick がある → アクセシビリティ問題として検知（これは正しかった）</a></li>
-<li>auth.currentUser に ! がある → null リスクとして検知（呼び出し元でガード済みだった）</li>
+<li><code>href</code> なしの <code>&lt;a&gt;</code> に <code>onclick</code> がある → アクセシビリティ問題として検知（これは正しかった）</li>
+<li><code>auth.currentUser</code> に <code>!</code> がある → null リスクとして検知（呼び出し元でガード済みだった）</li>
 <li>正規表現のパターンが特定の形をしている → 変換ロジックのバグとして検知（現在のキーには問題なかった）</li>
 </ul>
 </li>
 <li>パターンが意図的かどうか・すでに対処済みかどうかを判断する手段がない</li>
 </ul>
-<hr>
-<p>● 理由 3：見逃しを極端に嫌う設計になっている</p>
+</li>
+<li><p><strong>理由3：見逃しを極端に嫌う設計になっている</strong></p>
 <ul>
 <li>セキュリティ系のレビューツールとして「本物のバグを見逃す」ほうが「誤検知する」より悪い、という設計判断がある</li>
 <li>結果として疑わしいものはとりあえず全部報告する方向に振れる</li>
 <li>適合率を犠牲にして再現率を上げているトレードオフ</li>
 <li>ユーザー視点では「狼少年」になりがち</li>
 </ul>
-<hr>
-<p>● 理由 4：学習データのカットオフ</p>
+</li>
+<li><p><strong>理由4：学習データのカットオフ</strong></p>
 <ul>
 <li>Gravatar が SHA-256 を正式サポートしたのは 2024 年</li>
 <li>Copilot の学習データにその情報が含まれていない可能性がある</li>
 <li>「MD5 を使うべき」という古い常識で指摘してきた</li>
 <li>最新の仕様変更・ライブラリアップデートへの追従が遅れる</li>
 </ul>
-<hr>
-<p>● 誤検知を減らすためにやったこと</p>
+</li>
+<li><p><strong>誤検知を減らすためにやったこと</strong></p>
 <ul>
-<li>ESLint の導入
-→ Copilot が見る前にツールが検知してコードを直す
-→ Copilot に到達する頃には対処済みの状態になる</li>
-<li>TypeScript strict モードの対象を拡大（JS ユーティリティを TS に移行）
-→ 型情報があれば Copilot も「ここは安全」と判断しやすくなる
-→ 今回の pubDateObj バグのように型定義があればコンパイル時に気づけた</li>
-<li>誤検知には根拠を示して反論・クローズする
-→ 全部鵜呑みにしない運用が重要</li>
+<li>ESLint の導入<ul>
+<li>→ Copilot が見る前にツールが検知してコードを直す</li>
+<li>→ Copilot に到達する頃には対処済みの状態になる</li>
 </ul>
-<hr>
-<p>● まとめ</p>
+</li>
+<li>TypeScript strict モードの対象を拡大（JS ユーティリティを TS に移行）<ul>
+<li>→ 型情報があれば Copilot も「ここは安全」と判断しやすくなる</li>
+<li>→ 今回の <code>pubDateObj</code> バグのように型定義があればコンパイル時に気づけた</li>
+</ul>
+</li>
+<li>誤検知には根拠を示して反論・クローズする<ul>
+<li>→ 全部鵜呑みにしない運用が重要</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>まとめ</strong></p>
 <ul>
 <li>Copilot のコードレビューは「パターン認識」であり「理解」ではない</li>
 <li>複数ファイルにまたがる設計意図・実行フローの把握が苦手</li>
 <li>見逃しを嫌う設計なので誤検知は構造的に多くなる</li>
 <li>ツール（ESLint・TypeScript）で先に問題をつぶすと誤検知の絶対数は自然と減る</li>
 <li>使い方は「全部信じる」でも「全部無視する」でもなく「トリアージして使う」</li>
+</ul>
+</li>
+</ul>
+<h3 id="エンディング">エンディング</h3>
+<p>【ジングル】
+さて、そろそろ今回もお時間です。
+面白かったよーという方は、ぜひチャンネル登録もお願いします。話してほしいトピックや感想は、概要欄のフォームか 𝕏 で「WEB 小噺」でつぶやいてください。web はアルファベット、「小噺」は漢字でもひらがなでも大丈夫です！
+それでは、また雨宿りしに来てください。お相手は Keeth でした。さようなら！
+【ジングル】</p>
+<h2 id="📚-参考情報">📚 参考情報</h2>
+<ul>
+<li>今回のPRでの実測値<ul>
+<li>Copilotのレビューコメント26件中、実際に修正が必要だったのは2〜3件（適合率1割未満）</li>
+</ul>
+</li>
+<li>誤検知が起きる4つの構造的理由<ul>
+<li>①ファイルをまたいだ実行フロー・呼び出し元の前提条件を接続できない</li>
+<li>②コードの見た目のパターンだけで判断し、意図的な設計かどうかを識別できない</li>
+<li>③「見逃し」を嫌う設計のため、疑わしいものは全部報告する方向に振れる（適合率より再現率を優先）</li>
+<li>④学習データのカットオフにより、最新の仕様変更（例：Gravatarの SHA-256 対応）に追従できない</li>
+</ul>
+</li>
+<li>誤検知を減らす実践的な対策<ul>
+<li>ESLint導入でCopilotが見る前に機械的な問題を解消する</li>
+<li>TypeScript strictモードの対象拡大で型情報を増やし、判断材料を与える</li>
+<li>誤検知には根拠を示して反論・クローズする運用を徹底する</li>
+</ul>
+</li>
+</ul>
+<h2 id="🎙️-収録メモ">🎙️ 収録メモ</h2>
+<ul>
+<li>トーン<ul>
+<li>冒頭：軽く実体験ベースであることを伝える</li>
+<li>理由1〜4：分析的、淡々と、でも具体例は面白く</li>
+<li>対策とまとめ：実務的、前向きに</li>
+</ul>
+</li>
+<li>強調ポイント<ul>
+<li>「適合率1割未満」という具体的な数字</li>
+<li>「コードを読んでいるのではなく、パターンを認識している」という表現</li>
+<li>「トリアージして使う」という結論</li>
+</ul>
+</li>
+<li>尺<ul>
+<li>合計：約8〜10分</li>
+<li>オープニング：30秒</li>
+<li>本編：7〜9分</li>
+<li>クロージング：30秒</li>
+</ul>
+</li>
+<li>タグ<ul>
+<li><h1 id="githubcopilot-コードレビュー-ai-eslint-typescript-開発生産性-実務ネタ">GitHubCopilot #コードレビュー #AI #ESLint #TypeScript #開発生産性 #実務ネタ</h1>
+</li>
+</ul>
+</li>
 </ul>
 
                                 
@@ -2663,7 +2760,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"GitHub Copilot の弱いと思うところ","level":"1.5.1.2.1","depth":4,"next":{"title":"404 Not Found の誕生秘話","level":"1.5.1.2.2","depth":4,"path":"PODCASTS/WEB小噺/Season5/404_notfound.md","ref":"PODCASTS/WEB小噺/Season5/404_notfound.md","articles":[]},"previous":{"title":"Season5","level":"1.5.1.2","depth":3,"ref":"","articles":[{"title":"GitHub Copilot の弱いと思うところ","level":"1.5.1.2.1","depth":4,"path":"PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md","ref":"PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md","articles":[]},{"title":"404 Not Found の誕生秘話","level":"1.5.1.2.2","depth":4,"path":"PODCASTS/WEB小噺/Season5/404_notfound.md","ref":"PODCASTS/WEB小噺/Season5/404_notfound.md","articles":[]},{"title":"保守業務，当たり前のことを当たり前に保つ人にフォーカスを","level":"1.5.1.2.3","depth":4,"path":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","ref":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","articles":[]},{"title":"Stripeの決済は見えないところで何度も試みている 〜リトライロジックの美学〜","level":"1.5.1.2.4","depth":4,"path":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","ref":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","articles":[]},{"title":"DockerはなぜDockerなのか？クジラロゴと名前の裏側","level":"1.5.1.2.5","depth":4,"path":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","ref":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","articles":[]},{"title":"有料ポッドキャスト配信を自前で作ったら想像以上に沼だった話","level":"1.5.1.2.6","depth":4,"path":"PODCASTS/WEB小噺/Season5/premium-podcast-with-cloudflare-workers.md","ref":"PODCASTS/WEB小噺/Season5/premium-podcast-with-cloudflare-workers.md","articles":[]},{"title":"JSONを「発明」した男は「俺は発見しただけだ」と言った","level":"1.5.1.2.7","depth":4,"path":"PODCASTS/WEB小噺/Season5/json-inventor-douglas-crockford.md","ref":"PODCASTS/WEB小噺/Season5/json-inventor-douglas-crockford.md","articles":[]},{"title":"axiosにまた脆弱性 ── ヘッダインジェクションでクラウドのメタデータが抜かれる話（CVE-2026-40175）","level":"1.5.1.2.8","depth":4,"path":"PODCASTS/WEB小噺/Season5/axios-cve-2026-40175-header-injection.md","ref":"PODCASTS/WEB小噺/Season5/axios-cve-2026-40175-header-injection.md","articles":[]},{"title":"Cookieってなんでクッキーなの？","level":"1.5.1.2.9","depth":4,"path":"PODCASTS/WEB小噺/Season5/why-is-cookie-called-cookie.md","ref":"PODCASTS/WEB小噺/Season5/why-is-cookie-called-cookie.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md","mtime":"2026-07-17T14:49:57.671Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-07-17T14:58:12.014Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"GitHub Copilot の弱いと思うところ","level":"1.5.1.2.1","depth":4,"next":{"title":"404 Not Found の誕生秘話","level":"1.5.1.2.2","depth":4,"path":"PODCASTS/WEB小噺/Season5/404_notfound.md","ref":"PODCASTS/WEB小噺/Season5/404_notfound.md","articles":[]},"previous":{"title":"Season5","level":"1.5.1.2","depth":3,"ref":"","articles":[{"title":"GitHub Copilot の弱いと思うところ","level":"1.5.1.2.1","depth":4,"path":"PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md","ref":"PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md","articles":[]},{"title":"404 Not Found の誕生秘話","level":"1.5.1.2.2","depth":4,"path":"PODCASTS/WEB小噺/Season5/404_notfound.md","ref":"PODCASTS/WEB小噺/Season5/404_notfound.md","articles":[]},{"title":"保守業務，当たり前のことを当たり前に保つ人にフォーカスを","level":"1.5.1.2.3","depth":4,"path":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","ref":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","articles":[]},{"title":"Stripeの決済は見えないところで何度も試みている 〜リトライロジックの美学〜","level":"1.5.1.2.4","depth":4,"path":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","ref":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","articles":[]},{"title":"DockerはなぜDockerなのか？クジラロゴと名前の裏側","level":"1.5.1.2.5","depth":4,"path":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","ref":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","articles":[]},{"title":"有料ポッドキャスト配信を自前で作ったら想像以上に沼だった話","level":"1.5.1.2.6","depth":4,"path":"PODCASTS/WEB小噺/Season5/premium-podcast-with-cloudflare-workers.md","ref":"PODCASTS/WEB小噺/Season5/premium-podcast-with-cloudflare-workers.md","articles":[]},{"title":"JSONを「発明」した男は「俺は発見しただけだ」と言った","level":"1.5.1.2.7","depth":4,"path":"PODCASTS/WEB小噺/Season5/json-inventor-douglas-crockford.md","ref":"PODCASTS/WEB小噺/Season5/json-inventor-douglas-crockford.md","articles":[]},{"title":"axiosにまた脆弱性 ── ヘッダインジェクションでクラウドのメタデータが抜かれる話（CVE-2026-40175）","level":"1.5.1.2.8","depth":4,"path":"PODCASTS/WEB小噺/Season5/axios-cve-2026-40175-header-injection.md","ref":"PODCASTS/WEB小噺/Season5/axios-cve-2026-40175-header-injection.md","articles":[]},{"title":"Cookieってなんでクッキーなの？","level":"1.5.1.2.9","depth":4,"path":"PODCASTS/WEB小噺/Season5/why-is-cookie-called-cookie.md","ref":"PODCASTS/WEB小噺/Season5/why-is-cookie-called-cookie.md","articles":[]},{"title":"Rubyの名前に隠された宝石の秘密","level":"1.5.1.2.10","depth":4,"path":"PODCASTS/WEB小噺/Season5/ruby-name-origin-gem-secret.md","ref":"PODCASTS/WEB小噺/Season5/ruby-name-origin-gem-secret.md","articles":[]},{"title":"PHP作者は元々Perl使いだった","level":"1.5.1.2.11","depth":4,"path":"PODCASTS/WEB小噺/Season5/php-creator-was-a-perl-user.md","ref":"PODCASTS/WEB小噺/Season5/php-creator-was-a-perl-user.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md","mtime":"2026-07-21T01:26:14.437Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-08-07T07:56:42.764Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

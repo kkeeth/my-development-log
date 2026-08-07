@@ -2367,6 +2367,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5.1.2.10" data-path="ruby-name-origin-gem-secret.html">
+            
+                <a href="ruby-name-origin-gem-secret.html">
+            
+                    
+                    Rubyの名前に隠された宝石の秘密
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2.11" data-path="php-creator-was-a-perl-user.html">
+            
+                <a href="php-creator-was-a-perl-user.html">
+            
+                    
+                    PHP作者は元々Perl使いだった
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -2556,49 +2582,115 @@
                                 
                                 <h1 id="stripeの決済は見えないところで何度も試みている　〜リトライロジックの美学〜">Stripeの決済は見えないところで何度も試みている　〜リトライロジックの美学〜</h1>
 <blockquote>
-<p><strong>配信ステータス</strong>：未配信
-<strong>配信URL</strong>：（配信済みになったら記入）</p>
+<p><strong>配信ステータス</strong>：済
+<strong>配信URL</strong>：<a href="https://art19.com/shows/kkeethengineers/episodes/156c1da2-0a61-4bed-b375-1f72c7ef0e62" target="_blank">https://art19.com/shows/kkeethengineers/episodes/156c1da2-0a61-4bed-b375-1f72c7ef0e62</a></p>
 </blockquote>
-<h2 id="導入">導入</h2>
-<p>はい、どうもこんにちは。「雨宿りとWEBの小噺」、始まりました。Keethこと桑原です。
-この番組では、Webテクノロジーの歴史や裏側にある、ちょっとした小噺を紹介しています。</p>
-<p><strong>つかみ</strong></p>
+<h2 id="台本">台本</h2>
+<h3 id="オープニング">オープニング</h3>
+<p>【ジングル】
+はい、どうもこんにちは。「雨宿りとWEBの小噺」、始まりました。Keethこと桑原です。
+この番組では、Webテクノロジーの歴史や裏側にある、ちょっとした小噺を紹介しています。
+今回のお題はですね、「Stripeの決済は見えないところで何度も試みている〜リトライロジックの美学〜」。まぁ聞いてってください。</p>
+<h3 id="本題">本題</h3>
+<ul>
+<li><p><strong>つかみ</strong></p>
 <ul>
 <li>サブスク更新日に残高足りなかったのに、気づいたら継続してた経験ない？</li>
 <li>あれ、Stripeがこっそりリトライしてる</li>
 </ul>
-<p><strong>基本の仕組み</strong></p>
+</li>
+<li><p><strong>基本の仕組み</strong></p>
 <ul>
 <li>デフォルトで最大3回リトライ＝合計4回試行</li>
 <li>「3回リトライ」は3回に聞こえるが初回失敗を含めると4回、これ意外と知られてない</li>
 <li>失敗するとwebhookで通知が飛ぶ（開発者向けの話）</li>
-<li>📎 <a href="https://blog.stunning.co/quick-tip-stripe-attempts-to-pay-invoices-up-to-4-times-not-3/" target="_blank">https://blog.stunning.co/quick-tip-stripe-attempts-to-pay-invoices-up-to-4-times-not-3/</a></li>
 </ul>
-<p><strong>Smart Retries（ここが面白い）</strong></p>
+</li>
+<li><p><strong>Smart Retries（ここが面白い）</strong></p>
 <ul>
 <li>ただ一定間隔で再試行してるわけじゃない</li>
 <li>数十億件のトランザクションで学習したMLモデルがタイミングを判断</li>
 <li>深夜2時の失敗→翌朝10時に再試行する方が成功率高い（残高が回復してる）</li>
 <li>考慮してる要素：時間帯・曜日・月のどの週・顧客とビジネスの地域・カードの過去の成功率</li>
 <li>デフォルトは2週間以内に最大8回</li>
-<li>📎 <a href="https://stripe.com/blog/how-we-built-it-smart-retries" target="_blank">https://stripe.com/blog/how-we-built-it-smart-retries</a></li>
-<li>📎 <a href="https://docs.stripe.com/billing/revenue-recovery/smart-retries" target="_blank">https://docs.stripe.com/billing/revenue-recovery/smart-retries</a></li>
 </ul>
-<p><strong>開発者目線のリトライ設計の話（小噺）</strong></p>
+</li>
+<li><p><strong>開発者目線のリトライ設計の話（小噺）</strong></p>
 <ul>
 <li>リトライの基本思想はExponential Backoff（指数バックオフ）</li>
 <li>100ms→200ms→400ms→と間隔を伸ばす</li>
 <li>さらにJitter（ランダムな揺らぎ）を加えてリクエストの集中を防ぐ</li>
 <li>Stripeはこれを決済というシビアな文脈でMLと組み合わせてる</li>
-<li>📎 <a href="https://www.tomaszezula.com/implementing-smart-retries-with-stripe/" target="_blank">https://www.tomaszezula.com/implementing-smart-retries-with-stripe/</a></li>
 </ul>
-<p><strong>美学の話（締め）</strong></p>
+</li>
+<li><p><strong>美学の話（締め）</strong></p>
 <ul>
 <li>このリトライ、ユーザーには完全に見えない</li>
 <li>失敗してる、でも諦めない、静かに試み続ける</li>
 <li>「失敗しないように作る」じゃなくて「失敗しても回復できるように作る」という設計思想</li>
 <li>Stripeの調査：リトライで回収した顧客はその後平均7ヶ月継続＝新規顧客獲得と同じ価値</li>
+</ul>
+</li>
+</ul>
+<h3 id="エンディング">エンディング</h3>
+<p>【ジングル】
+さて、そろそろ今回もお時間です。
+面白かったよーという方は、ぜひチャンネル登録もお願いします。話してほしいトピックや感想は、概要欄のフォームか 𝕏 で「WEB 小噺」でつぶやいてください。web はアルファベット、「小噺」は漢字でもひらがなでも大丈夫です！
+それでは、また雨宿りしに来てください。お相手は Keeth でした。さようなら！
+【ジングル】</p>
+<h2 id="📚-参考情報">📚 参考情報</h2>
+<ul>
+<li>Stripeのリトライの基本仕様<ul>
+<li>デフォルトで最大3回リトライ（初回を含めると合計4回試行）</li>
+<li>失敗のたびにwebhookで通知される</li>
+</ul>
+</li>
+<li>Smart Retries<ul>
+<li>数十億件のトランザクションで学習したMLモデルがリトライのタイミングを判断</li>
+<li>時間帯・曜日・地域・カードの過去の成功率などを考慮し、デフォルトで2週間以内に最大8回リトライ</li>
+</ul>
+</li>
+<li>設計思想<ul>
+<li>基本はExponential Backoff（指数バックオフ）＋Jitter（ランダムな揺らぎ）</li>
+<li>「失敗しないように作る」のではなく「失敗しても回復できるように作る」という思想</li>
+<li>リトライで回収できた顧客はその後平均7ヶ月継続する（新規顧客獲得と同等の価値）</li>
+</ul>
+</li>
+<li>引用元<ul>
+<li>📎 <a href="https://blog.stunning.co/quick-tip-stripe-attempts-to-pay-invoices-up-to-4-times-not-3/" target="_blank">https://blog.stunning.co/quick-tip-stripe-attempts-to-pay-invoices-up-to-4-times-not-3/</a></li>
+<li>📎 <a href="https://stripe.com/blog/how-we-built-it-smart-retries" target="_blank">https://stripe.com/blog/how-we-built-it-smart-retries</a></li>
+<li>📎 <a href="https://docs.stripe.com/billing/revenue-recovery/smart-retries" target="_blank">https://docs.stripe.com/billing/revenue-recovery/smart-retries</a></li>
+<li>📎 <a href="https://www.tomaszezula.com/implementing-smart-retries-with-stripe/" target="_blank">https://www.tomaszezula.com/implementing-smart-retries-with-stripe/</a></li>
 <li>📎 <a href="https://stripe.com/resources/more/payment-retries-101" target="_blank">https://stripe.com/resources/more/payment-retries-101</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="🎙️-収録メモ">🎙️ 収録メモ</h2>
+<ul>
+<li>トーン<ul>
+<li>冒頭：あるあるネタで共感を誘う</li>
+<li>仕組みの説明：軽快に、豆知識として</li>
+<li>美学の話：しみじみ、少し詩的に</li>
+</ul>
+</li>
+<li>強調ポイント<ul>
+<li>「3回リトライ＝合計4回試行」という意外と知られていない事実</li>
+<li>MLモデルがタイミングを判断する「Smart Retries」</li>
+<li>「失敗しても回復できるように作る」という設計思想</li>
+</ul>
+</li>
+<li>尺<ul>
+<li>合計：約6〜8分</li>
+<li>オープニング：30秒</li>
+<li>本編：5〜7分</li>
+<li>クロージング：30秒</li>
+</ul>
+</li>
+<li>タグ<ul>
+<li><h1 id="stripe-決済-リトライ-exponentialbackoff-mlモデル-web歴史-エンジニア雑学">Stripe #決済 #リトライ #ExponentialBackoff #MLモデル #Web歴史 #エンジニア雑学</h1>
+</li>
+</ul>
+</li>
 </ul>
 
                                 
@@ -2643,7 +2735,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Stripeの決済は見えないところで何度も試みている 〜リトライロジックの美学〜","level":"1.5.1.2.4","depth":4,"next":{"title":"DockerはなぜDockerなのか？クジラロゴと名前の裏側","level":"1.5.1.2.5","depth":4,"path":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","ref":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","articles":[]},"previous":{"title":"保守業務，当たり前のことを当たり前に保つ人にフォーカスを","level":"1.5.1.2.3","depth":4,"path":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","ref":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","mtime":"2026-07-17T14:50:01.867Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-07-17T14:58:12.014Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Stripeの決済は見えないところで何度も試みている 〜リトライロジックの美学〜","level":"1.5.1.2.4","depth":4,"next":{"title":"DockerはなぜDockerなのか？クジラロゴと名前の裏側","level":"1.5.1.2.5","depth":4,"path":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","ref":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","articles":[]},"previous":{"title":"保守業務，当たり前のことを当たり前に保つ人にフォーカスを","level":"1.5.1.2.3","depth":4,"path":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","ref":"PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","mtime":"2026-07-26T13:40:12.638Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-08-07T07:56:42.764Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>

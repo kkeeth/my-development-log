@@ -54,13 +54,6 @@
   - Dockerが革命的だったのは「難しいLinuxの仕組みを、エンジニアが使いやすいツールとして包んだ」こと
   - Solomonはインタビューで「私たちは発明したんじゃなくて、整理したんだ」と語っている
 
-📎 https://en.wikipedia.org/wiki/Docker,_Inc.
-📎 https://jpetazzo.github.io/2017/02/24/from-dotcloud-to-docker/
-📎 https://www.docker.com/blog/docker-11-year-anniversary/
-📎 https://forums.docker.com/t/where-does-the-idea-of-a-whale-on-the-logo-come-from/10874
-📎 https://www.docker.com/blog/introducing-the-moby-project/
-📎 https://snyk.io/blog/the-docker-project-turns-10/
-
 ### エンディング
 
 【ジングル】
@@ -68,3 +61,42 @@
 面白かったよーという方は、ぜひチャンネル登録もお願いします。話してほしいトピックや感想は、概要欄のフォームか 𝕏 で「WEB 小噺」でつぶやいてください。web はアルファベット、「小噺」は漢字でもひらがなでも大丈夫です！
 それでは、また雨宿りしに来てください。お相手は Keeth でした。さようなら！
 【ジングル】
+
+## 📚 参考情報
+
+- 名前とロゴの由来
+  - 「docker」は港湾労働者を指す英語の俗語。コンテナ＝港で働く人、というアナロジー
+  - ロゴのクジラは2013年の99designsコンペで採用されたRicky Asamanisのデザイン
+  - 「Moby Dock」という愛称はコミュニティが後付けで命名。『白鯨（Moby Dick）』のパロディ
+- 会社としての歴史
+  - 前身は2008年創業のPaaS企業「dotCloud」
+  - 2013年のPyConでの即興デモがきっかけで注目を集め、同年10月にDockerへ社名変更
+  - 2017年、OSSコードベースを「Moby Project」に改名した際はコミュニティから猛反発があった
+- 技術的な位置づけ
+  - コンテナの基盤技術（cgroups・namespace）自体は2000年代から存在
+  - Dockerの革新は「難しいLinuxの仕組みを使いやすいツールとして包んだ」こと
+- 引用元
+  - 📎 https://en.wikipedia.org/wiki/Docker,_Inc.
+  - 📎 https://jpetazzo.github.io/2017/02/24/from-dotcloud-to-docker/
+  - 📎 https://www.docker.com/blog/docker-11-year-anniversary/
+  - 📎 https://forums.docker.com/t/where-does-the-idea-of-a-whale-on-the-logo-come-from/10874
+  - 📎 https://www.docker.com/blog/introducing-the-moby-project/
+  - 📎 https://snyk.io/blog/the-docker-project-turns-10/
+
+## 🎙️ 収録メモ
+
+- トーン
+  - 冒頭：軽妙、雑学トーク
+  - 会社の歴史部分：テンポよく、ドラマチックに
+  - まとめ：しみじみ、共感を誘う
+- 強調ポイント
+  - 「docker＝港湾労働者」という名前の由来
+  - PyConでの偶然のバズりから社名変更に至った流れ
+  - 「発明したんじゃなくて、整理したんだ」という哲学
+- 尺
+  - 合計：約8〜10分
+  - オープニング：30秒
+  - 本編：7〜9分
+  - クロージング：30秒
+- タグ
+  - #Docker #dotCloud #Moby #コンテナ #由来 #Web歴史 #エンジニア雑学

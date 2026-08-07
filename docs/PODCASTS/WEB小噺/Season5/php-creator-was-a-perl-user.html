@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>axiosにまた脆弱性 ── ヘッダインジェクションでクラウドのメタデータが抜かれる話（CVE-2026-40175） · kkeeth の日常ログ</title>
+        <title>PHP作者は元々Perl使いだった · kkeeth の日常ログ</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 5.1.4">
@@ -64,10 +64,8 @@
     <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="why-is-cookie-called-cookie.html" />
     
-    
-    <link rel="prev" href="json-inventor-douglas-crockford.html" />
+    <link rel="prev" href="ruby-name-origin-gem-secret.html" />
     
 
     </head>
@@ -2341,7 +2339,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5.1.2.8" data-path="axios-cve-2026-40175-header-injection.html">
+        <li class="chapter " data-level="1.5.1.2.8" data-path="axios-cve-2026-40175-header-injection.html">
             
                 <a href="axios-cve-2026-40175-header-injection.html">
             
@@ -2380,7 +2378,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.1.2.11" data-path="php-creator-was-a-perl-user.html">
+        <li class="chapter active" data-level="1.5.1.2.11" data-path="php-creator-was-a-perl-user.html">
             
                 <a href="php-creator-was-a-perl-user.html">
             
@@ -2565,7 +2563,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../../.." >axiosにまた脆弱性 ── ヘッダインジェクションでクラウドのメタデータが抜かれる話（CVE-2026-40175）</a>
+        <a href="../../.." >PHP作者は元々Perl使いだった</a>
     </h1>
 </div>
 
@@ -2580,151 +2578,79 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="axiosにまた脆弱性-──-ヘッダインジェクションでクラウドのメタデータが抜かれる話（cve-2026-40175）">axiosにまた脆弱性 ── ヘッダインジェクションでクラウドのメタデータが抜かれる話（CVE-2026-40175）</h1>
-<blockquote>
-<p><strong>配信ステータス</strong>：未配信
-<strong>配信URL</strong>：（配信済みになったら記入）</p>
-</blockquote>
+                                <h1 id="php作者は元々perl使いだった">PHP作者は元々Perl使いだった</h1>
 <h2 id="台本">台本</h2>
 <h3 id="オープニング">オープニング</h3>
 <p>【ジングル】
-はい、どうもこんにちは。「雨宿りと WEB の小噺」、始まりました。Keeth こと桑原です。
-今回もちょっとだけ、雨宿りしていきませんか。
-今回のお題はですね、「axiosにまた脆弱性 ── ヘッダインジェクションでクラウドのメタデータが抜かれる話」。ちょっと面白い、いや怖い話なんで、まぁ聞いてってください。</p>
+はい，どうもこんにちは．「雨宿りとWEBの小噺」始まりました．Keethこと桑原です．</p>
+<p>この番組では，Webテクノロジーの歴史や裏側にある，ちょっとした小噺をご紹介しております．</p>
+<p>今回のお題は「PHP作者は元々Perl使いだった」です．</p>
 <h3 id="本題">本題</h3>
-<ul>
-<li><p><strong>まず axios とは何か（知らない人向けのおさらい）</strong></p>
-<ul>
-<li>JavaScriptで最もよく使われるHTTPクライアントライブラリの一つ</li>
-<li>ブラウザでもNode.jsでも動く、npmのダウンロード数は週に数億回レベル</li>
-<li>つまり「世界中の膨大な数のWebアプリで使われているライブラリ」に脆弱性が見つかった、という話</li>
-</ul>
-</li>
-<li><p><strong>今回の脆弱性：CVE-2026-40175 のざっくり概要</strong></p>
-<ul>
-<li>「ヘッダインジェクションチェーン経由でクラウドのメタデータが抜かれる」という脆弱性</li>
-<li>対象バージョンは axios 1.15.0 未満。使っていたらアップデート推奨</li>
-<li>単体では成立しない「連鎖型攻撃（チェーン攻撃）」なのがポイント。後で詳しく話す</li>
-</ul>
-</li>
-<li><p><strong>攻撃の第1段階：プロトタイプ汚染でヘッダを仕込む</strong></p>
-<ul>
-<li>axios はリクエストヘッダを組み立てるとき、オブジェクトのプロパティをマージして使う</li>
-<li>ここで問題になるのが「プロトタイプ汚染（Prototype Pollution）」という別の攻撃手法</li>
-<li>プロトタイプ汚染とは、JavaScriptの<code>Object.prototype</code>を汚染することで、すべてのオブジェクトに意図しないプロパティを追加できてしまう脆弱性のこと</li>
-<li>これを使うと <code>x-amz-target</code> のような AWS 向けの特殊ヘッダを、axios が使うオブジェクトに密かに注入できてしまっていた</li>
-</ul>
-</li>
-<li><p><strong>攻撃の第2段階：CRLF インジェクションでヘッダを増殖させる</strong></p>
-<ul>
-<li>HTTP のヘッダはテキストで構成されており、1行1ヘッダ。行の区切りは CRLF（<code>\r\n</code>）</li>
-<li>ヘッダの「値」の中に改行文字（CRLF）が含まれると、その後ろを「新しいヘッダ」として解釈させることができる</li>
-<li>例えばヘッダ値に <code>hoge\r\nX-Injected: evil</code> を仕込めば、実質2つのヘッダが送られる</li>
-<li>axios は以前のバージョンではこのCRLFを含むヘッダ値を拒否していなかった</li>
-</ul>
-</li>
-<li><p><strong>攻撃の第3段階：AWS IMDS（インスタンスメタデータサービス）を突く</strong></p>
-<ul>
-<li>AWS の EC2 インスタンスには <code>http://169.254.169.254/</code> というマジックIPがあり、ここにアクセスするとクラウドのメタデータが取れる</li>
-<li>具体的には IAM ロールの一時的なアクセスキーやシークレットキーまで取得できてしまう</li>
-<li>このメタデータサービス（IMDS）は「同じEC2の中からのリクエストなら認証なしで応答する」設計になっている</li>
-<li>最近の IMDSv2 ではトークン方式の保護があるが、<code>x-amz-target</code> などの特殊ヘッダを使ったリクエストを細工することで、これをすり抜けるルートが作れた</li>
-</ul>
-</li>
-<li><p><strong>3段階がつながるとどうなるか</strong></p>
-<ul>
-<li>攻撃者がどこかのライブラリ（axiosとは別）のプロトタイプ汚染を悪用</li>
-<li>→ axios のヘッダオブジェクトに <code>x-amz-target</code> などのプロパティが混入</li>
-<li>→ そのヘッダ値にCRLFが含まれていれば、任意のヘッダを追加注入</li>
-<li>→ メタデータサービスへのリクエストを細工してクラウドの認証情報（IAMキーなど）を窃取</li>
-<li>この一連の流れが「ヘッダインジェクションチェーン」と呼ばれる所以</li>
-</ul>
-</li>
-<li><p><strong>修正PRで何が変わったか（axios 1.15.0）</strong></p>
-<ul>
-<li>修正の核心は「不正なヘッダ値を持ち込んだ時点で拒否する」というシンプルな防御</li>
-<li>具体的には、ヘッダの値にCRLF（<code>\r\n</code>）や制御文字が含まれる場合はエラーを投げるよう変更</li>
-<li>プロトタイプ由来のプロパティを安易にヘッダとしてマージしないよう、ヘッダ組み立て処理の境界を厳格化</li>
-<li>おまけとして <code>lib/core/Axios.js</code> のエラースタック結合ロジックも見直し、スタック文字列の結合処理を安全側に修正</li>
-</ul>
-</li>
-<li><p><strong>「チェーン攻撃のガジェット」という概念が重要</strong></p>
-<ul>
-<li>axios 単体では攻撃は成立しない。プロトタイプ汚染ができる別の脆弱性が前提</li>
-<li>しかし axios が「その攻撃の最後のピース（ガジェット）」として機能してしまっていた</li>
-<li>セキュリティの世界では、単体では無害でも別の脆弱性と組み合わせると危険になるコードのことを「ガジェット」と呼ぶ</li>
-<li>「うちのコードは直接攻撃されないから大丈夫」という発想が甘い理由がこれ</li>
-</ul>
-</li>
-<li><p><strong>開発者として今すぐやるべきこと</strong></p>
-<ul>
-<li>axios を使っているプロジェクトは <code>npm ls axios</code> で使用バージョンを確認</li>
-<li>1.15.0 未満であれば即アップデート（<code>npm update axios</code>）</li>
-<li>AWS 環境に限らず、GCP や Azure にも類似のメタデータエンドポイントが存在するため、クラウド環境で動いているサービスは特に注意</li>
-<li>また、依存ライブラリのプロトタイプ汚染チェックも合わせて実施しておくと安心</li>
-</ul>
-</li>
-</ul>
+<p>最近この番組で名前の由来とか開発秘話みたいな回が続いてるんですけど，今日はちょっと毛色を変えます．言語そのものじゃなくて，言語の「作者」本人にフォーカスした話です．</p>
+<p>僕，一番最初に触ったプログラミング言語はC言語なんですよ．学生の頃ですね．授業で書かされて，ポインタで盛大に詰まりました（笑）．で，仕事で初めて使った言語となるとPHPです．Web制作の仕事をしてた頃，PHPでゴリゴリ書いてた時期がありました．まあ今はそんなに書かないですけど，当時は本当にお世話になったなと，しみじみ思います．ちなみにPHPってC言語で書かれてる処理系なので，近いっちゃ近いんですけど（笑）．学生の頃と社会人の頃，両方でちょっとずつ縁があった言語ってことですね．</p>
+<p>で，そのときにふと思ったんですよ．PHPって誰が作ったんだっけって．Rubyだったらまつもとゆきひろさんですし，PythonだったらグイドさんことGuido van Rossumさん，JavaScriptだったらブレンダン・アイクさん，みたいに，割とパッと名前が浮かぶ言語作者っているじゃないですか．でもPHPの作者，僕全然名前が出てこなかったんですよ．結構お世話になった言語なのに，恥ずかしいなと思いました．</p>
+<p>これは調べるしかないなと思って掘っていったら，まあ面白い話だったんですよ．ということで，今日のテーマは「PHP作者は元々Perl使いだった」です．</p>
+<p>先にちょっとだけ数字の話をしておきます．PHPって最近，話題としては正直今更感あるじゃないですか．PythonとかTypeScriptとかRustの方が盛り上がってる印象ありますよね．特にこの番組でもそっち系の話が多い気がします．でも実はWordPressってPHPで動いてるんですよ．世界中のWebサイトの4割以上がWordPressだと言われています．諸説あるんですけど，大体そのくらいのデータをよく見ます．サーバーサイドの言語がわかってるサイトだけで見ると，PHPのシェアは8割近いというデータもあります．8割ですよ，8割．これ僕も調べてて，え，そんなに，ってなりました．今でも現役どころか，もしかしたら一番Webを動かしてる言語なんじゃないか，というくらいのポジションです．</p>
+<p>しかも「PHPって古い言語でしょ」ってイメージ，持たれがちですよね．でも2020年にリリースされたPHP 8では，JITコンパイラという仕組みが入って実行速度がさらに上がりました．Attributesというアノテーション機能とか，今どきの言語らしい機能もどんどん追加されています．割と最近までアップデートされ続けているので，レガシー言語だと思ってる人がいたら，ちょっと見直してみてもいいかもしれません．</p>
+<p>そんなPHPを作った人．名前はラスマス・ラードフといいます．Rasmus Lerdorf．</p>
+<p>実はこの方，僕，一回直接お会いしたことがあるんです．2015年のPHPカンファレンス．あの年はちょうどPHP生誕20周年で，しかも次のバージョンのPHP7が出る直前くらいのタイミングでした．ラスマスさん本人が来日して基調講演をやっていて，たしか「Speeding up the Web with PHP7」というタイトルだったかな．会場は結構な人だかりでした．講演が終わった後，ちょっと勇気を出して列に並んで，たまたま捕まえてツーショットを撮ってもらったんです．いや，今思うとすごい貴重な写真です．あの時はまさか数年後にポッドキャストでこの話をするとは思ってなかったですね（笑）．写真データ，どっかに残ってるはずなので，今度掘り出したいです．</p>
+<p>このラスマスさん，デンマーク系カナダ人です．生まれはなんとグリーンランド，グリーンランドですよ．1968年生まれです．グリーンランドって北極圏に近い世界最大の島で，デンマークの自治領です．そこで生まれた人が作った言語が，今，世界のWebの結構な割合を動かしている．なんかスケールがおかしいですよね．3歳でデンマークに移って，その後カナダに渡って，ウォータールー大学でシステムデザイン工学を学び，1993年に卒業しています．</p>
+<p>時は1994年です．インターネットがようやく広まりかけてきた頃で，グラフィカルなブラウザが出始めたばかりの時代ですね．MosaicとかNetscapeとか，あの辺りが出てきた頃です．ラスマスさんはカナダでITコンサルタントをしながら，自分のホームページを持っていました．今でいうポートフォリオサイトみたいなものです．履歴書とか経歴とかを載せた，シンプルなものだったようです．</p>
+<p>で，「誰が見に来てるんだろう」って気になったらしいんですよ．今ならGoogle Analyticsとか，サーバーのアクセスログ解析ツールとかいろいろありますよね．でも当時そんなものはありません．じゃあ自分で書くしかない．そこで使ったのがPerlです．PerlってPHPより前に主流だったスクリプト言語で，当時のCGIプログラム，つまりWebサーバーとプログラムをつなぐ仕組みは，Perlで書くのが当たり前でした．エンジニアなら誰もが通った道です．</p>
+<p>ところがこのPerlのCGI，使い続けるうちに問題が出てくるんですよ．何が問題かというと，リクエストが来るたびに毎回プロセスを新しく起動するんです．誰かがページにアクセスするたびに，サーバーがPerlのプログラムをゼロから起動して，処理して，終了して，またゼロから起動する．これを繰り返します．たとえば1秒間に10人アクセスが来たら，10個のプロセスが同時に立ち上がるイメージですね．アクセスが少ないうちは問題ないんですけど，増えてくるとプロセスがどんどん立ち上がって，メモリもCPUもどんどん食われます．最悪，サーバーがダウンしてしまう．個人のポートフォリオサイトなので大量アクセスはなかったと思いますが，それでも積み重なるとサーバーがもたつく，ということが起きていたはずです．</p>
+<p>ラスマスさんも同じ問題にぶつかって，「もうこれはきついな」となって，C言語で書き直すことにしたんです．C言語ならPerlみたいに毎回プロセスを起動するオーバーヘッドがなくて，処理が速い．「問題があるなら書き直す」．このシンプルな判断が，後のPHPにつながっていきます．</p>
+<p>そうして1995年，このC言語版のツール群を公開します．名前が「PHP Tools」．PHPって今の意味だと「PHP: Hypertext Preprocessor」なんですけど，最初は「Personal Home Page Tools」の略でした．個人のホームページのためのツール，そのまんまの名前です．自分のサイトのために作ったから，まあそうなるんですけど，今世界中で使われてる言語の最初の名前がこれかと思うと，なんか面白いですよね．</p>
+<p>ちなみに今の「PHP: Hypertext Preprocessor」という名前，これ再帰的な頭字語と呼ばれるやつで，頭文字の中に自分自身が含まれています．PHPのPが，またPHPを指してる．プログラマーらしい遊び心というか，これ知ったとき僕はニヤッとしましたね（笑）．</p>
+<p>あとPHPって公式マスコットが象なんですよ．「elePHPant」という名前で，Elephantの文字の中にPHPが埋め込まれた洒落たネーミングです．これ1998年に，ヴァンサン・ポンティエさんというフランスの方が考案したものらしくて，友人がPHPの話をしながらコードを書いてるのを見て，なんとなく紙にPHPって大文字で落書きしてたら象っぽく見えた，というノリで生まれたそうです．最初はイラストだけだったのが，2007年になってようやくぬいぐるみ化されて，今ではPHPカンファレンスの定番グッズになっています．オープンソースコミュニティのゆるいノリで生まれたマスコットが今や公式扱いになっている．これ，なんかPHPらしいですよね．</p>
+<p>1995年6月8日にGPL，GNU General Public Licenseという形で公開しました．つまりオープンソースとして世に出したわけです．「同じ問題で困ってる人が他にもいるだろう」．割と軽い理由だったらしくて，このへんの感覚，僕は結構好きです．便利なもの作ったから使ってよ，くらいのノリ．今のOSSの文化に近いものが，もうこの時点でありました．</p>
+<p>で，ここが今日一番話したかったところです．ラスマスさん，後のインタビューでこう言っています．</p>
+<p>「プログラミング言語を作ろうとしたことは一度もない．どうやって作るかも全くわからなかった．ただ次の論理的なステップを追い続けただけだ」</p>
+<p>いや，これすごくないですか．世界中で使われてる言語の作者が，「作り方なんかわからなかった」と言っているんです．しかもこれ，嘘じゃない．本当にアクセスログを取りたかっただけから始まって，機能が少しずつ足されていって，気づいたら言語になっていた．まさにその通りの経緯なんですよね．設計図があって作り始めたわけじゃなくて，日々の「これあったら便利」の積み重ねでした．</p>
+<p>さらに，別のところでこうも言っています．「プログラミングが大嫌いだ．でも問題を解決するのが好きだ」．</p>
+<p>いや，ちょっと待ってください．プログラミング言語の作者がプログラミング大嫌いって言ってるんですよ．でも考えてみると，彼が作りたかったのは言語じゃなくて，目の前の問題の解決策でした．それが結果的に言語になった，というだけの話です．壮大なビジョンから生まれた言語じゃなくて，実用から生まれた言語．だからWebとの相性もよかったんだと思います．Webってそもそも「こういうことしたい，それをできるようにしたい」の積み重ねですよね．PHPはそのニーズに直球で応える作りだったから，広まったんじゃないかと思います．</p>
+<p>ちなみにラスマスさんの正直さがよくわかるエピソードがもう一つあります．2012年に「PHP: a fractal of bad design」，日本語にすると「PHPは悪い設計のフラクタルだ」という，かなり辛辣なブログ記事が話題になったことがあるんですよ．PHPの言語仕様のあちこちに一貫性がない，関数名の付け方がバラバラだ，ということをボロクソに指摘した記事で，エンジニア界隈で結構バズりました．</p>
+<p>普通，自分が作ったものをそこまで叩かれたら，反論したくなりますよね．でもラスマスさんの反応がすごくて，このブログを書いた人のことを「彼はよくわかっている」と言った上で，「この記事のほとんどの内容に完全に同意する」と言ってしまったんです．しかも「PHPは自分の作業を楽にするためのハンマーとして書いた．1993年当時，Webアプリを作る方法はCとPerlをゴリゴリ書くことしかなくて，それがめちゃくちゃ苦痛だったから，同じことを繰り返さなくて済むツールを書き始めた」と説明しています．美しい言語設計を目指して作ったものじゃない．あくまで自分の問題を解決するための道具だった，というスタンスを，批判に対しても崩さなかった．この一貫性，僕はすごく好きです．</p>
+<p>さて，オープンソースとして公開されたPHP Tools，他の開発者からどんどんフィードバックが来るようになって，機能が少しずつ追加されていきました．フォームのデータを処理できるようになり，データベースとも連携できるようになり，PHP/FIというバージョンに進化していきます．FIはForms Interpreterの略です．</p>
+<p>1997年に大きな転機が来ます．イスラエルのテクニオン，イスラエル工科大学という世界的にも有名な大学があるんですけど，そこの学生2人が登場します．アンディ・ガットマンズとゼーブ・スラスキーという2人です．この2人が大学の課題でECサイト，今でいうネットショッピングのサイトを作らないといけませんでした．「PHPを使おう」となったんです．</p>
+<p>ところがですね，いざ使い始めたら，当時のPHPはバグだらけで，機能も足りなくて，使い物にならないんですよ．指導教員の先生からも「PHPはやめとけ」と言われていたくらいだったそうです．</p>
+<p>じゃあどうするか．普通の学生なら別のツールに切り替えますよね．でもこの2人は違いました．「PHPというアイデア自体はすごく良い，でも実装がよくない，だったら自分たちで書き直そう」となったんです．</p>
+<p>いや，これですよ，これ．大学の課題の話ですよ．課題を終わらせるために，課題で使おうとしたツールをまるごと書き直すという（笑）．なかなかこの発想はすごいなと思います．しかもそのくらい，PHPというアイデア自体への信頼があったということでもあります．</p>
+<p>この2人がラスマスさんにコンタクトを取って，「一緒にPHPを書き直しませんか」と提案しました．ラスマスさんも「それいいね」となって，3人で協力してPHPを大幅に書き直したのがPHP 3.0です．1997年にリリースされたPHP 3.0は，それまでとは比べ物にならないくらい安定していて，機能も充実していました．これが出ると爆発的に普及します．1年ちょっとで何十万というWebサイトがPHP 3.0を使うようになったと言われています．</p>
+<p>さらにこの2人，PHP 3.0だけで終わりません．次はPHPの実行エンジン，インタープリタですね，それ自体を一から設計し直します．そうして生まれたのがZendエンジンです．Zendって何かというと，ZeevとAndiの名前を組み合わせた造語です．Ze-ev，An-di，Zend．2人の名前が合体したエンジン．なんかこういうの好きですよね，自分たちの名前をつけちゃうの．</p>
+<p>このZendエンジンを搭載したPHP 4.0がリリースされたのが2000年．そしてPHP 5.0が2004年にリリースされて，この辺からPHPが本当に企業の本格的なサービスにも使われるようになっていきます．実はFacebookだって最初はPHPで作られてるんですよ，これ知ってました？マーク・ザッカーバーグが2004年にPHPで作ったのが最初のFacebookです．出発点はPHPでした．</p>
+<p>ただ，Facebookはその後ユーザー数が爆発的に増えていきますよね．そうすると，PHPはスクリプト言語なので，実行速度の面でだんだんきつくなってきます．CPUのリソースをめちゃくちゃ食うようになって，サーバー代がかさんでくる．そこでFacebookは2008年頃から「HipHop」という独自のツールを開発します．PHPのコードをC++に変換してコンパイルして実行する仕組みで，速度をおよそ倍に上げることに成功しました．</p>
+<p>でもこのHipHop，PHPの全部の機能に対応してるわけじゃなくて，デプロイにも時間がかかるという問題がありました．なので2011年頃から今度は「HHVM」，HipHop Virtual Machineという，PHPをその場でコンパイルして実行する仕組みに作り変えます．2013年には全部のFacebookのサーバーがHHVM上で動くようになったそうです．自分たちのサービスのために言語処理系そのものを作り変えてしまう．さすがFacebookのスケール感だなと思いますよね．</p>
+<p>ちなみに，ラスマスさん，今は何をしているかというと，Etsyという海外の大手ハンドメイド系ECサイトでディスティングイッシュト・エンジニアという役職についています．あと，「PHP Foundation」という，PHPの言語自体の開発を継続的に支えるための非営利組織にも，PHPフェローという立場で関わっています．このPHP Foundation，2021年に，PHPの開発が特定の企業のリソースに頼りすぎていて持続可能じゃない，という危機感から作られた組織で，JetBrainsとかLaravelとか，PHPを商売で使っている企業がお金を出し合って運営しています．最初は自分のアクセスカウンターだったツールが，今や企業が共同でお金を出し合って守るべきインフラになっている．これ，改めてすごい話だなと思います．</p>
+<p>もう一度この話の流れを振り返ります．出発点は，「自分のホームページに誰が来たか知りたい」という，めちゃくちゃ個人的な動機でPerlで書いたCGIスクリプトでした．それがPerlの問題でC言語に書き直され，ツールとして公開され，「Personal Home Page Tools」という名前になり，2人のイスラエルの大学生に気に入られて大幅に書き直され，世界中を動かすプログラミング言語になった．偶然が重なって重なって，気づいたら世界の結構な割合のWebサイトを動かしていた．そういう話なんですよね．</p>
+<p>作者自身が「プログラミング言語を作ろうとしたことなんか一度もなかった」と言っている言語に，世界中のエンジニアが，世界中の人々が，日々お世話になっています．プログラミングが嫌いな人が作った言語が，プログラマーを世界中に増やした．なんか皮肉っぽいですけど，僕はこれがすごく良いなと思っていて，「すごいものを作ろう」とか「歴史に残る言語を作ろう」とか，そういうビッグな動機がなくても，目の前の問題を解決しようとした結果がこうなることがある．エンジニアとして，これは結構刺さりました．</p>
+<p>ちょっと余談です．そもそもラスマスさんが最初に使っていたPerl，あれを作ったのはラリー・ウォールさんという方です．ラリー・ウォールさんはプログラマーであると同時に言語学のバックグラウンドも持っている人で，Perlの設計には「言語として面白くしよう」という意図がかなり入っています．同じことをやるのに複数の書き方ができていい，というのを意図的に許容した設計思想で，「TMTOWTDI」，There&apos;s More Than One Way To Do Itという合言葉まであるくらいです．</p>
+<p>一方でラスマスさんは，「言語を設計しよう」という発想が最初からなかった人で，本当に行き当たりばったりで機能を足していきました．同じスクリプト言語でも，作者の設計思想が真逆なんですよね．片や言語そのものが好きな人が作った表現力重視の言語．片や問題解決屋が行き当たりばったりで作った実用重視の言語．PHPがPerlの次の選択肢として選ばれていったのは，このシンプルさの違いも大きかったんじゃないかと思います．</p>
+<p>あとPerlユーザーがPHPを作ったということで，「言語の乗り換え」の歴史でもあるなと思いました．今もPythonにシフトしたり，TypeScriptが主流になったり，RustがC言語の領域に入ってきたり，どの時代もこういうシフトってありますよね．ラスマスさんはある意味そのはしりで，「Perlでやっていたことをもっとうまくできないか」というところから始まったのがPHPです．何か新しいものが生まれる背景には，既存のものへの「これちょっとしんどいな」という感覚があることが多い．それって今でも変わらないんだなと思いました．</p>
+<p>振り返ると，「言語を作ろうとしたことは一度もない」と言っている人が作った言語に，僕も含めて世界中のエンジニアがお世話になっています．しかもその人と，まさか自分がツーショットを撮ることになるとは，あの2015年の会場では思ってもみませんでした．あの時の自分に「その写真，10年後にポッドキャストのネタになるよ」って教えてあげたいですね．</p>
+<p>ちょっと脱線しますが，これって経営とかマネジメントの文脈でも結構示唆があるなと思っています．最近よく言われる「MVP」，Minimum Viable Productの発想．完璧を目指すよりまず動くものを出す，という考え方です．PHPの生まれ方はまさにそれなんですよね．壮大な設計書を書いてから作り始めたんじゃなくて，目の前の小さい問題を解決するものを作って，公開して，反応を見て，また直す．これを繰り返した結果，世界中で使われる基盤になりました．プロダクト作りでもチーム作りでも，割と本質的な話だと思っています．最初から完璧な設計を目指しすぎて何も出せない，ということって現場でもよくありますよね．ラスマスさんの話を聞いていると，「まず出す，直すのは後」の強さを改めて感じます．</p>
+<p>皆さんの最初に触れたサーバーサイドの言語は何でしたか．PHP，Ruby，Python，最近だとNode.jsから入る人も多いと思います．その言語がどうやって生まれたか，誰が作ったか，意外とドラマがあったりするので，ぜひ調べてみると面白いんじゃないかなと思います．</p>
+<p>はい，いかがだったでしょうか．今回は「PHP作者は元々Perl使いだった」というテーマで，PHPの誕生秘話をお届けしました．</p>
+<p>📎 <a href="https://www.php.net/manual/en/history.php.php" target="_blank">https://www.php.net/manual/en/history.php.php</a>
+📎 <a href="https://ja.wikipedia.org/wiki/ラスマス・ラードフ" target="_blank">https://ja.wikipedia.org/wiki/ラスマス・ラードフ</a>
+📎 <a href="https://en.wikipedia.org/wiki/Rasmus_Lerdorf" target="_blank">https://en.wikipedia.org/wiki/Rasmus_Lerdorf</a>
+📎 <a href="https://rightcode.co.jp/blogs/34793" target="_blank">https://rightcode.co.jp/blogs/34793</a>
+📎 <a href="https://thehistoryoftheweb.com/php/" target="_blank">https://thehistoryoftheweb.com/php/</a>
+📎 <a href="https://en.wikipedia.org/wiki/Zend_Engine" target="_blank">https://en.wikipedia.org/wiki/Zend_Engine</a>
+📎 <a href="https://gihyo.jp/news/report/01/phpcon2015/0001（PHPカンファレンス2015" target="_blank">https://gihyo.jp/news/report/01/phpcon2015/0001（PHPカンファレンス2015</a> 基調講演レポート）
+📎 <a href="https://eev.ee/blog/2012/04/09/php-a-fractal-of-bad-design/" target="_blank">https://eev.ee/blog/2012/04/09/php-a-fractal-of-bad-design/</a>
+📎 <a href="https://engineering.fb.com/2011/12/09/open-source/the-hiphop-virtual-machine/" target="_blank">https://engineering.fb.com/2011/12/09/open-source/the-hiphop-virtual-machine/</a>
+📎 <a href="https://thephp.foundation/structure/" target="_blank">https://thephp.foundation/structure/</a>
+📎 <a href="https://afieldguidetoelephpants.net/" target="_blank">https://afieldguidetoelephpants.net/</a></p>
 <h3 id="エンディング">エンディング</h3>
-<p>【ジングル】
-さて、そろそろ今回もお時間です。
-面白かったよーという方は、ぜひチャンネル登録もお願いします。話してほしいトピックや感想は、概要欄のフォームか 𝕏 で「WEB 小噺」でつぶやいてください。web はアルファベット、「小噺」は漢字でもひらがなでも大丈夫です！
-それでは、また雨宿りしに来てください。お相手は Keeth でした。さようなら！
+<p>【エンディングBGM】
+さて，そろそろ今回もクロージングです．
+今回は「PHP作者は元々Perl使いだった」について話しました．</p>
+<p>次回も，Webテクノロジーの小噺をお届けします．</p>
+<p>この番組が気に入った方は，ぜひチャンネル登録をお願いします．
+また，あなたからの感想やリクエストもお待ちしております！
+𝕏で #WEB小噺 をつけて投稿していただくか，概要欄のお便りフォームからお送りください．</p>
+<p>それでは，また次回の雨宿りでお会いしましょう！「雨宿りとWEBの小噺」お相手は Keeth でした．さようなら！
 【ジングル】</p>
-<h2 id="📚-参考情報">📚 参考情報</h2>
-<ul>
-<li>脆弱性の概要<ul>
-<li>CVE-2026-40175：axios のヘッダインジェクションチェーンによるクラウドメタデータ窃取</li>
-<li>対象バージョン：axios 1.15.0 未満</li>
-<li>修正版 1.15.0 で、ヘッダ値の CRLF・制御文字を拒否するよう変更</li>
-</ul>
-</li>
-<li>攻撃チェーンの3段階<ul>
-<li>① 別ライブラリのプロトタイプ汚染で axios のヘッダオブジェクトに <code>x-amz-target</code> 等を混入</li>
-<li>② CRLF インジェクションで任意のヘッダを追加注入</li>
-<li>③ AWS IMDS（<code>169.254.169.254</code>）を突いて IAM の一時認証情報を窃取</li>
-<li>単体では無害でも他の脆弱性と組み合わさると危険になる「ガジェット」という考え方がポイント</li>
-</ul>
-</li>
-<li>開発者が今すぐやるべきこと<ul>
-<li><code>npm ls axios</code> で使用バージョンを確認し、1.15.0 未満なら <code>npm update axios</code></li>
-<li>AWS に限らず GCP・Azure の類似メタデータエンドポイントにも注意</li>
-<li>依存ライブラリのプロトタイプ汚染対策も合わせて確認</li>
-</ul>
-</li>
-<li>引用元<ul>
-<li>📎 <a href="https://github.com/axios/axios/pull/10660/changes" target="_blank">https://github.com/axios/axios/pull/10660/changes</a></li>
-<li>📎 <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-40175" target="_blank">https://nvd.nist.gov/vuln/detail/CVE-2026-40175</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="🎙️-収録メモ">🎙️ 収録メモ</h2>
-<ul>
-<li>トーン<ul>
-<li>冒頭：軽いつかみ、でもちょっと不穏</li>
-<li>攻撃チェーンの解説：段階を追って丁寧に、緊張感を持たせる</li>
-<li>まとめ：実務的、行動喚起</li>
-</ul>
-</li>
-<li>強調ポイント<ul>
-<li>「ヘッダインジェクションチェーン」という一連の流れ</li>
-<li>「ガジェット」という概念</li>
-<li>「今すぐやるべきこと」（<code>npm update axios</code>）</li>
-</ul>
-</li>
-<li>尺<ul>
-<li>合計：約8〜10分</li>
-<li>オープニング：30秒</li>
-<li>本編：7〜9分</li>
-<li>クロージング：30秒</li>
-</ul>
-</li>
-<li>タグ<ul>
-<li><h1 id="axios-cve202640175-脆弱性-セキュリティ-プロトタイプ汚染-aws-imds-npm">axios #CVE202640175 #脆弱性 #セキュリティ #プロトタイプ汚染 #AWS #IMDS #npm</h1>
-</li>
-</ul>
-</li>
-</ul>
 
                                 
                                 </section>
@@ -2752,14 +2678,10 @@
 
             
                 
-                <a href="json-inventor-douglas-crockford.html" class="navigation navigation-prev " aria-label="Previous page: JSONを「発明」した男は「俺は発見しただけだ」と言った">
+                <a href="ruby-name-origin-gem-secret.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Rubyの名前に隠された宝石の秘密">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="why-is-cookie-called-cookie.html" class="navigation navigation-next " aria-label="Next page: Cookieってなんでクッキーなの？">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -2768,7 +2690,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"axiosにまた脆弱性 ── ヘッダインジェクションでクラウドのメタデータが抜かれる話（CVE-2026-40175）","level":"1.5.1.2.8","depth":4,"next":{"title":"Cookieってなんでクッキーなの？","level":"1.5.1.2.9","depth":4,"path":"PODCASTS/WEB小噺/Season5/why-is-cookie-called-cookie.md","ref":"PODCASTS/WEB小噺/Season5/why-is-cookie-called-cookie.md","articles":[]},"previous":{"title":"JSONを「発明」した男は「俺は発見しただけだ」と言った","level":"1.5.1.2.7","depth":4,"path":"PODCASTS/WEB小噺/Season5/json-inventor-douglas-crockford.md","ref":"PODCASTS/WEB小噺/Season5/json-inventor-douglas-crockford.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/axios-cve-2026-40175-header-injection.md","mtime":"2026-07-21T01:22:02.197Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-08-07T07:56:42.764Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"PHP作者は元々Perl使いだった","level":"1.5.1.2.11","depth":4,"next":{"title":"すきより","level":"1.5.2","depth":2,"ref":"","articles":[{"title":"好きな漫画「数学教師もげきはじめの考察」","level":"1.5.2.1","depth":3,"path":"PODCASTS/すきより/mogeki_hajime.md","ref":"PODCASTS/すきより/mogeki_hajime.md","articles":[]},{"title":"デリック・ローズ選手の魅力","level":"1.5.2.2","depth":3,"path":"PODCASTS/すきより/delick_rose.md","ref":"PODCASTS/すきより/delick_rose.md","articles":[]}]},"previous":{"title":"Rubyの名前に隠された宝石の秘密","level":"1.5.1.2.10","depth":4,"path":"PODCASTS/WEB小噺/Season5/ruby-name-origin-gem-secret.md","ref":"PODCASTS/WEB小噺/Season5/ruby-name-origin-gem-secret.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/php-creator-was-a-perl-user.md","mtime":"2026-08-07T07:46:51.668Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-08-07T07:56:42.764Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
