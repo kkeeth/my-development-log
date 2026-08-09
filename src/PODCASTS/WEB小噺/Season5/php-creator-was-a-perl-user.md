@@ -121,3 +121,51 @@
 
 それでは，また次回の雨宿りでお会いしましょう！「雨宿りとWEBの小噺」お相手は Keeth でした．さようなら！
 【ジングル】
+
+## 📣 配信メタ
+
+### タイトル
+
+8. 「プログラミングが大嫌い」な人が作った言語
+
+（別案：◯. 世界の8割を動かす言語を，作者は作る気がなかった ／ ◯. PHPって誰が作ったか言えますか？）
+
+### 概要欄
+
+第８回は，世界中の Web サイトを支えている PHP，その生みの親であるラスマス・ラードフさんについてお話しました！実はこの方，「プログラミング言語を作ろうとしたことは一度もない」「プログラミングが大嫌いだ」と公言されています．出発点は「自分のホームページに誰が来たか知りたい」という，本当にそれだけの動機だったそうで，そこからどうやって世界を動かす言語になったのか，是非お聴きください💁
+
+#### 今回の内容
+
+- サーバーサイドの言語が分かっているサイトだけで見ると，PHP のシェアは 8 割近い
+- 最初の名前は「Personal Home Page Tools」．自分のサイトのためのツールだった
+- Perl の限界にぶつかって C 言語で書き直したのが，すべての始まり
+- 「言語を作ろうとしたことは一度もない」「プログラミングが大嫌いだ」という本人の言葉
+- 「PHP は悪い設計のフラクタルだ」という辛辣な批判に，作者が「完全に同意する」と返した話
+- 大学の課題を終わらせるために，PHP をまるごと書き直したイスラエルの学生 2 人
+
+#### 参考リンク
+
+- https://www.php.net/manual/en/history.php.php
+- https://thehistoryoftheweb.com/php/
+- https://eev.ee/blog/2012/04/09/php-a-fractal-of-bad-design/
+- https://en.wikipedia.org/wiki/Zend_Engine
+- https://thephp.foundation/structure/
+- https://afieldguidetoelephpants.net/
+- https://gihyo.jp/news/report/01/phpcon2015/0001
+- https://en.wikipedia.org/wiki/Rasmus_Lerdorf
+
+ではでは(=ﾟωﾟ)ﾉ
+
+---
+
+#### 📣宣伝📣
+
+- [ポッドキャストスターアワード 2026](https://podcastar.jp/archives/2192)
+- [Web Creator Podcast Day 2026](https://webcreator-podcast-day.com/)
+
+---
+
+#### 📧 コンタクト
+
+- おたよりフォーム: https://forms.gle/utkE7JBKSReSdArPA
+- 公式𝕏: https://kuwahara_jsri
