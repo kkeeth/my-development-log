@@ -2581,137 +2581,61 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="dockerはなぜdockerなのか？クジラロゴと名前の裏側">DockerはなぜDockerなのか？クジラロゴと名前の裏側</h1>
-<blockquote>
-<p><strong>配信ステータス</strong>：未配信
-<strong>配信URL</strong>：（配信済みになったら記入）</p>
-</blockquote>
 <h2 id="台本">台本</h2>
 <h3 id="オープニング">オープニング</h3>
 <p>【ジングル】
-はい、どうもこんにちは。「雨宿りと WEB の小噺」、始まりました。Keeth こと桑原です。
-今回もちょっとだけ、雨宿りしていきませんか。
-今回のお題はですね、「DockerはなぜDockerなのか？クジラロゴと名前の裏側」。ちょっと面白い話なんで、まぁ聞いてってください。</p>
+はい，どうもこんにちは．「雨宿りとWEBの小噺」始まりました．Keethこと桑原です．</p>
+<p>この番組では，Webテクノロジーの歴史や裏側にある，ちょっとした小噺をご紹介しております．</p>
+<p>今回のお題は「DockerはなぜDockerなのか？クジラロゴと名前の裏側」です．</p>
 <h3 id="本題">本題</h3>
-<ul>
-<li><p><strong>Dockerって名前、実は「港湾労働者」から来ている</strong></p>
-<ul>
-<li>英語で港で荷物を積み下ろしする労働者のことを「docker（ドッカー）」と呼ぶ（特にイギリス・アイルランド圏の俗語）</li>
-<li>コンテナを運ぶ＝港で働く人、というシンプルなアナロジー。意外とストレートな命名</li>
-</ul>
-</li>
-<li><p><strong>Dockerの前身は「dotCloud」という会社だった</strong></p>
-<ul>
-<li>2008年にフランス・パリでSolomon Hykes、Kamel Founadi、Sebastien Pahlの3人が創業</li>
-<li>もともとはPaaSプラットフォームで、コンテナ技術はあくまで「内部の仕組み」として使われていた</li>
-<li>2010年にYCombinatorに採択されてサンフランシスコへ移転</li>
-</ul>
-</li>
-<li><p><strong>Dockerが世に出たのは2013年のPyConでの「5分間の即興デモ」</strong></p>
-<ul>
-<li>Solomon Hykes本人も「小さい部屋に10〜30人くらい来ればいいな」と思っていたら、なんとメインホールで800人の前でのデモになってしまった</li>
-<li>デモを録画したビデオがSNSで一気に拡散。社内でも「これは本命だ」と気づいてdotCloudからDockerへ社名ごと方向転換</li>
-<li>2013年10月29日、正式にdotCloudからDockerへ社名変更</li>
-</ul>
-</li>
-<li><p><strong>Solomonが感じた「開発者の無駄」がDockerの哲学を生んだ</strong></p>
-<ul>
-<li>「どの職場に行っても、みんな同じスクリプトを書いてるんだよね。それって時間の無駄じゃない？」という問題意識</li>
-<li>アプリを動かす環境ごと「箱に詰めて」どこでも同じように動かせる、という発想はここから来ている</li>
-<li>「Build, Ship, Run」というキャッチフレーズはこの哲学をそのまま言語化したもの</li>
-</ul>
-</li>
-<li><p><strong>ロゴのクジラ「Moby Dock」の誕生秘話</strong></p>
-<ul>
-<li>2013年6月、Docker社はデザインコンテストサイト「99designs」でロゴのコンペを実施</li>
-<li>優勝したのはインドネシア人デザイナーのRicky Asamanis。クジラの背中にコンテナを積んだデザイン</li>
-<li>名前は後でコミュニティが「Moby Dock（モビー・ドック）」と命名。もちろんハーマン・メルヴィルの小説『白鯨（Moby Dick）』のパロディ</li>
-<li>「Moby Dickは何でも破壊しようとする恐ろしいクジラ。さすがにブランドに使うには怖すぎるので、優しい従兄弟バージョンにした」という冗談めかした説明もある</li>
-</ul>
-</li>
-<li><p><strong>Docker社はリアルのクジラを「養子縁組」したことがある</strong></p>
-<ul>
-<li>ロゴがクジラなので、ノリで実際のシャチ・クジラ保護団体のシンボルクジラをスポンサードしたことがある</li>
-<li>テック企業がシャレでリアル動物を&quot;adopt&quot;するなかなかシュールなエピソード</li>
-</ul>
-</li>
-<li><p><strong>「Moby」という名のオープンソースプロジェクトが生んだ大混乱（2017年）</strong></p>
-<ul>
-<li>Docker社は2017年、コアのOSSコードベースを「Moby Project」に改名</li>
-<li>「DockerのOSS部分＝Moby、商用製品＝Docker CE/EE」という分離を図ったが、コミュニティから猛反発</li>
-<li>「急にリポジトリの名前が変わっていて混乱した」「Dockerなのかモビーなのかわからない」という声が続出</li>
-<li>GitHub上では「rename moby to docker」というIssueが立てられるほど。一種のブランド失敗事例として語られることも</li>
-</ul>
-</li>
-<li><p><strong>コンテナという概念自体はDockerの発明じゃない</strong></p>
-<ul>
-<li>Linuxのcgroupsとnamespaceという仕組みは2000年代から存在していた</li>
-<li>Dockerが革命的だったのは「難しいLinuxの仕組みを、エンジニアが使いやすいツールとして包んだ」こと</li>
-<li>Solomonはインタビューで「私たちは発明したんじゃなくて、整理したんだ」と語っている</li>
-</ul>
-</li>
-</ul>
+<p>今日はDockerというソフトウェアの話をするんですけど，本題に入る前に，一つ昔話をさせてください．時代はぐっと遡って1937年のアメリカです．</p>
+<p>マルコム・マクリーンさんという，トラック運転手がいました．ある日，ニュージャージーの港で，自分のトラックに積んでいた綿花を船に積み替えるために，何時間も順番待ちをしていたんです．荷物を一つ一つ降ろして，また一つ一つ船に積み直す，という気が遠くなる作業を眺めながら，マクリーンさんはふと思いました．「このトラックの荷台ごと，まるっとクレーンで釣り上げて船に乗せちゃえばいいんじゃないか」と．</p>
+<p>このアイデアを温め続けたマクリーンさんは，18年後の1955年，自分のトラック会社を売却して，このアイデアの実現に本気で取り組み始めます．そして1956年4月，荷台の部分だけをトラックの車輪から切り離せる，頑丈な鉄の箱を開発して，港のクレーンでその箱を丸ごと船に積み込むことに成功しました．これが，今では当たり前になっている「海上コンテナ」の始まりです．</p>
+<p>このコンテナ，何がすごかったかというと，中身が綿花だろうが，家具だろうが，機械部品だろうが関係なく，箱のサイズと形さえ統一されていれば，世界中どんな港のクレーンでも，どんなトラックでも，どんな船でも，同じように扱えるようになったことです．中身を気にせず，箱だけ扱えばいい．この発明のおかげで，荷物の積み下ろしにかかる時間もコストも劇的に下がって，今では世界の貿易のおよそ9割が，このコンテナを使った海上輸送で運ばれていると言われています．</p>
+<p>さて，ここからやっとソフトウェアの話になります．IT業界には「Docker（ドッカー）」という，ものすごく有名なソフトウェアがあります．これが何をするものかというと，やっていることは実は，さっきのコンテナの話とほとんど同じなんです．普通，プログラムって，動かすパソコンやサーバーの環境によって，微妙に動き方が変わってしまうことがあります．「自分のパソコンでは動いたのに，本番のサーバーに持っていったら動かない」みたいなことが，エンジニアの世界では本当によく起きるんです．</p>
+<p>Dockerは，プログラムと，それを動かすために必要な設定や部品を全部まとめて，一つの「箱」に詰め込んでしまいます．そうすると，その箱さえあれば，どんなパソコンに持っていっても，同じように動く．中身が何であれ，箱の規格さえ統一されていれば，どこでも同じように扱える，という発想は，まさにマクリーンさんが発明した海上コンテナの考え方，そのものなんですよね．この「箱」のことを，Dockerの世界では「コンテナ」と呼んでいます．</p>
+<p>これ，引っ越しに例えるとわかりやすいかもしれません．普通の引っ越しだと，新しい部屋に着いてから，家具を組み立て直したり，家電の配線をやり直したり，コンセントの形が合わなくて変換プラグを探したり，といった手間が発生しますよね．一つ一つの部屋の事情に合わせて，毎回一から調整し直さないといけない．これが，Dockerが登場する前のソフトウェアの世界で実際に起きていたことに近いです．</p>
+<p>でも，もし引っ越しのときに，家具も家電もコンセントの形まで含めて，全部丸ごと専用のコンテナに詰め込んで，そのコンテナごと新しい部屋にポンと設置できたらどうでしょう．中を開けた瞬間から，前の部屋と全く同じ状態で生活を始められますよね．Dockerがやっているのは，まさにこれです．細かい技術の話はここでは省略しますけど，「アプリを箱に詰めて，どこに持っていっても同じように動くようにする」，これだけ覚えてもらえれば，今日の話は十分楽しめると思います．</p>
+<p>そして，ここまで聞いてもらえれば，もうお分かりですよね．「Docker」という名前自体が，港で働く人，つまり「港湾労働者」を指すイギリスやアイルランドの俗語から来ているんです．コンテナを運ぶ人だから，Docker．シンプルでストレートな名付けですよね．マクリーンさんが発明した海上コンテナの発想を，ソフトウェアの世界に持ち込んだ人たちが，そのまま「港湾労働者」を名乗った，というわけです．</p>
+<p>Dockerの前身は，「dotCloud（ドットクラウド）」という会社でした．2008年，フランスのパリで，ソロモン・ハイクスさん，カメル・フォナディさん，セバスチャン・パールさんの3人が創業しています．ソロモン・ハイクスさんは，アメリカ人の父親とフランス系カナダ人の母親のもとニューヨークで生まれて，4歳のときに家族でフランスに移住したという経歴の持ち主です．7歳でコンピューターに触れてすぐに夢中になって，パリの学校で学びながら，近所のネットカフェでアルバイトをしてサーバーの管理をしていた，という筋金入りのプログラマー少年だったそうです．</p>
+<p>dotCloudは，もともとPaaSプラットフォーム，つまり「アプリを簡単に公開できる場所を提供するサービス」を作っている会社で，コンテナ技術はあくまで社内で使うための裏方の仕組みでした．2010年にはスタートアップの登竜門であるYコンビネーターに採択されて，サンフランシスコに拠点を移しています．</p>
+<p>Dockerが世に出るきっかけになったのは，2013年のPyConという技術カンファレンスでの，ちょっとした出来事でした．ソロモン・ハイクスさんは「小さい部屋に10人から30人くらい集まってくれればいいな」というくらいの軽い気持ちで，5分間の即興デモをするつもりだったんです．ところが，なぜかそのデモがメインホールで行われることになって，気づけば800人の観客の前でプレゼンする羽目になっていました．小さな会議室で10人相手に話すつもりが，気づけば大ホールで800人を前にする，というのは，発表する側からするとかなり緊張する状況だと思います．しかもこのデモを録画した動画がSNSで一気に拡散して，社内でも「これはいける，本命だ」という空気が一気に高まります．そして2013年10月29日，会社は正式にdotCloudからDockerへと，社名ごと大きく方向転換しました．小さな部屋のつもりで用意した5分間のデモが，結果的に会社の運命を変えてしまった，というのがこの話の面白いところです．</p>
+<p>このとき，ハイクスさんが感じていた問題意識も面白くて，「どの職場に行っても，みんな同じような環境構築のスクリプトを書いてるんだよね．それって時間の無駄じゃない？」というシンプルな気づきが，Dockerの哲学の出発点になっています．アプリを動かす環境ごと箱に詰めて，どこでも同じように動かせるようにする．「Build, Ship, Run（作って，届けて，動かす）」というキャッチフレーズは，この考え方をそのまま言葉にしたものです．</p>
+<p>ロゴのクジラの話もしておきましょう．2013年6月，Docker社はデザインコンテストサイト「99designs」で，ロゴのコンペを開催しました．優勝したのは，インドネシア人デザイナーのリッキー・アサマニスさんが描いた，クジラの背中にたくさんのコンテナを積んだデザインです．コンテナを運ぶ生き物として，クジラを選んだセンスが素晴らしいですよね．</p>
+<p>このクジラ，コミュニティから後付けで「Moby Dock（モビー・ドック）」という愛称がつけられました．もちろんこれは，ハーマン・メルヴィルの有名な小説『白鯨』，英語で「Moby Dick（モビー・ディック）」のパロディです．社内では「本家のモビー・ディックは何でも破壊しようとする恐ろしいクジラだから，さすがにブランドのマスコットに使うには怖すぎる．だからちょっと優しい，従兄弟みたいなキャラクターにした」という，冗談めかした説明もされているそうです．</p>
+<p>このロゴに関連して，ちょっとシュールなエピソードもあります．2015年，Docker社は「Oceanic Society」という，1960年代から活動している海洋生物保護団体と提携して，実在するザトウクジラを1頭スポンサーとして「養子縁組」しました．そのクジラには「Molly Dock（モリー・ドック）」という名前までつけられています．マスコットがクジラだから，という理由だけで，本物のクジラのスポンサーになってしまうというのは，テック企業のノリとしてはなかなかシュールで面白い話ですよね．</p>
+<p>一方で，このクジラの名前をめぐっては，ちょっとしたトラブルもありました．2017年，Docker社は，オープンソースとして公開している中身のコードベース全体を，「Moby Project」という名前に変更したんです．狙いとしては，「無料で使えるオープンソース部分はMoby，お金を払う商用版はDocker」という区別をはっきりさせたかったんですけど，これがコミュニティから猛反発を受けます．「急にリポジトリの名前が変わっていて混乱した」「結局DockerなのかMobyなのか分からない」という声が続出して，開発者が集まる場所には「rename moby to docker（名前をMobyからDockerに戻して）」という要望まで立てられる騒ぎになりました．今でもブランディングの失敗事例として語られることがあるエピソードです．</p>
+<p>実はDocker社自体にも，会社としての大きな浮き沈みがありました．Dockerは一時期，2億ドル以上の資金を調達して，将来の株式上場も期待される「ユニコーン企業」として注目されていました．ところが，GoogleがKubernetes（クバネティス）という別の関連技術をオープンソースで公開したことをきっかけに，業界全体がそちらに主導権を握られるようになっていって，Dockerの存在感がだんだん薄れていってしまいます．結局2019年，会社は企業向けのビジネス部分をMirantisという会社に売却して，事実上会社を半分に割るような形になりました．</p>
+<p>ただ，ここからがちょっとした逆転劇で，Docker社はその後，企業のインフラ担当者向けではなく，個人の開発者向けのサービスに焦点を絞る形に方向転換します．この戦略転換がうまくいって，2022年ごろには年間5000万ドル規模の収益を上げるまでに回復しました．一度沈みかけたクジラが，違う泳ぎ方を見つけて浮上してきた，という感じの物語ですね．今でも多くの開発者が，パソコンに「Docker Desktop」というアプリを入れて，日常的にお世話になっています．</p>
+<p>ちなみに創業者のソロモン・ハイクスさん本人は，すでにDocker社を離れていて，今は「Dagger（ダガー）」という，また別の新しい開発者向けサービスを作っています．一つの会社を大きく成長させて，業界の当たり前を作り変えたあと，また新しい課題を見つけて次のことを始める．こういうタイプの創業者，シリコンバレーには本当に多いですけど，ハイクスさんもまさにそのタイプだったということですね．</p>
+<p>最後に，技術的な話を一つだけ触れておくと，実はコンテナという「仕組み」そのものは，Dockerが発明したものではありません．コンテナを実現するための基礎技術は，Linuxというシステムの中に，2000年代からすでに存在していました．Dockerがすごかったのは，その難しい仕組みを，誰でも簡単に使えるツールとして，きれいに包み直したことです．ハイクスさん自身もインタビューで，「私たちは発明したんじゃなくて，整理したんだ」と語っています．</p>
+<p>これ，実は前にこの番組で紹介したJSONの話にもすごく近い構造なんですよね．JSONを作ったダグラス・クロックフォードさんも，「自分は発明したんじゃなくて，発見しただけだ」と言っていました．すでにあった技術やアイデアに，きちんと名前をつけて，誰でも使える形に整理して届ける．これって，ゼロから何かを生み出すことと同じくらい，というか，時にはそれ以上に価値のある仕事なんだと思います．マルコム・マクリーンさんが発明した「箱」の発想も，コンテナリゼーションという言葉こそ後から生まれましたけど，本質は「バラバラだったものを，統一された規格に整理し直した」ということですよね．港の荷物も，ソフトウェアも，同じ構造の革命を経験している，というのが，今日調べていて一番面白かったポイントです．</p>
+<p>エンジニアリングマネージャーという立場で考えると，この「整理する仕事の価値」というのは，本当に見落とされがちだなと感じます．派手に新しいものを生み出すことだけが評価されがちですけど，すでにある良いものを見つけて，磨いて，誰でも使える形にして届ける仕事も，同じくらい大きなインパクトを持ちうる．DockerもJSONも，海上コンテナも，まさにその代表例なんだと思います．</p>
+<p>面白いのは，この3つの話が全部，同じ構造の物語になっていることです．マルコム・マクリーンさんは，港での荷物の積み下ろしという，誰もが「そういうものだ」と思っていた面倒な作業に，「箱を統一すればいいじゃないか」という視点を持ち込みました．ソロモン・ハイクスさんは，開発者が毎回同じ環境構築の作業を繰り返しているという，これも「そういうものだ」と思われていた無駄に，同じような視点を持ち込みました．どちらも，全く新しい技術を発明したというより，「みんなが当たり前だと思って我慢していることに，統一された規格を持ち込んだ」という共通点があります．</p>
+<p>こういう視点の転換って，実はエンジニアの仕事に限らず，どんな仕事にも応用できる考え方だと思うんですよね．「これって毎回みんな同じことをやり直してるけど，本当に必要な手間なんだっけ」という疑問を持てるかどうか．Dockerの物語は，名前とロゴの面白さだけじゃなくて，そういう視点の持ち方についても，いろいろ考えさせられる話だなと思います．</p>
+<p>はい，いかがだったでしょうか．今回は「DockerはなぜDockerなのか」というテーマで，名前とロゴの裏側についてお届けしました．</p>
+<p>📎 <a href="https://en.wikipedia.org/wiki/Docker,_Inc" target="_blank">https://en.wikipedia.org/wiki/Docker,_Inc</a>.
+📎 <a href="https://jpetazzo.github.io/2017/02/24/from-dotcloud-to-docker/" target="_blank">https://jpetazzo.github.io/2017/02/24/from-dotcloud-to-docker/</a>
+📎 <a href="https://www.docker.com/blog/docker-11-year-anniversary/" target="_blank">https://www.docker.com/blog/docker-11-year-anniversary/</a>
+📎 <a href="https://forums.docker.com/t/where-does-the-idea-of-a-whale-on-the-logo-come-from/10874" target="_blank">https://forums.docker.com/t/where-does-the-idea-of-a-whale-on-the-logo-come-from/10874</a>
+📎 <a href="https://www.docker.com/blog/introducing-the-moby-project/" target="_blank">https://www.docker.com/blog/introducing-the-moby-project/</a>
+📎 <a href="https://snyk.io/blog/the-docker-project-turns-10/" target="_blank">https://snyk.io/blog/the-docker-project-turns-10/</a>
+📎 <a href="https://en.wikipedia.org/wiki/Malcom_McLean" target="_blank">https://en.wikipedia.org/wiki/Malcom_McLean</a>
+📎 <a href="https://www.invent.org/inductees/malcom-mclean" target="_blank">https://www.invent.org/inductees/malcom-mclean</a>
+📎 <a href="https://www.forbes.com/sites/alexkonrad/2015/07/01/meet-docker-founder-solomon-hykes/" target="_blank">https://www.forbes.com/sites/alexkonrad/2015/07/01/meet-docker-founder-solomon-hykes/</a>
+📎 <a href="https://www.networkworld.com/article/940638/docker-the-container-company-with-a-whale-of-a-logo-adopted-a-real-whale.html" target="_blank">https://www.networkworld.com/article/940638/docker-the-container-company-with-a-whale-of-a-logo-adopted-a-real-whale.html</a>
+📎 <a href="https://sacra.com/research/docker-plg-pivot/" target="_blank">https://sacra.com/research/docker-plg-pivot/</a>
+📎 <a href="https://www.techmonitor.ai/leadership/strategy/docker-mirantis" target="_blank">https://www.techmonitor.ai/leadership/strategy/docker-mirantis</a></p>
 <h3 id="エンディング">エンディング</h3>
-<p>【ジングル】
-さて、そろそろ今回もお時間です。
-面白かったよーという方は、ぜひチャンネル登録もお願いします。話してほしいトピックや感想は、概要欄のフォームか 𝕏 で「WEB 小噺」でつぶやいてください。web はアルファベット、「小噺」は漢字でもひらがなでも大丈夫です！
-それでは、また雨宿りしに来てください。お相手は Keeth でした。さようなら！
+<p>【エンディングBGM】
+さて，そろそろ今回もクロージングです．
+今回は「DockerはなぜDockerなのか？クジラロゴと名前の裏側」について話しました．</p>
+<p>次回も，Webテクノロジーの小噺をお届けします．</p>
+<p>この番組が気に入った方は，ぜひチャンネル登録をお願いします．
+また，あなたからの感想やリクエストもお待ちしております！
+𝕏で #WEB小噺 をつけて投稿していただくか，概要欄のお便りフォームからお送りください．</p>
+<p>それでは，また次回の雨宿りでお会いしましょう！「雨宿りとWEBの小噺」お相手は Keeth でした．さようなら！
 【ジングル】</p>
-<h2 id="📚-参考情報">📚 参考情報</h2>
-<ul>
-<li>名前とロゴの由来<ul>
-<li>「docker」は港湾労働者を指す英語の俗語。コンテナ＝港で働く人、というアナロジー</li>
-<li>ロゴのクジラは2013年の99designsコンペで採用されたRicky Asamanisのデザイン</li>
-<li>「Moby Dock」という愛称はコミュニティが後付けで命名。『白鯨（Moby Dick）』のパロディ</li>
-</ul>
-</li>
-<li>会社としての歴史<ul>
-<li>前身は2008年創業のPaaS企業「dotCloud」</li>
-<li>2013年のPyConでの即興デモがきっかけで注目を集め、同年10月にDockerへ社名変更</li>
-<li>2017年、OSSコードベースを「Moby Project」に改名した際はコミュニティから猛反発があった</li>
-</ul>
-</li>
-<li>技術的な位置づけ<ul>
-<li>コンテナの基盤技術（cgroups・namespace）自体は2000年代から存在</li>
-<li>Dockerの革新は「難しいLinuxの仕組みを使いやすいツールとして包んだ」こと</li>
-</ul>
-</li>
-<li>引用元<ul>
-<li>📎 <a href="https://en.wikipedia.org/wiki/Docker,_Inc" target="_blank">https://en.wikipedia.org/wiki/Docker,_Inc</a>.</li>
-<li>📎 <a href="https://jpetazzo.github.io/2017/02/24/from-dotcloud-to-docker/" target="_blank">https://jpetazzo.github.io/2017/02/24/from-dotcloud-to-docker/</a></li>
-<li>📎 <a href="https://www.docker.com/blog/docker-11-year-anniversary/" target="_blank">https://www.docker.com/blog/docker-11-year-anniversary/</a></li>
-<li>📎 <a href="https://forums.docker.com/t/where-does-the-idea-of-a-whale-on-the-logo-come-from/10874" target="_blank">https://forums.docker.com/t/where-does-the-idea-of-a-whale-on-the-logo-come-from/10874</a></li>
-<li>📎 <a href="https://www.docker.com/blog/introducing-the-moby-project/" target="_blank">https://www.docker.com/blog/introducing-the-moby-project/</a></li>
-<li>📎 <a href="https://snyk.io/blog/the-docker-project-turns-10/" target="_blank">https://snyk.io/blog/the-docker-project-turns-10/</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="🎙️-収録メモ">🎙️ 収録メモ</h2>
-<ul>
-<li>トーン<ul>
-<li>冒頭：軽妙、雑学トーク</li>
-<li>会社の歴史部分：テンポよく、ドラマチックに</li>
-<li>まとめ：しみじみ、共感を誘う</li>
-</ul>
-</li>
-<li>強調ポイント<ul>
-<li>「docker＝港湾労働者」という名前の由来</li>
-<li>PyConでの偶然のバズりから社名変更に至った流れ</li>
-<li>「発明したんじゃなくて、整理したんだ」という哲学</li>
-</ul>
-</li>
-<li>尺<ul>
-<li>合計：約8〜10分</li>
-<li>オープニング：30秒</li>
-<li>本編：7〜9分</li>
-<li>クロージング：30秒</li>
-</ul>
-</li>
-<li>タグ<ul>
-<li><h1 id="docker-dotcloud-moby-コンテナ-由来-web歴史-エンジニア雑学">Docker #dotCloud #Moby #コンテナ #由来 #Web歴史 #エンジニア雑学</h1>
-</li>
-</ul>
-</li>
-</ul>
 
                                 
                                 </section>
@@ -2755,7 +2679,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"DockerはなぜDockerなのか？クジラロゴと名前の裏側","level":"1.5.1.2.5","depth":4,"next":{"title":"有料ポッドキャスト配信を自前で作ったら想像以上に沼だった話","level":"1.5.1.2.6","depth":4,"path":"PODCASTS/WEB小噺/Season5/premium-podcast-with-cloudflare-workers.md","ref":"PODCASTS/WEB小噺/Season5/premium-podcast-with-cloudflare-workers.md","articles":[]},"previous":{"title":"Stripeの決済は見えないところで何度も試みている 〜リトライロジックの美学〜","level":"1.5.1.2.4","depth":4,"path":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","ref":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","mtime":"2026-07-21T01:22:22.955Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-08-07T07:56:42.764Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"DockerはなぜDockerなのか？クジラロゴと名前の裏側","level":"1.5.1.2.5","depth":4,"next":{"title":"有料ポッドキャスト配信を自前で作ったら想像以上に沼だった話","level":"1.5.1.2.6","depth":4,"path":"PODCASTS/WEB小噺/Season5/premium-podcast-with-cloudflare-workers.md","ref":"PODCASTS/WEB小噺/Season5/premium-podcast-with-cloudflare-workers.md","articles":[]},"previous":{"title":"Stripeの決済は見えないところで何度も試みている 〜リトライロジックの美学〜","level":"1.5.1.2.4","depth":4,"path":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","ref":"PODCASTS/WEB小噺/Season5/why-stripe-retry-three-times.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sidebar-ad","folding-chapters"],"root":"src","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sidebar-ad":{"imageUrl":"https://hebbkx1anhila5yf.public.blob.vercel-storage.com/%E9%9B%A8%E5%AE%BF%E3%82%8A%E3%81%A8%20Web%20%E3%81%AE%E5%B0%8F%E5%99%BA-XnAjzyKbW0lVXd3o7wE5Jn9Zf46A8A.png","url":"https://keeth.me","description":"I podcast what I'm learning and noticing in the web industry every week ✨","btnText":"Listen now!"},"folding-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"copyright":"Keeth Kuwahara","theme":"default","author":"Keeth Kuwahara(kkeeth)","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"kkeeth の日常ログ","gitbook":"*"},"file":{"path":"PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md","mtime":"2026-08-07T14:58:43.056Z","type":"markdown"},"gitbook":{"version":"5.1.4","time":"2026-08-07T15:40:35.315Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
