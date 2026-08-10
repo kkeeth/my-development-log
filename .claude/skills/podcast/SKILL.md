@@ -14,7 +14,7 @@ description: ポッドキャスト「雨宿りとWEBの小噺」の1エピソー
 | --- | --- | --- | --- |
 | 1 | 配信ネタのリサーチ | `podcast-research` | `podcast-researcher` ×3 |
 | 2 | 台本の執筆 | `podcast-script` | — |
-| 3 | ファクトチェック | `podcast-factcheck` | `podcast-fact-checker` ×2 |
+| 3 | ファクトチェック | `podcast-factcheck` | `podcast-fact-checker` ×1（最大 5 件で打ち切り） |
 | 4 | 構成レビュー | `podcast-review` | `podcast-marketer` |
 | 5 | タイトル・概要欄 | `podcast-meta` | — |
 | 6 | 配信管理表の更新 | `podcast-publish-log` | — |
