@@ -172,6 +172,41 @@ JSONが普及していく背景には，2000年代半ばの「JSON対XML」と�
 - おたよりフォーム: https://forms.gle/utkE7JBKSReSdArPA
 - 公式𝕏: https://x.com/kuwahara_jsri
 
+### X 投稿
+
+#### 告知ポスト
+
+```
+／
+📣「雨宿りとWEBの小噺」Season 5-10 更新！
+　　JSONは発明ではなく「発見」だった
+＼
+
+いまや当たり前のデータ形式 JSON，その生みの親は「発明したとは主張しない．発見しただけだと主張する」と仰っています．しかも大学での専攻は，ラジオ・テレビ学でした❗️
+
+↓リンクから是非お聴きください💁
+
+#web小噺 #webこばなし
+```
+
+#### リプライポスト
+
+```
+お好きなプラットフォームをお選びください❗️
+
+🟢 Spotify
+{Spotify の短縮 URL}
+
+🔴 YouTube
+{YouTube の短縮 URL}
+
+🟣 Apple Podcasts
+{Apple Podcasts の短縮 URL}
+
+⚪️ LISTEN
+{LISTEN の短縮 URL}
+```
+
 ## 📚 参考情報
 
 2026-08-10 ファクトチェック済み（検証 5 件）．
