@@ -124,6 +124,54 @@ JSONが普及していく背景には，2000年代半ばの「JSON対XML」と�
 それでは，また次回の雨宿りでお会いしましょう！「雨宿りとWEBの小噺」お相手は Keeth でした．さようなら！
 【ジングル】
 
+## 📣 配信メタ
+
+### タイトル
+
+10. JSONは発明ではなく「発見」だった
+
+（別案：10. 「発明したんじゃない，見つけただけだ」 ／ 10. JSONを作った男の意外すぎる経歴）
+
+### 概要欄
+
+第10回は，JSON の生みの親であるダグラス・クロックフォードさんについてお話しました！実はこの方，「私は JSON を発明したとは主張しない．発見しただけだと主張する」と仰っています．ラジオ・テレビ学専攻からゲーム開発，ルーカスフィルムを経て，ガレージで JSON にたどり着くまでの振れ幅がとんでもないことになっていました．是非お聴きください💁
+
+#### 今回の内容
+
+- 大学の専攻は「ラジオ・テレビ学」．最初のキャリアは Atari のゲーム開発だった
+- ルーカスフィルムで世界初規模のオンライン仮想空間「Habitat」に参加．「アバター」という言葉もここから生まれた
+- 4000 万ドルを調達した会社が，時代のハードウェアに追いつかれないまま凍結した話
+- 2001 年，ガレージで JSON が生まれた．本人いわく「発明したのではない，発見しただけだ」
+- ライセンスに書かれた一文「善のために使われるべきであり，悪のために使われてはならない」と，IBM とのやり取り
+- JSON を世に出した本人が，2022 年に「JavaScript は引退させるべきだ」と言い出した理由
+
+#### 参考リンク
+
+- https://www.crockford.com/about.html
+- https://nofluffjuststuff.com/blog/douglas_crockford/2008/01/the_discovery_of_json
+- https://twobithistory.org/2017/09/21/the-rise-and-rise-of-json.html
+- https://devclass.com/2022/08/04/retire_javascript_says-json-creator-douglas-crockford/
+- https://www.crockford.com/ec/
+- https://news.ycombinator.com/item?id=3693108
+- https://en.wikipedia.org/wiki/Habitat_(video_game)
+- https://en.wikipedia.org/wiki/Douglas_Crockford
+
+ではでは(=ﾟωﾟ)ﾉ
+
+---
+
+#### 📣宣伝📣
+
+- [ポッドキャストスターアワード 2026](https://podcastar.jp/archives/2192)
+- [Web Creator Podcast Day 2026](https://webcreator-podcast-day.com/)
+
+---
+
+#### 📧 コンタクト
+
+- おたよりフォーム: https://forms.gle/utkE7JBKSReSdArPA
+- 公式𝕏: https://x.com/kuwahara_jsri
+
 ## 📚 参考情報
 
 2026-08-10 ファクトチェック済み（検証 5 件）．
