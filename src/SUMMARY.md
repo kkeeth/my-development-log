@@ -159,6 +159,7 @@
       - [Rubyの名前に隠された宝石の秘密](PODCASTS/WEB小噺/Season5/ruby-name-origin-gem-secret.md)
       - [PHP作者は元々Perl使いだった](PODCASTS/WEB小噺/Season5/php-creator-was-a-perl-user.md)
       - [GitHubの草，なぜ「連続記録」をやめたのか](PODCASTS/WEB小噺/Season5/why-github-stopped-counting-streaks.md)
+      - [エンジニアが買ってよかったもの3選](PODCASTS/WEB小噺/Season5/engineers-best-buy-three-things.md)
   - すきより
     - [好きな漫画「数学教師もげきはじめの考察」](PODCASTS/すきより/mogeki_hajime.md)
     - [デリック・ローズ選手の魅力](PODCASTS/すきより/delick_rose.md)
