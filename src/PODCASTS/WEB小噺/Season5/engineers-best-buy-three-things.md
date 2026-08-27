@@ -200,7 +200,90 @@
 
 ## 📣 配信メタ
 
-（podcast-meta skill で生成する）
+### タイトル
+
+11. ベストバイ3選，1つもPCじゃない
+
+（別案：11. エンジニアのベストバイ，PCじゃない？ ／ 11. エンジニアの買い物は姿勢と声と体幹に効く）
+
+### 概要欄
+
+第11回は，ポッドキャスト企画「ポキャトーク」に飛び入り参加して，Webエンジニアとして買ってよかったもの3選をお話しました！選んだのは昇降デスクとマイクと腹筋ローラーで，パソコンが1つも入りませんでした．残ったのは姿勢と，声と，体幹です．是非お聴きください💁
+
+#### 今回の内容
+
+- 水城真琴さん主催の企画「ポキャトーク」第7回のお題「買ってよかったもの」に飛び入り参加
+- 選んだ軸は「作業環境への投資」．環境を1万円分良くすると，その1万円は毎日効き続ける
+- 1つ目：卓上の昇降式スタンディングデスク．座り方を改善するのではなく，そもそも立つ
+- 2つ目：ダイナミックマイク SHURE SM7B．放送用のこのマイクが『スリラー』のボーカルを録っていた
+- 3つ目：腹筋ローラー．立ちコロは絶対にやらない，膝コロから
+- 3つ並べてみたら，どれもパソコンではなかった．挙がったのは姿勢と声と体幹という，全部自分の体の話
+
+#### 参考リンク
+
+- https://www.shure.com/ja-JP/products/microphones/sm7b
+- https://www.shure.com/en-US/insights/the-shure-sm7b-aka-the-sm57-on-steroids-the-history-and-the-facts
+- https://www.soundonsound.com/people/bruce-swedien-recording-michael-jackson
+- https://www.shure.com/ja-JP/products/microphones/sm7db
+- https://www.waves.com/plugins/clarity-vx
+- https://rode.com/ja/microphones/broadcast/podmic
+- https://podcasts.apple.com/us/podcast/id1520572372
+- https://rickeypodcast.substack.com/p/f8b
+- https://www.hermanmiller.com/ja_jp/products/seating/office-chairs/aeron-chairs/
+- https://books.rakuten.co.jp/rb/17081343/
+
+ではでは(=ﾟωﾟ)ﾉ
+
+---
+
+#### 📣宣伝📣
+
+- [第7回ポキャトーク「買ってよかったもの」（主催：水城真琴さん）](https://x.com/oshi2Radio)
+- [推し活2次元LIFEラジオ（推し虹）](https://podcasts.apple.com/jp/podcast/id1770280379)
+- [ポッドキャストスターアワード 2026](https://podcastar.jp/archives/2192)
+- [Web Creator Podcast Day 2026](https://webcreator-podcast-day.com/)
+
+---
+
+#### 📧 コンタクト
+
+- おたよりフォーム: https://forms.gle/utkE7JBKSReSdArPA
+- 公式𝕏: https://x.com/kuwahara_jsri
+
+### X 投稿
+
+#### 告知ポスト
+
+```
+／
+📣「雨宿りとWEBの小噺」Season 5-11 更新！
+　　ベストバイ3選，1つもPCじゃない
+＼
+
+Webエンジニアとして買ってよかったものを3つ挙げたら，パソコンが1つも入りませんでした．昇降デスクと，マイクと，腹筋ローラー．残ったのは姿勢と声と体幹でした❗️
+
+↓リンクから是非お聴きください💁
+
+#web小噺 #webこばなし
+```
+
+#### リプライポスト
+
+```
+お好きなプラットフォームをお選びください❗️
+
+🟢 Spotify
+{Spotify の短縮 URL}
+
+🔴 YouTube
+{YouTube の短縮 URL}
+
+🟣 Apple Podcasts
+{Apple Podcasts の短縮 URL}
+
+⚪️ LISTEN
+{LISTEN の短縮 URL}
+```
 
 ## 📚 参考情報
 
