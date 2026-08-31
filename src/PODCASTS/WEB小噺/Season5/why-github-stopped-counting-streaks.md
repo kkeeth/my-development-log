@@ -1,4 +1,4 @@
-# GitHubの草，なぜ「連続記録」をやめたのか
+# 草の下にあった数字──GitHubが『連続記録』を消した日
 
 > **配信ステータス**：未配信
 > **配信URL**：（配信済みになったら記入）
@@ -8,11 +8,12 @@
 ### オープニング
 
 【ジングル】
-はい，どうもこんにちは．「雨宿りとWEBの小噺」始まりました．Keethこと桑原です．
+はい，どうもこんにちは．「雨宿りとWEBの小噺」始まりました．気づきの配達屋 Keethこと桑原です．
 
-この番組では，Webテクノロジーの歴史や裏側にある，ちょっとした小噺をご紹介しております．
+この番組では，気にも留めていなかったものに光を当てることで，世界の見え方が少し変わるかもしれない，そんな Web 業界の裏話や小噺をご紹介しております．
 
-今回のお題は「GitHubの草，なぜ『連続記録』をやめたのか」です．
+今回のお題は「草の下にあった数字──GitHubが『連続記録』を消した日」です．
+
 
 ### 本題
 
@@ -175,7 +176,7 @@ GitHubがやったのは，自分たちが作った指標について，それ�
 
 【エンディングBGM】
 さて，そろそろ今回もクロージングです．
-今回は「GitHubの草，なぜ『連続記録』をやめたのか」について話しました．
+今回は「草の下にあった数字──GitHubが『連続記録』を消した日」について話しました．
 
 次回も，Webテクノロジーの小噺をお届けします．
 
@@ -185,6 +186,55 @@ GitHubがやったのは，自分たちが作った指標について，それ�
 
 それでは，また次回の雨宿りでお会いしましょう！「雨宿りとWEBの小噺」お相手は Keeth でした．さようなら！
 【ジングル】
+
+## 📣 配信メタ
+
+### タイトル
+
+{N}. 草の下にあった数字──GitHubが『連続記録』を消した日
+
+（別案：{N}. 連続記録が消えた日──一つのissueがGitHubを動かした ／
+{N}. 1000日連続の代償──GitHubが草の数字をやめた理由）
+
+### 概要欄
+
+2016年4月1日，エリック・ロマインさんという開発者が，GitHubに一本のissueを立てました．タイトルは「Contribution graph can be harmful to contributors」．貢献グラフは，貢献者に害を与えうる．
+
+第{N}回は，GitHubの「草」からひっそり消えた連続記録についてお話しました！これは，私たちが毎日眺めている緑のマス目と，休むことを罰してしまう仕組みと，たった一文で機能を消したGitHubの判断の話です．是非お聴きください💁
+
+#### 今回の内容
+
+- **エリック・ロマイン（mxsasha）**：2016年4月，「休憩を避けるよう動機づける仕組みはオープンソース全体にとって有害だ」とissue #627を立てた開発者．彼が求めたのは削除ではなかった
+- **Write Code Every Day**：jQuery作者のジョン・レシグさんが2014年に広めた「毎日書く」文化と，1000日連続を積み上げていった人たち
+- **たった一文の削除告知**：GitHubは機能を消したことを成果として売らず，アップデート記事の中の一文だけで済ませた
+
+#### 参考リンク
+
+- GitHub Blog（2013）「Introducing Contributions」GitHub Blog. https://github.blog/news-insights/product-news/introducing-contributions/
+- Resig, J.（2014）「Write Code Every Day」johnresig.com. https://johnresig.com/blog/write-code-every-day/
+- Romijn, E.（mxsasha）（2016）「Contribution graph can be harmful to contributors」isaacs/github issue #627. https://github.com/isaacs/github/issues/627
+- GitHub Blog（2016）「More contributions on your profile」GitHub Blog. https://github.blog/2016-05-19-more-contributions-on-your-profile/
+- freeCodeCamp（2016）「Don't break the chain: why GitHub's streaks will be sorely missed by many」freeCodeCamp. https://www.freecodecamp.org/news/dont-break-the-chain-why-github-s-streaks-will-be-sorely-missed-by-many-4fff90bc2a38/
+- GitHub Docs「Troubleshooting missing contributions」GitHub Docs. https://docs.github.com/en/account-and-profile/how-tos/contribution-settings/troubleshooting-missing-contributions
+
+ではでは(=ﾟωﾟ)ﾉ
+
+---
+
+#### 📣宣伝📣
+
+（時期物のため，配信直前に最新の告知へ差し替えること）
+
+---
+
+#### 📧 コンタクト
+
+- おたよりフォーム: https://forms.gle/utkE7JBKSReSdArPA
+- 公式𝕏: https://x.com/kuwahara_jsri
+
+### X 投稿
+
+（`podcast-meta` skill で生成する．エピソード番号と x.gd 短縮URLが確定してから）
 
 ## 📚 参考情報
 
@@ -201,6 +251,9 @@ GitHubがやったのは，自分たちが作った指標について，それ�
 
 ## 🎙️ 収録メモ
 
+- 焦点：エリック・ロマイン（Erik Romijn ／ GitHub 上のハンドルは mxsasha）
+- これは，僕らが毎日眺めている緑のマス目と，休むことを罰してしまう仕組みと，
+  たった一文で機能を消した GitHub の判断の話です．
 - トーン
   - つかみは軽く．「草の下に数字があったのを覚えてますか」を思い出させる調子で
   - 背景（2013 年）は懐かしむ調子．アルバムとして作られた，を強めに置く
