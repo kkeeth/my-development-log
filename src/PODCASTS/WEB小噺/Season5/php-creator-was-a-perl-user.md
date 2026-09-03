@@ -1,7 +1,7 @@
 # PHP作者は元々Perl使いだった
 
-> **配信ステータス**：要確認
-> **配信URL**：（配信済みになったら記入）
+> **配信ステータス**：済
+> **配信URL**：https://open.spotify.com/episode/4Ers6hcwwP97tukEGj1CBn?si=QB5z0sYlQt6ykgLyTGNrjA
 
 ## 台本
 
