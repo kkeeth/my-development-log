@@ -6,6 +6,7 @@
   "scripts": {
     "init": "honkit init",
     "build": "rm -rf docs && honkit build && mv _book docs",
+    "podcast:status": "node scripts/podcast-status.mjs",
     "serve": "honkit serve"
   },
   "dependencies": {

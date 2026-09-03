@@ -1,5 +1,8 @@
 # Rubyの名前に隠された宝石の秘密
 
+> **配信ステータス**：未配信
+> **配信URL**：（配信済みになったら記入）
+
 ## 台本
 
 ### オープニング
@@ -94,3 +97,83 @@ Rubyの世界には「驚き最小の原則」という有名な言葉もあり�
 
 それでは，また次回の雨宿りでお会いしましょう！「雨宿りとWEBの小噺」お相手は Keeth でした．さようなら！
 【ジングル】
+
+## 📣 配信メタ
+
+### タイトル
+
+12. こっそり作られた言語の名前は，1文字で決まった
+
+（別案：12. 勤務中にこっそり作られた世界標準の言語 ／ 12. Rubyは真珠の次で，Coralより1文字短い）
+
+### 概要欄
+
+1993年2月24日，まつもとゆきひろさんは，同僚の石塚圭樹さんとオンラインチャットをしていました．これから作る新しいプログラミング言語に，どんな名前をつけるか．候補は2つ，「Coral」と「Ruby」でした．
+
+第12回は，Rubyという名前の由来についてお話しました！これは，7月の誕生石と，「プログラマーの幸せ」という30年ブレなかった軸と，決め手のひとつが「Coralより1文字短いから」だったことの話です．是非お聴きください💁
+
+#### 今回の内容
+
+- **まつもとゆきひろ**：勤務中にこっそりRubyを書いていたら，上司に「見なかったことにするから，続けなさい」と言われた人
+- **7月の誕生石**：Perlの由来である6月の誕生石Pearlの，次の月の宝石．先輩言語への敬意を，誕生石の巡り合わせで示した名前
+- **MINASWAN**：「Matz is nice, and so we are nice」．作った本人の人柄が，そのままコミュニティの文化として受け継がれている
+
+#### 参考リンク
+
+- Ruby公式「Rubyについて」ruby-lang.org. https://www.ruby-lang.org/ja/about/
+- 「Yukihiro Matsumoto interview」Evrone. https://evrone.com/blog/yukihiro-matsumoto-interview
+- Hansson, D. H.「The Rails Doctrine」rubyonrails.org. https://rubyonrails.org/doctrine
+- 「Ruby (programming language)」Wikipedia. https://en.wikipedia.org/wiki/Ruby_(programming_language)
+- 「Yukihiro Matsumoto」Wikiquote. https://en.wikiquote.org/wiki/Yukihiro_Matsumoto
+- 「まつもとゆきひろ」Wikipedia. https://ja.wikipedia.org/wiki/まつもとゆきひろ
+- 「Ruby生みの親 まつもとゆきひろ」type. https://type.jp/et/feature/9785/
+
+ではでは(=ﾟωﾟ)ﾉ
+
+---
+
+#### 📣宣伝📣
+
+- [Web Creator Podcast Day 2026](https://webcreator-podcast-day.com/)
+
+---
+
+#### 📧 コンタクト
+
+- おたよりフォーム: https://forms.gle/utkE7JBKSReSdArPA
+- 公式𝕏: https://x.com/kuwahara_jsri
+
+### X 投稿
+
+#### 告知ポスト
+
+```
+／
+📣「雨宿りとWEBの小噺」Season 5-12 更新！
+　　こっそり作られた言語の名前は，1文字で決まった
+＼
+
+勤務中にこっそりRubyを書いていたまつもとゆきひろさんが，上司に打ち明けたら「見なかったことにするから，続けなさい」．その言語の名前の決め手のひとつは，「Coralより1文字短いから」でした❗️
+
+↓リンクから是非お聴きください💁
+
+#web小噺 #webこばなし
+```
+
+#### リプライポスト
+
+```
+お好きなプラットフォームをお選びください❗️
+
+🟢 Spotify
+{Spotify の短縮 URL}
+
+🔴 YouTube
+{YouTube の短縮 URL}
+
+🟣 Apple Podcasts
+{Apple Podcasts の短縮 URL}
+
+⚪️ LISTEN
+{LISTEN の短縮 URL}
+```

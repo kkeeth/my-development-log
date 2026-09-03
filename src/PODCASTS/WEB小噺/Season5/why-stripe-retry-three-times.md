@@ -1,6 +1,6 @@
 # Stripeの決済は見えないところで何度も試みている　〜リトライロジックの美学〜
 
-> **配信ステータス**：済
+> **配信ステータス**：配信済み
 > **配信URL**：https://art19.com/shows/kkeethengineers/episodes/156c1da2-0a61-4bed-b375-1f72c7ef0e62
 
 ## 台本
