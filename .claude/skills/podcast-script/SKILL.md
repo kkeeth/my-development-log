@@ -24,7 +24,7 @@ description: ポッドキャスト「雨宿りとWEBの小噺」の台本を執�
 ```bash
 python3 .claude/skills/podcast-publish-log/scripts/sheets.py rows --tab "企画ストック（雨宿り）" --max 60
 ```
-- 参考として最近の完成台本を 1〜2 本読む（`Season5/github-octocat-siblings.md` など）．
+- 参考として最近の完成台本を 1〜2 本読む（`Season5/published/` の中から 1 本など）．
   **文体と語りのリズムは既存台本に合わせる．ただし長さは合わせない**
   （既存は 7〜20 分，現在の目標は 28〜30 分）
 
@@ -65,6 +65,7 @@ python3 .claude/skills/podcast-publish-log/scripts/sheets.py rows --tab "企画�
 ### 3. 執筆する
 
 `SHOW_RULES.md` の台本フォーマットに沿って `src/PODCASTS/WEB小噺/Season5/<slug>.md` を作る．
+**未配信のあいだはシーズン直下に置く**（`published/` `archived/` には入れない）．
 
 - オープニング・エンディングの**定型文は一字一句そのまま**貼る（タイトル部分だけ差し替え）
 - 本文で触れた事実の出典は，本題の直後に `📎 URL` で全部並べる
@@ -112,14 +113,14 @@ grep -n '[、。]' <file>
 - [ ] 上から音読して**そのまま収録が成立する**．口頭で補う必要のある箇所が無い
 - [ ] 本題の文字数（📎 除く）が **8,000〜9,800 字**に入っている
 
-完成形の参考は `Season5/php-creator-was-a-perl-user.md`，
-`Season5/json-inventor-douglas-crockford.md`，
+完成形の参考は `Season5/published/php-creator-was-a-perl-user.md`，
+`Season5/published/json-inventor-douglas-crockford.md`，
 `Season5/why-github-stopped-counting-streaks.md` の 3 本．
 **構成メモを箇条書きで置いて済ませるのは，この番組では納品物ではない．**
 
 ### 6. 後続を案内する
 
-`src/SUMMARY.md` の PODCASTS セクションに 1 行追加したうえで，
+`src/SUMMARY.md` の PODCASTS セクション，該当シーズンの**「未配信」の見出しの下**に 1 行追加したうえで，
 `podcast-factcheck` → `podcast-review` → `podcast-meta` に進むことを伝える．
 
 ---
@@ -135,7 +136,8 @@ grep -n '[、。]' <file>
 - **本題は 5 部構成**（つかみ／背景・歴史／メインの小噺・裏話／意外な事実や補足／まとめ）
 - **📎 URL は本題の末尾**に 1 行 1 本で列挙
 - **ファイル名は英語のハイフン区切り**（例：`why-is-cookie-called-cookie.md`）
-- **保存先は `src/PODCASTS/WEB小噺/Season5/`**
+- **保存先は `src/PODCASTS/WEB小噺/Season5/` 直下**（配信済みは `published/`，ボツは `archived/`．
+  執筆時点では未配信なので必ず直下に置く）
 
 ### ネタの性質
 

@@ -106,7 +106,7 @@ python3 .claude/skills/podcast-publish-log/scripts/sheets.py header
 | タイトル | 台本冒頭の `# ` 行，または `## 📣 配信メタ` の採用タイトル |
 | 概要欄 | `## 📣 配信メタ` の概要欄 |
 | 台本ファイル | 相対パス |
-| 配信ステータス | 冒頭の `> **配信ステータス**：` |
+| 配信ステータス | **置かれているフォルダー**（シーズン直下＝未配信／`published/`＝配信済み／`archived/`＝ボツ） |
 | 配信 URL | 冒頭の `> **配信URL**：` |
 | タグ | `## 🎙️ 収録メモ` のタグ |
 | 尺 | `## 🎙️ 収録メモ` の尺 |
@@ -162,12 +162,19 @@ python3 .claude/skills/podcast-publish-log/scripts/sheets.py update-stock \
 
 ### 5. 台本側も同期する
 
-配信済みにした場合は，台本冒頭のブロックも合わせて更新する．
+配信済みにした場合は，台本を `published/` へ移し，配信 URL を書き込む．
+**この 2 つは必ずセットで行う．**
+
+```bash
+git mv src/PODCASTS/WEB小噺/Season5/<slug>.md src/PODCASTS/WEB小噺/Season5/published/
+```
 
 ```markdown
-> **配信ステータス**：配信済み
 > **配信URL**：https://art19.com/shows/kkeethengineers/episodes/<uuid>
 ```
+
+移動したら `src/SUMMARY.md` の該当行のパスも直し，「配信済み」の見出しの下へ移す．
+ボツにした場合は `archived/` へ移す（配信 URL は空のままでよい）．
 
 ## 注意
 
@@ -206,7 +213,7 @@ No / タイトル / カテゴリ / 配信予定日 / 配信日 / ステータス
 
 - 台本の `# ` 行または `## 📣 配信メタ` の採用タイトルが `タイトル` に対応する
 - `ステータス` の語彙は未確認．書き込む前に `rows` で既存値を見て合わせること
-  （台本側の表記は「未配信」「配信済み」）
+  （台本側はフォルダーで管理している．`pnpm podcast:status` で対応が見られる）
 
 ### 企画ストック（雨宿り）
 

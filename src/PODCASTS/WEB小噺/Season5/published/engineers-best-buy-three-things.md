@@ -1,6 +1,5 @@
 # エンジニアが買ってよかったもの3選
 
-> **配信ステータス**：済
 > **配信URL**：https://open.spotify.com/episode/7HusMHCJoMqZyapi0SExJc?si=PjnPUK_qSWW9H1OCFMA4hg
 
 ## 台本

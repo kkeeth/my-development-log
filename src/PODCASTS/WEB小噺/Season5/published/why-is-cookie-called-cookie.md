@@ -1,6 +1,5 @@
 # Cookieってなんでクッキーなの？
 
-> **配信ステータス**：配信済み
 > **配信URL**：https://art19.com/shows/kkeethengineers/episodes/ff964130-0c95-4ad6-996b-015f28bc3554
 
 ## 台本

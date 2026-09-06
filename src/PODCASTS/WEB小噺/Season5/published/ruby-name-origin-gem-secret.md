@@ -1,6 +1,5 @@
 # Rubyの名前に隠された宝石の秘密
 
-> **配信ステータス**：済
 > **配信URL**：https://open.spotify.com/episode/6I86MtKVWe6o0VZHcRHhQ6?si=CVLiLX6yTfa0kjqxIUf8iA
 
 ## 台本

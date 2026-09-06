@@ -1,6 +1,5 @@
 # 404号室は存在しない──ロベール・カイヨーのため息と，Webが許した『リンク切れ』
 
-> **配信ステータス**： 配信済み
 > **配信URL**：https://open.spotify.com/episode/52p5o5UHAqBXLaK5W285qt?si=egH9uQ2pQzm53iGZXhtpYw
 
 ## 台本

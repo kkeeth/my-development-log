@@ -1,6 +1,5 @@
 # JSONを「発明」した男は「俺は発見しただけだ」と言った
 
-> **配信ステータス**：済
 > **配信URL**：https://open.spotify.com/episode/0hCF8yKXuAbE0ZANOTdRUY?si=UBTRNcqdT1eANsdLVShFMA
 
 ## 台本

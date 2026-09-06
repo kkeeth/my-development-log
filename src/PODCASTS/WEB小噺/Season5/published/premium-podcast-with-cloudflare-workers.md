@@ -1,6 +1,5 @@
 # メンバーシップ限定配信の基盤を自前で作ったら沼すぎて，最終的に全部捨てた話
 
-> **配信ステータス**：済
 > **配信URL**：https://open.spotify.com/episode/382eoF8Tl87Nx9IkF5kNLl?si=woVzM6lsRvO-UfHbYMv5eA
 
 ## 台本
