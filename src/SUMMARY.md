@@ -149,7 +149,6 @@
         - [zedux フィロソフィー](PODCASTS/WEB小噺/Season4/published/zedux_philosofy.md)
     - Season5
       - 未配信
-        - [axiosにまた脆弱性 ── ヘッダインジェクションでクラウドのメタデータが抜かれる話（CVE-2026-40175）](PODCASTS/WEB小噺/Season5/axios-cve-2026-40175-header-injection.md)
         - [DockerはなぜDockerなのか？クジラロゴと名前の裏側](PODCASTS/WEB小噺/Season5/docker-whale-and-name-origin.md)
         - [保守業務，当たり前のことを当たり前に保つ人にフォーカスを](PODCASTS/WEB小噺/Season5/forcus_for_mentainer.md)
         - [GitHubのOctocatには兄弟がいる？](PODCASTS/WEB小噺/Season5/github-octocat-siblings.md)
@@ -160,7 +159,7 @@
         - [GitHubの草，なぜ「連続記録」をやめたのか](PODCASTS/WEB小噺/Season5/why-github-stopped-counting-streaks.md)
         - [JavaScriptの「[] + []」が空文字になる理由](PODCASTS/WEB小噺/Season5/why-js-array-plus-array-is-empty-string.md)
         - [VS Codeのアイコンは無限大記号∞がモチーフ](PODCASTS/WEB小噺/Season5/why-vs-code-icon-is-an-infinity-symbol.md)
-        - [Zoomの創業者は前職で9回ビザ却下された](PODCASTS/WEB小噺/Season5/zoom-founder-visa-rejected-nine-times.md)
+        - [Zoomの創業者のビザは9回目で通った](PODCASTS/WEB小噺/Season5/zoom-founder-visa-approved-on-ninth-try.md)
       - 配信済み
         - [404 Not Found の誕生秘話](PODCASTS/WEB小噺/Season5/published/404_notfound.md)
         - [エンジニアが買ってよかったもの3選](PODCASTS/WEB小噺/Season5/published/engineers-best-buy-three-things.md)
@@ -170,6 +169,8 @@
         - [こっそり作られた言語の名前は，1文字で決まった](PODCASTS/WEB小噺/Season5/published/ruby-name-origin-gem-secret.md)
         - [Cookieってなんでクッキーなの？](PODCASTS/WEB小噺/Season5/published/why-is-cookie-called-cookie.md)
         - [Stripeの決済は見えないところで何度も試みている 〜リトライロジックの美学〜](PODCASTS/WEB小噺/Season5/published/why-stripe-retry-three-times.md)
+      - ボツ
+        - [axiosにまた脆弱性 ── ヘッダインジェクションでクラウドのメタデータが抜かれる話（CVE-2026-40175）](PODCASTS/WEB小噺/Season5/archived/axios-cve-2026-40175-header-injection.md)
   - すきより
     - [好きな漫画「数学教師もげきはじめの考察」](PODCASTS/すきより/mogeki_hajime.md)
     - [デリック・ローズ選手の魅力](PODCASTS/すきより/delick_rose.md)
