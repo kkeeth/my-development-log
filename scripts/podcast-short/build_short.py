@@ -312,6 +312,18 @@ FEED_URL = "https://rss.art19.com/kkeethengineers"
 ITUNES = "{http://www.itunes.com/dtds/podcast-1.0.dtd}"
 
 
+def clean_title(text):
+    """RSS のタイトルは濁点が分離している（NFD）ことがあるので直す．
+
+    そのまま描くと「エンジニア」が「エンシ\u3099ニア」に見える．
+    先頭の "Season 5-11. " は EP.11 のバッジと重複するので落とす．
+    """
+    import re
+    import unicodedata
+    text = unicodedata.normalize("NFC", text or "").strip()
+    return re.sub(r"^Season\s*\d+\s*-\s*\d+\s*[.．]?\s*", "", text)
+
+
 def read_feed(url):
     import urllib.request
     import xml.etree.ElementTree as ET
@@ -326,7 +338,7 @@ def read_feed(url):
         season = it.findtext(ITUNES + "season")
         number = it.findtext(ITUNES + "episode")
         items.append({
-            "title": (it.findtext("title") or "").strip(),
+            "title": clean_title(it.findtext("title")),
             "date": (it.findtext("pubDate") or "").strip(),
             "audio": enc.get("url") if enc is not None else None,
             "image": img.get("href") if img is not None else None,
@@ -343,13 +355,21 @@ def download(url, dest):
         return dest
     req = urllib.request.Request(url, headers={"User-Agent": "podcast-short/1.0"})
     print("  取得中: %s" % dest.name)
-    with urllib.request.urlopen(req, timeout=600) as r, open(dest, "wb") as f:
+    tmp = dest.with_suffix(dest.suffix + ".part")
+    with urllib.request.urlopen(req, timeout=600) as r, open(tmp, "wb") as f:
+        expected = int(r.headers.get("Content-Length") or 0)
         while True:
             b = r.read(1 << 20)
             if not b:
                 break
             f.write(b)
-    print("    %.1f MB" % (dest.stat().st_size / 1e6))
+    got = tmp.stat().st_size
+    # 途中で切れたファイルを掴むと，あとで Pillow が truncated で落ちて原因が分かりにくい
+    if expected and got != expected:
+        tmp.unlink()
+        sys.exit("ダウンロードが途中で切れた（%d / %d バイト）: %s" % (got, expected, url))
+    tmp.rename(dest)
+    print("    %.1f MB" % (got / 1e6))
     return dest
 
 
@@ -608,7 +628,9 @@ def read_cues(path):
         if not ln.strip() or ln.startswith("#"):
             continue
         s, e, text = ln.split("\t", 2)
-        cues.append({"s": float(s), "e": float(e), "text": text.strip()})
+        import unicodedata
+        cues.append({"s": float(s), "e": float(e),
+                     "text": unicodedata.normalize("NFC", text.strip())})
     return cues
 
 
@@ -750,7 +772,11 @@ def cmd_render(args):
 
 
 def render(audio, captions, out, art=None, bg=None, show="", title="", handle=""):
+    import unicodedata
     from PIL import Image, ImageDraw, ImageFont, ImageFilter
+
+    show, title, handle = (unicodedata.normalize("NFC", x or "")
+                           for x in (show, title, handle))
 
     cues = read_cues(captions)
     dur = cues[-1]["e"] + 0.6
