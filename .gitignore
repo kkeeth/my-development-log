@@ -23,3 +23,6 @@ _book
 *.njsproj
 *.sln
 *.sw?
+
+# ポッドキャストの文字起こし（音源から再生成できる派生物．1 回あたり数百 KB）
+transcripts/

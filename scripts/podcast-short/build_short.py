@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """ポッドキャストの切り抜きから縦型ショート動画（1080x1920）を作る．
 
-3 段構え:
-  1) plan   … whisper の word timestamps から字幕案を TSV に出す
-  2)（人手）TSV の text 列を直す（whisper は固有名詞をだいたい間違える）
-  3) render … TSV から動画を焼く
+工程:
+  transcribe … 回まるごとを単語タイムスタンプ付きで文字起こしして保存（収録後に 1 回）
+  find       … 全文から「このフレーズ」の秒数を引く（あいまい一致）
+  slice      … 全文から切り出し区間の単語だけ抜いて 0 秒起点に直す
+  plan       … 単語タイムスタンプから字幕案を TSV に出す
+  align      … 手直ししたテキストを元の文字起こしに突き合わせて時刻を振り直す
+  render     … TSV から動画を焼く
+
+全文を一度取っておけば，2 本目以降は文字起こしを回さずに済む．
 
 Pillow が要るので **/usr/bin/python3 で実行すること**．
 Homebrew の ffmpeg が libass / freetype 無しビルドなので，
@@ -111,6 +116,134 @@ def cmd_plan(args):
     for c in cues:
         print("  %6.2f-%6.2f  %s" % (c["s"], c["e"], c["text"]))
 
+
+
+
+# =========================================================================
+# transcribe / find / slice … 回まるごとの文字起こしを資産にする
+# =========================================================================
+WHISPER_FALLBACK = str(Path.home() / "Library/Python/3.9/bin/whisper")
+
+
+def cmd_transcribe(args):
+    """回まるごとを単語タイムスタンプ付きで文字起こしする．
+
+    mlx-whisper（Apple Silicon の GPU を使う）があればそちらを優先する．
+    無ければ openai-whisper の CLI に落ちる（CPU のみなので数倍遅い）．
+    """
+    import shutil
+    import tempfile
+
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    tmp = Path(tempfile.mkdtemp())
+
+    mlx = shutil.which("mlx_whisper")
+    if mlx and not args.force_cpu:
+        model = args.model or "mlx-community/whisper-large-v3-mlx"
+        # フラグの綴りは版によって割れているので両方試す
+        for flag in ("--word-timestamps", "--word_timestamps"):
+            cmd = [mlx, args.audio, "--model", model, "--language", "ja",
+                   flag, "True", "--output-format", "json",
+                   "--output-dir", str(tmp)]
+            print("$", " ".join(cmd))
+            if subprocess.run(cmd).returncode == 0:
+                break
+        else:
+            sys.exit("mlx_whisper に失敗した．--force-cpu で openai-whisper に落とせる")
+    else:
+        model = args.model or "small"
+        cmd = [WHISPER_FALLBACK, args.audio, "--model", model, "--language", "ja",
+               "--word_timestamps", "True", "--output_format", "json",
+               "--output_dir", str(tmp), "--verbose", "False"]
+        if args.model_dir:
+            cmd += ["--model_dir", args.model_dir]
+        print("$", " ".join(cmd))
+        subprocess.run(cmd, check=True)
+
+    produced = sorted(tmp.glob("*.json"))
+    if not produced:
+        sys.exit("文字起こしの json が出てこなかった: %s" % tmp)
+    data = json.loads(produced[0].read_text())
+    # 使うのは segments だけなので落として軽くする
+    segs = [{"start": g["start"], "end": g["end"], "text": g.get("text", ""),
+             "words": [{"word": w["word"], "start": w["start"], "end": w["end"]}
+                       for w in g.get("words", [])]}
+            for g in data["segments"]]
+    out.write_text(json.dumps({"segments": segs}, ensure_ascii=False))
+    dur = segs[-1]["end"] if segs else 0
+    print("wrote %s  (%d segments / %.1f 分)" % (out, len(segs), dur / 60))
+
+
+def cmd_find(args):
+    """全文から与えたフレーズに近い箇所を探して秒数を出す．
+
+    whisper は固有名詞を外すので完全一致では引っかからない．
+    台本の言い回しをそのまま投げても当たるよう，あいまい一致で探す．
+    """
+    import difflib
+    stream = char_stream(load_words(args.transcript))
+    text = "".join(c[0] for c in stream)
+    q = strip_marks(args.query)
+    n = len(q)
+    if n < 4:
+        sys.exit("クエリが短すぎる（4 文字以上）")
+
+    sm = difflib.SequenceMatcher(None, q, "", autojunk=False)
+    scored = []
+    step = max(n // 4, 1)
+    for i in range(0, max(len(text) - n, 0) + 1, step):
+        sm.set_seq2(text[i:i + n])
+        scored.append((sm.quick_ratio(), i))
+    scored.sort(reverse=True)
+
+    # 粗く絞ってから，その周辺だけ本気で見る
+    seen, hits = [], []
+    for _, i in scored[:40]:
+        if any(abs(i - j) < n for j in seen):
+            continue
+        seen.append(i)
+        best = (0, i)
+        for j in range(max(i - step, 0), min(i + step, len(text) - n) + 1):
+            sm.set_seq2(text[j:j + n])
+            r = sm.ratio()
+            if r > best[0]:
+                best = (r, j)
+        hits.append(best)
+    hits.sort(reverse=True)
+
+    print("query: %s" % args.query)
+    for r, i in hits[:args.top]:
+        s0 = stream[i][1]
+        e0 = stream[min(i + n - 1, len(stream) - 1)][2]
+        pad = args.context
+        around = text[max(i - pad, 0):i + n + pad]
+        print("  %.2f  %7.1fs - %7.1fs  (%s)  %s"
+              % (r, s0, e0, fmt_ts(s0), around))
+
+
+def fmt_ts(t):
+    return "%d:%02d:%02d" % (t // 3600, t % 3600 // 60, t % 60)
+
+
+def cmd_slice(args):
+    """全文から切り出し区間の単語だけ抜き，0 秒起点に直して書き出す．
+
+    これを plan / align に渡せば，切り出しごとに文字起こしを回さずに済む．
+    """
+    words = [w for w in load_words(args.transcript)
+             if w["e"] > args.start and w["s"] < args.end]
+    if not words:
+        sys.exit("その区間に単語が無い")
+    off = args.start
+    segs = [{"start": max(w["s"] - off, 0), "end": max(w["e"] - off, 0),
+             "text": w["t"],
+             "words": [{"word": w["t"], "start": max(w["s"] - off, 0),
+                        "end": max(w["e"] - off, 0)}]}
+            for w in words]
+    Path(args.out).write_text(json.dumps({"segments": segs}, ensure_ascii=False))
+    print("wrote %s  (%d words / %.1fs)" % (args.out, len(words), args.end - args.start))
+    print("  " + "".join(w["t"] for w in words))
 
 
 # =========================================================================
@@ -419,6 +552,28 @@ a = sub.add_parser("plan")
 a.add_argument("--words", required=True)
 a.add_argument("--out", required=True)
 a.set_defaults(fn=cmd_plan)
+t = sub.add_parser("transcribe")
+t.add_argument("--audio", required=True)
+t.add_argument("--out", required=True, help="例: transcripts/<slug>.json")
+t.add_argument("--model", default=None, help="mlx なら HF repo，CPU なら small / medium など")
+t.add_argument("--model-dir", dest="model_dir", default=None)
+t.add_argument("--force-cpu", action="store_true", help="mlx があっても openai-whisper を使う")
+t.set_defaults(fn=cmd_transcribe)
+
+fnd = sub.add_parser("find")
+fnd.add_argument("--transcript", required=True)
+fnd.add_argument("--query", required=True, help="台本の言い回しでよい（あいまい一致）")
+fnd.add_argument("--top", type=int, default=3)
+fnd.add_argument("--context", type=int, default=12, help="前後に何文字添えるか")
+fnd.set_defaults(fn=cmd_find)
+
+sl = sub.add_parser("slice")
+sl.add_argument("--transcript", required=True)
+sl.add_argument("--start", type=float, required=True)
+sl.add_argument("--end", type=float, required=True)
+sl.add_argument("--out", required=True)
+sl.set_defaults(fn=cmd_slice)
+
 c = sub.add_parser("align")
 c.add_argument("--words", required=True, help="whisper の json")
 c.add_argument("--text", required=True, help="手直ししたテキスト（1 行 = 字幕 1 枚）")
