@@ -14,6 +14,11 @@ uv tool install mlx-whisper
 
 入れなくても動く（`openai-whisper` に自動で落ちる）が，27 分の回で 15 分ほどかかる．
 
+⚠️ **mlx は Metal（GPU）を要求するので，Claude Code のサンドボックス内からは動かない．**
+`No Metal device available` で落ちる．`transcribe` は**本人がターミナルで叩く**か，
+Claude Code なら `!` を頭に付けて実行する．エージェント側から回したいときは
+`--force-cpu` を付けて `openai-whisper` に落とすこと（遅いが sandbox 内で完結する）．
+
 Pillow が要る．`/usr/bin/python3` に入っているので，**このスクリプトはシステム Python で動かす**．
 
 ## 収録後（回ごとに 1 回）

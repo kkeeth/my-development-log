@@ -138,19 +138,23 @@ def cmd_transcribe(args):
     out.parent.mkdir(parents=True, exist_ok=True)
     tmp = Path(tempfile.mkdtemp())
 
-    mlx = shutil.which("mlx_whisper")
+    mlx = shutil.which("mlx_whisper") or shutil.which(
+        "mlx_whisper", path=str(Path.home() / ".local/bin"))
     if mlx and not args.force_cpu:
-        model = args.model or "mlx-community/whisper-large-v3-mlx"
-        # フラグの綴りは版によって割れているので両方試す
-        for flag in ("--word-timestamps", "--word_timestamps"):
-            cmd = [mlx, args.audio, "--model", model, "--language", "ja",
-                   flag, "True", "--output-format", "json",
-                   "--output-dir", str(tmp)]
-            print("$", " ".join(cmd))
-            if subprocess.run(cmd).returncode == 0:
-                break
-        else:
-            sys.exit("mlx_whisper に失敗した．--force-cpu で openai-whisper に落とせる")
+        model = args.model or "mlx-community/whisper-large-v3-turbo"
+        cmd = [mlx, args.audio, "--model", model, "--language", "ja",
+               "--word-timestamps", "True", "--output-format", "json",
+               "--output-dir", str(tmp)]
+        print("$", " ".join(cmd))
+        r = subprocess.run(cmd, stderr=subprocess.PIPE, text=True)
+        if r.returncode != 0:
+            err = r.stderr or ""
+            sys.stderr.write(err)
+            if "Metal device" in err:
+                sys.exit(
+                    "\nmlx は Metal（GPU）を要求するので，サンドボックス内からは動かない．\n"
+                    "ターミナルで直接叩くか，`--force-cpu` で openai-whisper に落とすこと．")
+            sys.exit("mlx_whisper が失敗した（終了コード %d）" % r.returncode)
     else:
         model = args.model or "small"
         cmd = [WHISPER_FALLBACK, args.audio, "--model", model, "--language", "ja",
