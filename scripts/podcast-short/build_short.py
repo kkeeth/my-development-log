@@ -64,6 +64,7 @@ LAYOUT_ART = {"art_y": 300, "show_y": 560, "title_y": 632,
 
 # ---- 字幕の切り方 -------------------------------------------------------
 MAX_CHARS_PER_CUE = 24
+HOLD_GAP = 1.2         # この秒数までの間なら字幕を次まで保持する
 GAP_SPLIT = 0.35               # これより長い無音で割る
 BREAK_AFTER = "，．、。？！?! "
 
@@ -436,13 +437,31 @@ def cmd_transcribe(args):
     import shutil
     import tempfile
 
+    if args.all:
+        # 文字起こしがまだの回をまとめて回す（1 回ぶん数分かかるので放っておく用）
+        todo = []
+        for y in sorted(Path(args.root).glob("*/episode.yaml")):
+            root = y.parent
+            ep = load_yaml(y)
+            if not (root / ep.get("transcript", "transcript.json")).exists():
+                todo.append(str(root))
+        if not todo:
+            print("文字起こしがまだの回は無い")
+            return
+        print("%d 回ぶん回す: %s" % (len(todo), ", ".join(Path(t).name for t in todo)))
+        for i, t in enumerate(todo, 1):
+            print("\n[%d/%d] %s" % (i, len(todo), t))
+            args.all, args.episode = False, t
+            cmd_transcribe(args)
+        return
+
     if args.episode:
         root = Path(args.episode)
         ep = load_yaml(root / "episode.yaml")
         args.audio = str(root / ep["audio"])
         args.out = str(root / ep.get("transcript", "transcript.json"))
     if not args.audio or not args.out:
-        sys.exit("--episode か，--audio と --out の両方を指定すること")
+        sys.exit("--episode か --all，あるいは --audio と --out の両方を指定すること")
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     tmp = Path(tempfile.mkdtemp())
@@ -631,6 +650,12 @@ def read_cues(path):
         import unicodedata
         cues.append({"s": float(s), "e": float(e),
                      "text": unicodedata.normalize("NFC", text.strip())})
+
+    # 息継ぎ程度の間で字幕が消えるとチラつくので，次の字幕まで出しっぱなしにする
+    for i in range(len(cues) - 1):
+        gap = cues[i + 1]["s"] - cues[i]["e"]
+        if 0 < gap < HOLD_GAP:
+            cues[i]["e"] = cues[i + 1]["s"]
     return cues
 
 
@@ -922,6 +947,8 @@ bl.set_defaults(fn=cmd_build)
 
 t = sub.add_parser("transcribe")
 t.add_argument("--episode", default=None, help="shorts/<slug>（episode.yaml から拾う）")
+t.add_argument("--all", action="store_true", help="文字起こしがまだの回をまとめて回す")
+t.add_argument("--root", default=SHORTS_ROOT)
 t.add_argument("--audio", default=None)
 t.add_argument("--out", default=None, help="例: shorts/<slug>/transcript.json")
 t.add_argument("--model", default=None, help="mlx なら HF repo，CPU なら small / medium など")
