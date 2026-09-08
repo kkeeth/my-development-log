@@ -24,5 +24,9 @@ _book
 *.sln
 *.sw?
 
-# ポッドキャストの文字起こし（音源から再生成できる派生物．1 回あたり数百 KB）
-transcripts/
+# ショート動画の作業ディレクトリ
+# 音源・カバー・文字起こし・書き出しは音源から作り直せるので追わない．
+# episode.yaml と NN-<name>.yaml（切り出し区間と字幕）だけをコミットする．
+shorts/**/media/
+shorts/**/build/
+shorts/**/transcript.json

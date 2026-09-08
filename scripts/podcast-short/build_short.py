@@ -119,6 +119,184 @@ def cmd_plan(args):
 
 
 
+
+# =========================================================================
+# 作業ディレクトリ … 回ごとに 1 つ，ショート 1 本 = YAML 1 枚
+#
+#   shorts/<slug>/
+#     episode.yaml          回の設定（コミットする）
+#     transcript.json       全文の文字起こし（gitignore）
+#     media/                音源とカバー（gitignore）
+#     01-<name>.yaml        ショート 1 本の定義＋字幕（コミットする）
+#     build/                書き出したもの（gitignore）
+# =========================================================================
+SHORTS_ROOT = "shorts"
+CROSSFADE = 0.3        # 離れた区間を繋ぐときの重ね幅
+FADE_IN = 0.15
+FADE_OUT = 0.5
+
+
+def load_yaml(path):
+    import yaml
+    return yaml.safe_load(Path(path).read_text())
+
+
+def dump_yaml(path, data):
+    """人が直すファイルなので，字幕は | のリテラルブロックで出す．"""
+    import yaml
+
+    class D(yaml.SafeDumper):
+        pass
+
+    def as_block(dumper, value):
+        style = "|" if "\n" in value else None
+        return dumper.represent_scalar("tag:yaml.org,2002:str", value, style=style)
+
+    D.add_representer(str, as_block)
+    Path(path).write_text(yaml.dump(data, Dumper=D, allow_unicode=True,
+                                    sort_keys=False, width=200,
+                                    default_flow_style=None))
+
+
+def episode_of(short_path):
+    """ショートの YAML から，同じディレクトリの episode.yaml を読む．"""
+    root = Path(short_path).parent
+    ep = load_yaml(root / "episode.yaml")
+    for k in ("audio", "cover", "transcript"):
+        if ep.get(k):
+            ep[k] = str(root / ep[k])
+    return root, ep
+
+
+def cmd_init_episode(args):
+    import shutil
+    root = Path(args.root) / args.slug
+    (root / "media").mkdir(parents=True, exist_ok=True)
+    (root / "build").mkdir(exist_ok=True)
+
+    audio = root / "media" / ("episode" + Path(args.audio).suffix)
+    if not audio.exists():
+        shutil.copy2(args.audio, audio)
+    cover = None
+    if args.cover:
+        cover = root / "media" / ("cover" + Path(args.cover).suffix)
+        if not cover.exists():
+            shutil.copy2(args.cover, cover)
+
+    ep = {
+        "slug": args.slug,
+        "show": args.show,
+        "title": args.title,
+        "handle": args.handle,
+        "audio": str(audio.relative_to(root)),
+        "cover": str(cover.relative_to(root)) if cover else None,
+        "script": args.script,
+        "transcript": "transcript.json",
+    }
+    dump_yaml(root / "episode.yaml", ep)
+    print("作業ディレクトリを作った: %s" % root)
+    print("  次は文字起こし（Metal が要るのでターミナルで直接叩くこと）:")
+    print("    /usr/bin/python3 %s transcribe --episode %s" % (sys.argv[0], root))
+
+
+def cmd_draft(args):
+    """区間を決めたら，字幕の下書きまで入った YAML を起こす．
+
+    このあと captions を手で直して `build` に渡す．
+    """
+    root = Path(args.episode)
+    ep = load_yaml(root / "episode.yaml")
+    words = [w for w in load_words(root / ep["transcript"])
+             if w["e"] > args.start and w["s"] < args.end]
+    if not words:
+        sys.exit("その区間に単語が無い．先に transcribe を回すこと")
+
+    cues = chunk([{"t": w["t"], "s": w["s"] - args.start, "e": w["e"] - args.start}
+                  for w in words])
+    n = len(sorted(root.glob("[0-9][0-9]-*.yaml"))) + 1
+    out = root / ("%02d-%s.yaml" % (n, args.name))
+    dump_yaml(out, {
+        "segments": [[round(args.start, 2), round(args.end, 2)]],
+        "captions": "\n".join(c["text"] for c in cues) + "\n",
+    })
+    print("下書きを書いた: %s  (%.1f 秒 / 字幕 %d 枚)"
+          % (out, args.end - args.start, len(cues)))
+    print("  captions を直してから: build_short.py build %s" % out)
+
+
+def cut_audio(src, segments, out):
+    """区間を切り出して繋ぎ，SNS 向けのラウドネスに揃える．"""
+    import tempfile
+    tmp = Path(tempfile.mkdtemp())
+    parts = []
+    for i, (s, e) in enumerate(segments):
+        part = tmp / ("p%d.wav" % i)
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(src),
+                        "-ss", str(s), "-to", str(e), "-ac", "1", "-ar", "44100",
+                        str(part)], check=True)
+        parts.append(part)
+
+    total = sum(e - s for s, e in segments) - CROSSFADE * (len(parts) - 1)
+    chain, prev = [], "[0]"
+    for i in range(1, len(parts)):
+        lbl = "[x%d]" % i
+        chain.append("%s[%d]acrossfade=d=%s:c1=tri:c2=tri%s"
+                     % (prev, i, CROSSFADE, lbl))
+        prev = lbl
+    fade = ("afade=t=in:st=0:d=%s,afade=t=out:st=%.2f:d=%s,"
+            "loudnorm=I=-14:TP=-1.5:LRA=11"
+            % (FADE_IN, max(total - FADE_OUT, 0), FADE_OUT))
+    chain.append("%s%s[a]" % (prev, fade))
+
+    cmd = ["ffmpeg", "-v", "error", "-y"]
+    for p_ in parts:
+        cmd += ["-i", str(p_)]
+    cmd += ["-filter_complex", ";".join(chain), "-map", "[a]",
+            "-c:a", "libmp3lame", "-q:a", "2", str(out)]
+    subprocess.run(cmd, check=True)
+    return total
+
+
+def clip_words(transcript, segments):
+    """区間ぶんの単語を，繋いだあとの時間軸に載せ替える．"""
+    words, off = [], 0.0
+    allw = load_words(transcript)
+    for i, (s, e) in enumerate(segments):
+        base = off - s
+        for w in allw:
+            if w["e"] > s and w["s"] < e:
+                words.append({"t": w["t"], "s": max(w["s"] + base, 0),
+                              "e": max(w["e"] + base, 0)})
+        off += (e - s) - (CROSSFADE if i < len(segments) - 1 else 0)
+    return words
+
+
+def cmd_build(args):
+    """YAML 1 枚から，音の切り出しから mp4 までを通す．"""
+    root, ep = episode_of(args.short)
+    short = load_yaml(args.short)
+    name = Path(args.short).stem
+    build = root / "build"
+    build.mkdir(exist_ok=True)
+
+    segments = [tuple(x) for x in short["segments"]]
+    audio = build / (name + ".mp3")
+    total = cut_audio(ep["audio"], segments, audio)
+    print("音を切った: %s (%.1f 秒)" % (audio, total))
+
+    words = clip_words(ep["transcript"], segments)
+    lines = [l.strip() for l in short["captions"].splitlines() if l.strip()]
+    tsv = build / (name + ".tsv")
+    align_captions(words, lines, tsv)
+
+    out = build / (name + ".mp4")
+    render(audio=str(audio), captions=str(tsv), out=str(out),
+           art=ep.get("cover"),
+           show=short.get("show", ep.get("show", "")),
+           title=short.get("title", ep.get("title", "")),
+           handle=short.get("handle", ep.get("handle", "")))
+
+
 # =========================================================================
 # transcribe / find / slice … 回まるごとの文字起こしを資産にする
 # =========================================================================
@@ -134,6 +312,13 @@ def cmd_transcribe(args):
     import shutil
     import tempfile
 
+    if args.episode:
+        root = Path(args.episode)
+        ep = load_yaml(root / "episode.yaml")
+        args.audio = str(root / ep["audio"])
+        args.out = str(root / ep.get("transcript", "transcript.json"))
+    if not args.audio or not args.out:
+        sys.exit("--episode か，--audio と --out の両方を指定すること")
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     tmp = Path(tempfile.mkdtemp())
@@ -186,7 +371,12 @@ def cmd_find(args):
     台本の言い回しをそのまま投げても当たるよう，あいまい一致で探す．
     """
     import difflib
-    stream = char_stream(load_words(args.transcript))
+    src = args.transcript
+    if args.episode:
+        root = Path(args.episode)
+        src = str(root / load_yaml(root / "episode.yaml").get("transcript",
+                                                             "transcript.json"))
+    stream = char_stream(load_words(src))
     text = "".join(c[0] for c in stream)
     q = strip_marks(args.query)
     n = len(q)
@@ -264,12 +454,11 @@ def char_stream(words):
     return out
 
 
-def cmd_align(args):
+def align_captions(words, lines, out_path):
+    """手直ししたテキストを元の文字起こしに突き合わせ，時刻だけ引き継ぐ．"""
     import difflib
-    stream = char_stream(load_words(args.words))
+    stream = char_stream(words)
     src = "".join(c[0] for c in stream)
-
-    lines = [l.strip() for l in Path(args.text).read_text().splitlines() if l.strip()]
     dst = "".join(strip_marks(l) for l in lines)
 
     # 手直し後 → 元 の文字位置対応表を作る
@@ -295,10 +484,15 @@ def cmd_align(args):
 
     out = ["#start\tend\ttext"]
     out += ["%.3f\t%.3f\t%s" % c for c in cues]
-    Path(args.out).write_text("\n".join(out) + "\n")
-    print("wrote %s (%d cues)" % (args.out, len(cues)))
+    Path(out_path).write_text("\n".join(out) + "\n")
+    print("字幕を並べた: %s (%d 枚)" % (out_path, len(cues)))
     for c in cues:
         print("  %6.2f-%6.2f  %s" % c)
+
+
+def cmd_align(args):
+    lines = [l.strip() for l in Path(args.text).read_text().splitlines() if l.strip()]
+    align_captions(load_words(args.words), lines, args.out)
 
 
 # =========================================================================
@@ -447,14 +641,18 @@ def audio_peaks(audio, nbars):
 
 
 def cmd_render(args):
-    sys.path.insert(0, "/usr/lib/python3/dist-packages")
+    render(args.audio, args.captions, args.out, args.art, args.bg,
+           args.show, args.title, args.handle)
+
+
+def render(audio, captions, out, art=None, bg=None, show="", title="", handle=""):
     from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-    cues = read_cues(args.captions)
+    cues = read_cues(captions)
     dur = cues[-1]["e"] + 0.6
 
-    art = Image.open(args.art).convert("RGB") if args.art else None
-    bg_src = Image.open(args.bg).convert("RGB") if args.bg else art
+    art = Image.open(art).convert("RGB") if art else None
+    bg_src = Image.open(bg).convert("RGB") if bg else art
     L = LAYOUT_ART if art is not None else LAYOUT_PLAIN
 
     f_cap = ImageFont.truetype(FONT_BOLD, CAP_SIZE, index=0)
@@ -464,9 +662,9 @@ def cmd_render(args):
 
     base = make_background(Image, ImageDraw, ImageFilter, bg_src)
     draw_static(Image, ImageDraw, ImageFilter, base, L, art,
-                args.show, args.title, args.handle, f_show, f_title, f_foot)
+                show, title, handle, f_show, f_title, f_foot)
 
-    peaks = audio_peaks(args.audio, WAVE_BARS)
+    peaks = audio_peaks(audio, WAVE_BARS)
     bar_w = W / WAVE_BARS
     bar_pad = bar_w * 0.34
     wave_y = L["wave_y"]
@@ -513,11 +711,11 @@ def cmd_render(args):
         "ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
         "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", "%dx%d" % (W, H),
         "-r", str(FPS), "-i", "-",
-        "-i", args.audio,
+        "-i", audio,
         "-map", "0:v", "-map", "1:a", "-t", "%.2f" % dur,
         "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p",
         "-crf", "20", "-c:a", "aac", "-b:a", "192k",
-        "-movflags", "+faststart", args.out,
+        "-movflags", "+faststart", out,
     ], stdin=subprocess.PIPE)
 
     ci = 0
@@ -547,7 +745,7 @@ def cmd_render(args):
             print("  %d/%d frames" % (n, nframes), file=sys.stderr)
     ff.stdin.close()
     ff.wait()
-    print("done:", args.out, "(%.1fs)" % dur)
+    print("焼いた: %s (%.1f 秒)" % (out, dur))
 
 
 p = argparse.ArgumentParser()
@@ -556,16 +754,40 @@ a = sub.add_parser("plan")
 a.add_argument("--words", required=True)
 a.add_argument("--out", required=True)
 a.set_defaults(fn=cmd_plan)
+ie = sub.add_parser("init-episode", help="回の作業ディレクトリを作る")
+ie.add_argument("--slug", required=True)
+ie.add_argument("--audio", required=True, help="配信音源の mp3")
+ie.add_argument("--cover", default=None, help="カバー画像")
+ie.add_argument("--show", default="", help="例: EP.9")
+ie.add_argument("--title", default="")
+ie.add_argument("--handle", default="@kkeeth   #WEB小噺")
+ie.add_argument("--script", default=None, help="台本 md のパス")
+ie.add_argument("--root", default=SHORTS_ROOT)
+ie.set_defaults(fn=cmd_init_episode)
+
+dr = sub.add_parser("draft", help="区間から字幕の下書き入り YAML を起こす")
+dr.add_argument("--episode", required=True, help="shorts/<slug>")
+dr.add_argument("--name", required=True, help="例: hate-programming")
+dr.add_argument("--start", type=float, required=True)
+dr.add_argument("--end", type=float, required=True)
+dr.set_defaults(fn=cmd_draft)
+
+bl = sub.add_parser("build", help="YAML 1 枚から mp4 まで通す")
+bl.add_argument("short", help="shorts/<slug>/NN-<name>.yaml")
+bl.set_defaults(fn=cmd_build)
+
 t = sub.add_parser("transcribe")
-t.add_argument("--audio", required=True)
-t.add_argument("--out", required=True, help="例: transcripts/<slug>.json")
+t.add_argument("--episode", default=None, help="shorts/<slug>（episode.yaml から拾う）")
+t.add_argument("--audio", default=None)
+t.add_argument("--out", default=None, help="例: shorts/<slug>/transcript.json")
 t.add_argument("--model", default=None, help="mlx なら HF repo，CPU なら small / medium など")
 t.add_argument("--model-dir", dest="model_dir", default=None)
 t.add_argument("--force-cpu", action="store_true", help="mlx があっても openai-whisper を使う")
 t.set_defaults(fn=cmd_transcribe)
 
 fnd = sub.add_parser("find")
-fnd.add_argument("--transcript", required=True)
+fnd.add_argument("--episode", default=None, help="shorts/<slug>")
+fnd.add_argument("--transcript", default=None)
 fnd.add_argument("--query", required=True, help="台本の言い回しでよい（あいまい一致）")
 fnd.add_argument("--top", type=int, default=3)
 fnd.add_argument("--context", type=int, default=12, help="前後に何文字添えるか")
