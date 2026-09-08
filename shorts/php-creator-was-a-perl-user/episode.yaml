@@ -3,6 +3,6 @@ show: EP.9
 title: 「プログラミングが大嫌い」な人が作った言語
 handle: '@kkeeth   #WEB小噺'
 audio: media/episode.mp3
-cover: null
+cover: media/cover.jpeg
 script: src/PODCASTS/WEB小噺/Season5/published/php-creator-was-a-perl-user.md
 transcript: transcript.json

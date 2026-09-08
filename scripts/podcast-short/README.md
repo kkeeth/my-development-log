@@ -43,14 +43,21 @@ Claude Code なら `!` を頭に付けて実行する．エージェント側か
 
 ## 回を 1 つ用意する
 
-Art19 から音源とカバー画像を落としてきて，作業ディレクトリを作る．
+Art19 の RSS から音源とカバーを直接取ってくる．手で落としてこなくてよい．
 
 ```
-build_short.py init-episode --slug json-inventor-douglas-crockford \
-  --audio ~/Downloads/<音源>.mp3 --cover ~/Downloads/<カバー>.jpeg \
-  --show "EP.10" --title 'JSONを「発見しただけ」と言った男の経歴' \
+build_short.py fetch --list                     # 最近の回を並べる
+build_short.py fetch --slug json-inventor-douglas-crockford --match 5-10 \
+  --title 'JSONを「発見しただけ」と言った男の経歴' \
   --script src/PODCASTS/WEB小噺/Season5/published/json-inventor-douglas-crockford.md
 ```
+
+`--match` はタイトルの一部でも `5-10` のようなシーズン-番号でも通る．`--index` でも選べる．
+`show`（`EP.10`）は RSS の `itunes:episode` から，`title` は RSS のタイトルから埋まるので，
+台本側のタイトルを使いたいときだけ `--title` を渡す．
+カバーは**回ごとの画像**が入っているので，回ごとに絵が変わる．
+
+手元のファイルから作りたいときは `init-episode`（`--audio` と `--cover` を渡す）．
 
 続けて，回まるごとを単語タイムスタンプ付きで文字起こしする（**ターミナルで直接**）。
 

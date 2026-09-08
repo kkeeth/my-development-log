@@ -152,10 +152,17 @@ def dump_yaml(path, data):
         style = "|" if "\n" in value else None
         return dumper.represent_scalar("tag:yaml.org,2002:str", value, style=style)
 
+    def as_flow(dumper, value):
+        # 区間 [800.7, 830.6] のような数値のリストだけ 1 行にまとめる
+        flow = all(isinstance(v, (int, float)) for v in value) and bool(value)
+        return dumper.represent_sequence("tag:yaml.org,2002:seq", value,
+                                         flow_style=flow)
+
     D.add_representer(str, as_block)
+    D.add_representer(list, as_flow)
     Path(path).write_text(yaml.dump(data, Dumper=D, allow_unicode=True,
                                     sort_keys=False, width=200,
-                                    default_flow_style=None))
+                                    default_flow_style=False))
 
 
 def episode_of(short_path):
@@ -295,6 +302,103 @@ def cmd_build(args):
            show=short.get("show", ep.get("show", "")),
            title=short.get("title", ep.get("title", "")),
            handle=short.get("handle", ep.get("handle", "")))
+
+
+
+# =========================================================================
+# fetch … Art19 の RSS から音源とカバーを取ってくる
+# =========================================================================
+FEED_URL = "https://rss.art19.com/kkeethengineers"
+ITUNES = "{http://www.itunes.com/dtds/podcast-1.0.dtd}"
+
+
+def read_feed(url):
+    import urllib.request
+    import xml.etree.ElementTree as ET
+    req = urllib.request.Request(url, headers={"User-Agent": "podcast-short/1.0"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        root = ET.fromstring(r.read())
+
+    items = []
+    for it in root.iter("item"):
+        enc = it.find("enclosure")
+        img = it.find(ITUNES + "image")
+        season = it.findtext(ITUNES + "season")
+        number = it.findtext(ITUNES + "episode")
+        items.append({
+            "title": (it.findtext("title") or "").strip(),
+            "date": (it.findtext("pubDate") or "").strip(),
+            "audio": enc.get("url") if enc is not None else None,
+            "image": img.get("href") if img is not None else None,
+            "season": season,
+            "number": number,
+        })
+    return items
+
+
+def download(url, dest):
+    import urllib.request
+    if dest.exists():
+        print("  すでにある: %s" % dest)
+        return dest
+    req = urllib.request.Request(url, headers={"User-Agent": "podcast-short/1.0"})
+    print("  取得中: %s" % dest.name)
+    with urllib.request.urlopen(req, timeout=600) as r, open(dest, "wb") as f:
+        while True:
+            b = r.read(1 << 20)
+            if not b:
+                break
+            f.write(b)
+    print("    %.1f MB" % (dest.stat().st_size / 1e6))
+    return dest
+
+
+def cmd_fetch(args):
+    items = read_feed(args.feed)
+
+    if args.list or not args.slug:
+        for i, it in enumerate(items[:args.limit]):
+            tag = ("S%s-%s" % (it["season"], it["number"])) if it["number"] else "-"
+            print("  [%d] %-8s %s" % (i, tag, it["title"]))
+            print("        %s" % it["date"])
+        if not args.slug:
+            print("\n  --slug と --match（または --index）を付けると取ってくる")
+        return
+
+    if args.index is not None:
+        it = items[args.index]
+    else:
+        key = strip_marks(args.match)
+        hit = [x for x in items
+               if key in strip_marks(x["title"])
+               or key == "%s-%s" % (x["season"], x["number"])]
+        if not hit:
+            sys.exit("見つからない: %s（--list で一覧を見ること）" % args.match)
+        it = hit[0]
+    print("対象: %s" % it["title"])
+
+    root = Path(args.root) / args.slug
+    (root / "media").mkdir(parents=True, exist_ok=True)
+    (root / "build").mkdir(exist_ok=True)
+    download(it["audio"], root / "media" / "episode.mp3")
+    cover = None
+    if it["image"]:
+        cover = download(it["image"], root / "media" / "cover.jpeg")
+
+    ep = {
+        "slug": args.slug,
+        "show": args.show or ("EP.%s" % it["number"] if it["number"] else ""),
+        "title": args.title or it["title"],
+        "handle": args.handle,
+        "audio": "media/episode.mp3",
+        "cover": "media/cover.jpeg" if cover else None,
+        "script": args.script,
+        "transcript": "transcript.json",
+    }
+    dump_yaml(root / "episode.yaml", ep)
+    print("作業ディレクトリを作った: %s" % root)
+    print("  次は文字起こし（Metal が要るのでターミナルで直接叩くこと）:")
+    print("    /usr/bin/python3 %s transcribe --episode %s" % (sys.argv[0], root))
 
 
 # =========================================================================
@@ -754,7 +858,21 @@ a = sub.add_parser("plan")
 a.add_argument("--words", required=True)
 a.add_argument("--out", required=True)
 a.set_defaults(fn=cmd_plan)
-ie = sub.add_parser("init-episode", help="回の作業ディレクトリを作る")
+fe = sub.add_parser("fetch", help="Art19 の RSS から音源とカバーを取って作業ディレクトリを作る")
+fe.add_argument("--list", action="store_true", help="最近のエピソードを並べるだけ")
+fe.add_argument("--limit", type=int, default=10)
+fe.add_argument("--slug", default=None)
+fe.add_argument("--match", default="", help="タイトルの一部か，シーズン-番号（例: 5-10）")
+fe.add_argument("--index", type=int, default=None, help="--list の番号で選ぶ")
+fe.add_argument("--show", default=None, help="既定は itunes:episode から EP.N")
+fe.add_argument("--title", default=None, help="既定は RSS のタイトル")
+fe.add_argument("--handle", default="@kkeeth   #WEB小噺")
+fe.add_argument("--script", default=None)
+fe.add_argument("--feed", default=FEED_URL)
+fe.add_argument("--root", default=SHORTS_ROOT)
+fe.set_defaults(fn=cmd_fetch)
+
+ie = sub.add_parser("init-episode", help="手元のファイルから作業ディレクトリを作る")
 ie.add_argument("--slug", required=True)
 ie.add_argument("--audio", required=True, help="配信音源の mp3")
 ie.add_argument("--cover", default=None, help="カバー画像")
