@@ -94,3 +94,83 @@ Dockerが世に出るきっかけになったのは，2013年のPyConという�
 
 それでは，また次回の雨宿りでお会いしましょう！「雨宿りとWEBの小噺」お相手は Keeth でした．さようなら！
 【ジングル】
+
+## 📣 配信メタ
+
+### タイトル
+
+13. Dockerの祖先はトラック運転手
+
+（別案：13. Dockerは港湾労働者という意味 ／ 13. 「発明したんじゃない，整理しただけだ」）
+
+### 概要欄
+
+1937年，ニュージャージーの港です．マルコム・マクリーンというトラック運転手が，積んできた綿花を船に移すために何時間も順番待ちをしていました．荷物を一つずつ降ろして，また一つずつ積み直す作業を眺めながら，彼はふと思います．「この荷台ごと，まるっとクレーンで吊り上げて船に乗せればいいんじゃないか」．
+
+第13回は，Dockerという名前とクジラのロゴの由来についてお話しました！これは，港湾労働者を指す俗語と，10人のつもりが800人の前になってしまった5分間のデモと，「発明したんじゃなくて整理したんだ」という言葉の話です．是非お聴きください💁
+
+#### 今回の内容
+
+- **マルコム・マクリーン**：港での順番待ちの最中に海上コンテナを思いつき，18年後に自分のトラック会社を売却して本当に実現させたトラック運転手
+- **ソロモン・ハイクス**：小さい部屋で10人相手に5分の即興デモをするつもりが，メインホールで800人を前にすることになり，そのデモが会社の社名ごと変えてしまった創業者
+- **Moby Dock**：99designsのコンペで選ばれたクジラのロゴにコミュニティが付けた愛称．『白鯨』のパロディで，Docker社は実在のザトウクジラまで養子縁組した
+
+#### 参考リンク
+
+- 「Docker, Inc.」Wikipedia. https://en.wikipedia.org/wiki/Docker,_Inc.
+- Petazzoni, J.（2017）「From dotCloud to Docker」jpetazzo.github.io. https://jpetazzo.github.io/2017/02/24/from-dotcloud-to-docker/
+- 「Docker's 11 Year Anniversary」Docker Blog. https://www.docker.com/blog/docker-11-year-anniversary/
+- 「Introducing the Moby Project」Docker Blog. https://www.docker.com/blog/introducing-the-moby-project/
+- 「Malcom McLean」National Inventors Hall of Fame. https://www.invent.org/inductees/malcom-mclean
+- Konrad, A.（2015）「Meet Docker Founder Solomon Hykes」Forbes. https://www.forbes.com/sites/alexkonrad/2015/07/01/meet-docker-founder-solomon-hykes/
+- 「Docker, The Container Company With A Whale Of A Logo, Adopted A Real Whale」Network World. https://www.networkworld.com/article/940638/docker-the-container-company-with-a-whale-of-a-logo-adopted-a-real-whale.html
+
+ではでは(=ﾟωﾟ)ﾉ
+
+---
+
+#### 📣宣伝📣
+
+- [Web Creator Podcast Day 2026](https://webcreator-podcast-day.com/)
+
+---
+
+#### 📧 コンタクト
+
+- おたよりフォーム: https://forms.gle/utkE7JBKSReSdArPA
+- 公式𝕏: https://x.com/kuwahara_jsri
+
+### X 投稿
+
+#### 告知ポスト
+
+```
+／
+📣「雨宿りとWEBの小噺」Season 5-13 更新！
+　　Dockerの祖先はトラック運転手
+＼
+
+1937年，ニュージャージーの港で順番待ちをしていた一人のトラック運転手が，「この荷台ごと船に乗せればいいのでは」と考えました．その発想がソフトウェアに持ち込まれたとき，付いた名前は「港湾労働者」でした❗️
+
+↓リンクから是非お聴きください💁
+
+#web小噺 #webこばなし
+```
+
+#### リプライポスト
+
+```
+お好きなプラットフォームをお選びください❗️
+
+🟢 Spotify
+{Spotify の短縮 URL}
+
+🔴 YouTube
+{YouTube の短縮 URL}
+
+🟣 Apple Podcasts
+{Apple Podcasts の短縮 URL}
+
+⚪️ LISTEN
+{LISTEN の短縮 URL}
+```
