@@ -1,7 +1,6 @@
 # DockerはなぜDockerなのか？クジラロゴと名前の裏側
 
-> **配信URL**：（配信済みになったら記入）
-
+> **配信URL**：https://open.spotify.com/episode/59XXteHcSLsioHbhp2RUSN
 ## 台本
 
 ### オープニング
