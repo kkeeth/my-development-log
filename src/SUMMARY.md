@@ -156,6 +156,7 @@
         - [Next.js の待ち時間にキレて JS ランタイムを自作した話](PODCASTS/WEB小噺/Season5/nodejs-to-bun.md)
         - [PayPalはPalmPilotの暗号化ソフトから始まった](PODCASTS/WEB小噺/Season5/paypal-started-as-palmpilot-crypto.md)
         - [GitHub Copilot の弱いと思うところ](PODCASTS/WEB小噺/Season5/weekpoint_about_copilot.md)
+        - [Web Creator Podcast Day 2026 出演台本](PODCASTS/WEB小噺/Season5/web-creator-podcast-day-2026.md)
         - [GitHubの草，なぜ「連続記録」をやめたのか](PODCASTS/WEB小噺/Season5/why-github-stopped-counting-streaks.md)
         - [JavaScriptの「[] + []」が空文字になる理由](PODCASTS/WEB小噺/Season5/why-js-array-plus-array-is-empty-string.md)
         - [VS Codeのアイコンは無限大記号∞がモチーフ](PODCASTS/WEB小噺/Season5/why-vs-code-icon-is-an-infinity-symbol.md)

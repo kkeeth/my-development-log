@@ -1,0 +1,992 @@
+#!/usr/bin/env python3
+"""ポッドキャストの切り抜きから縦型ショート動画（1080x1920）を作る．
+
+工程:
+  transcribe … 回まるごとを単語タイムスタンプ付きで文字起こしして保存（収録後に 1 回）
+  find       … 全文から「このフレーズ」の秒数を引く（あいまい一致）
+  slice      … 全文から切り出し区間の単語だけ抜いて 0 秒起点に直す
+  plan       … 単語タイムスタンプから字幕案を TSV に出す
+  align      … 手直ししたテキストを元の文字起こしに突き合わせて時刻を振り直す
+  render     … TSV から動画を焼く
+
+全文を一度取っておけば，2 本目以降は文字起こしを回さずに済む．
+
+Pillow が要るので **/usr/bin/python3 で実行すること**．
+Homebrew の ffmpeg が libass / freetype 無しビルドなので，
+字幕は ffmpeg ではなく Pillow で描いて生フレームを ffmpeg に流し込む．
+
+  /usr/bin/python3 build_short.py plan   --words clip.json --out captions.tsv
+  /usr/bin/python3 build_short.py render --audio clip.mp3 --captions captions.tsv \
+      --out short-01.mp4 --show "雨宿りとWEBの小噺" --handle "@kkeeth  #WEB小噺" \
+      --art artwork.jpg
+"""
+import argparse
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+# ---- 見た目 -------------------------------------------------------------
+W, H = 1080, 1920
+FPS = 30
+BG_TOP = (18, 26, 42)          # 背景（上）
+BG_BOTTOM = (8, 11, 18)        # 背景（下）
+ACCENT = (255, 194, 75)        # アクセント #FFC24B
+CAP_ON = (255, 255, 255)       # 発話済みの字幕
+CAP_OFF = (122, 133, 150)      # まだ喋っていない字幕
+FOOT = (108, 120, 138)
+TITLE_COL = (150, 162, 180)
+
+FONT_BOLD = "/System/Library/Fonts/ヒラギノ角ゴシック W8.ttc"
+FONT_MID = "/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc"
+
+CAP_SIZE = 72
+CAP_LINE_H = 104
+CAP_MAX_W = W - 130
+SHOW_SIZE = 42
+TITLE_SIZE = 40
+FOOT_SIZE = 34
+
+ART_SIZE = 320                 # 上に置くアートワークカードの一辺
+ART_RADIUS = 56
+BG_BLUR = 52                   # 背景に敷くアートワークのぼかし
+BG_SCRIM = (0.86, 0.95)        # 背景を暗くする度合い（上, 下）
+
+WAVE_H = 190                   # 波形の最大振幅
+WAVE_BARS = 116
+WAVE_DIM = (52, 62, 80)
+
+# アートワークの有無でタテの割り付けを変える
+LAYOUT_PLAIN = {"art_y": None, "show_y": 150, "title_y": 232,
+                "cap_y": 860, "wave_y": 1380}
+LAYOUT_ART = {"art_y": 300, "show_y": 560, "title_y": 632,
+              "cap_y": 1000, "wave_y": 1450}
+
+# ---- 字幕の切り方 -------------------------------------------------------
+MAX_CHARS_PER_CUE = 24
+HOLD_GAP = 1.2         # この秒数までの間なら字幕を次まで保持する
+GAP_SPLIT = 0.35               # これより長い無音で割る
+BREAK_AFTER = "，．、。？！?! "
+
+
+# =========================================================================
+# plan
+# =========================================================================
+def load_words(json_path):
+    data = json.loads(Path(json_path).read_text())
+    return [{"t": w["word"].strip(), "s": w["start"], "e": w["end"]}
+            for seg in data["segments"] for w in seg.get("words", [])
+            if w["word"].strip()]
+
+
+def chunk(words):
+    cues, cur = [], []
+    for i, w in enumerate(words):
+        cur.append(w)
+        text = "".join(x["t"] for x in cur)
+        gap = words[i + 1]["s"] - w["e"] if i + 1 < len(words) else 99
+        if (len(text) >= MAX_CHARS_PER_CUE
+                or gap > GAP_SPLIT
+                or (w["t"][-1] in BREAK_AFTER and len(text) >= 8)):
+            cues.append(cur)
+            cur = []
+    if cur:
+        cues.append(cur)
+
+    # はぐれた短い行は前に戻す（「よね」だけの字幕を作らない）
+    merged = []
+    for c in cues:
+        text = "".join(x["t"] for x in c)
+        if merged and len(text) < 7:
+            prev = "".join(x["t"] for x in merged[-1])
+            if len(prev) + len(text) <= MAX_CHARS_PER_CUE + 10:
+                merged[-1] = merged[-1] + c
+                continue
+        merged.append(c)
+
+    return [{"s": c[0]["s"], "e": c[-1]["e"], "text": "".join(x["t"] for x in c)}
+            for c in merged]
+
+
+def cmd_plan(args):
+    cues = chunk(load_words(args.words))
+    out = ["#start\tend\ttext"]
+    out += ["%.3f\t%.3f\t%s" % (c["s"], c["e"], c["text"]) for c in cues]
+    Path(args.out).write_text("\n".join(out) + "\n")
+    print("wrote %s (%d cues)" % (args.out, len(cues)))
+    for c in cues:
+        print("  %6.2f-%6.2f  %s" % (c["s"], c["e"], c["text"]))
+
+
+
+
+
+# =========================================================================
+# 作業ディレクトリ … 回ごとに 1 つ，ショート 1 本 = YAML 1 枚
+#
+#   shorts/<slug>/
+#     episode.yaml          回の設定（コミットする）
+#     transcript.json       全文の文字起こし（gitignore）
+#     media/                音源とカバー（gitignore）
+#     01-<name>.yaml        ショート 1 本の定義＋字幕（コミットする）
+#     build/                書き出したもの（gitignore）
+# =========================================================================
+SHORTS_ROOT = "shorts"
+CROSSFADE = 0.3        # 離れた区間を繋ぐときの重ね幅
+FADE_IN = 0.15
+FADE_OUT = 0.5
+
+
+def load_yaml(path):
+    import yaml
+    return yaml.safe_load(Path(path).read_text())
+
+
+def dump_yaml(path, data):
+    """人が直すファイルなので，字幕は | のリテラルブロックで出す．"""
+    import yaml
+
+    class D(yaml.SafeDumper):
+        pass
+
+    def as_block(dumper, value):
+        style = "|" if "\n" in value else None
+        return dumper.represent_scalar("tag:yaml.org,2002:str", value, style=style)
+
+    def as_flow(dumper, value):
+        # 区間 [800.7, 830.6] のような数値のリストだけ 1 行にまとめる
+        flow = all(isinstance(v, (int, float)) for v in value) and bool(value)
+        return dumper.represent_sequence("tag:yaml.org,2002:seq", value,
+                                         flow_style=flow)
+
+    D.add_representer(str, as_block)
+    D.add_representer(list, as_flow)
+    Path(path).write_text(yaml.dump(data, Dumper=D, allow_unicode=True,
+                                    sort_keys=False, width=200,
+                                    default_flow_style=False))
+
+
+def episode_of(short_path):
+    """ショートの YAML から，同じディレクトリの episode.yaml を読む．"""
+    root = Path(short_path).parent
+    ep = load_yaml(root / "episode.yaml")
+    for k in ("audio", "cover", "transcript"):
+        if ep.get(k):
+            ep[k] = str(root / ep[k])
+    return root, ep
+
+
+def cmd_init_episode(args):
+    import shutil
+    root = Path(args.root) / args.slug
+    (root / "media").mkdir(parents=True, exist_ok=True)
+    (root / "build").mkdir(exist_ok=True)
+
+    audio = root / "media" / ("episode" + Path(args.audio).suffix)
+    if not audio.exists():
+        shutil.copy2(args.audio, audio)
+    cover = None
+    if args.cover:
+        cover = root / "media" / ("cover" + Path(args.cover).suffix)
+        if not cover.exists():
+            shutil.copy2(args.cover, cover)
+
+    ep = {
+        "slug": args.slug,
+        "show": args.show,
+        "title": args.title,
+        "handle": args.handle,
+        "audio": str(audio.relative_to(root)),
+        "cover": str(cover.relative_to(root)) if cover else None,
+        "script": args.script,
+        "transcript": "transcript.json",
+    }
+    dump_yaml(root / "episode.yaml", ep)
+    print("作業ディレクトリを作った: %s" % root)
+    print("  次は文字起こし（Metal が要るのでターミナルで直接叩くこと）:")
+    print("    /usr/bin/python3 %s transcribe --episode %s" % (sys.argv[0], root))
+
+
+def cmd_draft(args):
+    """区間を決めたら，字幕の下書きまで入った YAML を起こす．
+
+    このあと captions を手で直して `build` に渡す．
+    """
+    root = Path(args.episode)
+    ep = load_yaml(root / "episode.yaml")
+    words = [w for w in load_words(root / ep["transcript"])
+             if w["e"] > args.start and w["s"] < args.end]
+    if not words:
+        sys.exit("その区間に単語が無い．先に transcribe を回すこと")
+
+    cues = chunk([{"t": w["t"], "s": w["s"] - args.start, "e": w["e"] - args.start}
+                  for w in words])
+    n = len(sorted(root.glob("[0-9][0-9]-*.yaml"))) + 1
+    out = root / ("%02d-%s.yaml" % (n, args.name))
+    dump_yaml(out, {
+        "segments": [[round(args.start, 2), round(args.end, 2)]],
+        "captions": "\n".join(c["text"] for c in cues) + "\n",
+    })
+    print("下書きを書いた: %s  (%.1f 秒 / 字幕 %d 枚)"
+          % (out, args.end - args.start, len(cues)))
+    print("  captions を直してから: build_short.py build %s" % out)
+
+
+def cut_audio(src, segments, out):
+    """区間を切り出して繋ぎ，SNS 向けのラウドネスに揃える．"""
+    import tempfile
+    tmp = Path(tempfile.mkdtemp())
+    parts = []
+    for i, (s, e) in enumerate(segments):
+        part = tmp / ("p%d.wav" % i)
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(src),
+                        "-ss", str(s), "-to", str(e), "-ac", "1", "-ar", "44100",
+                        str(part)], check=True)
+        parts.append(part)
+
+    total = sum(e - s for s, e in segments) - CROSSFADE * (len(parts) - 1)
+    chain, prev = [], "[0]"
+    for i in range(1, len(parts)):
+        lbl = "[x%d]" % i
+        chain.append("%s[%d]acrossfade=d=%s:c1=tri:c2=tri%s"
+                     % (prev, i, CROSSFADE, lbl))
+        prev = lbl
+    fade = ("afade=t=in:st=0:d=%s,afade=t=out:st=%.2f:d=%s,"
+            "loudnorm=I=-14:TP=-1.5:LRA=11"
+            % (FADE_IN, max(total - FADE_OUT, 0), FADE_OUT))
+    chain.append("%s%s[a]" % (prev, fade))
+
+    cmd = ["ffmpeg", "-v", "error", "-y"]
+    for p_ in parts:
+        cmd += ["-i", str(p_)]
+    cmd += ["-filter_complex", ";".join(chain), "-map", "[a]",
+            "-c:a", "libmp3lame", "-q:a", "2", str(out)]
+    subprocess.run(cmd, check=True)
+    return total
+
+
+def clip_words(transcript, segments):
+    """区間ぶんの単語を，繋いだあとの時間軸に載せ替える．"""
+    words, off = [], 0.0
+    allw = load_words(transcript)
+    for i, (s, e) in enumerate(segments):
+        base = off - s
+        for w in allw:
+            if w["e"] > s and w["s"] < e:
+                words.append({"t": w["t"], "s": max(w["s"] + base, 0),
+                              "e": max(w["e"] + base, 0)})
+        off += (e - s) - (CROSSFADE if i < len(segments) - 1 else 0)
+    return words
+
+
+def cmd_build(args):
+    """YAML 1 枚から，音の切り出しから mp4 までを通す．"""
+    root, ep = episode_of(args.short)
+    short = load_yaml(args.short)
+    name = Path(args.short).stem
+    build = root / "build"
+    build.mkdir(exist_ok=True)
+
+    segments = [tuple(x) for x in short["segments"]]
+    audio = build / (name + ".mp3")
+    total = cut_audio(ep["audio"], segments, audio)
+    print("音を切った: %s (%.1f 秒)" % (audio, total))
+
+    words = clip_words(ep["transcript"], segments)
+    lines = [l.strip() for l in short["captions"].splitlines() if l.strip()]
+    tsv = build / (name + ".tsv")
+    align_captions(words, lines, tsv)
+
+    out = build / (name + ".mp4")
+    render(audio=str(audio), captions=str(tsv), out=str(out),
+           art=ep.get("cover"),
+           show=short.get("show", ep.get("show", "")),
+           title=short.get("title", ep.get("title", "")),
+           handle=short.get("handle", ep.get("handle", "")))
+
+
+
+# =========================================================================
+# fetch … Art19 の RSS から音源とカバーを取ってくる
+# =========================================================================
+FEED_URL = "https://rss.art19.com/kkeethengineers"
+ITUNES = "{http://www.itunes.com/dtds/podcast-1.0.dtd}"
+
+
+def clean_title(text):
+    """RSS のタイトルは濁点が分離している（NFD）ことがあるので直す．
+
+    そのまま描くと「エンジニア」が「エンシ\u3099ニア」に見える．
+    先頭の "Season 5-11. " は EP.11 のバッジと重複するので落とす．
+    """
+    import re
+    import unicodedata
+    text = unicodedata.normalize("NFC", text or "").strip()
+    return re.sub(r"^Season\s*\d+\s*-\s*\d+\s*[.．]?\s*", "", text)
+
+
+def read_feed(url):
+    import urllib.request
+    import xml.etree.ElementTree as ET
+    req = urllib.request.Request(url, headers={"User-Agent": "podcast-short/1.0"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        root = ET.fromstring(r.read())
+
+    items = []
+    for it in root.iter("item"):
+        enc = it.find("enclosure")
+        img = it.find(ITUNES + "image")
+        season = it.findtext(ITUNES + "season")
+        number = it.findtext(ITUNES + "episode")
+        items.append({
+            "title": clean_title(it.findtext("title")),
+            "date": (it.findtext("pubDate") or "").strip(),
+            "audio": enc.get("url") if enc is not None else None,
+            "image": img.get("href") if img is not None else None,
+            "season": season,
+            "number": number,
+        })
+    return items
+
+
+def download(url, dest):
+    import urllib.request
+    if dest.exists():
+        print("  すでにある: %s" % dest)
+        return dest
+    req = urllib.request.Request(url, headers={"User-Agent": "podcast-short/1.0"})
+    print("  取得中: %s" % dest.name)
+    tmp = dest.with_suffix(dest.suffix + ".part")
+    with urllib.request.urlopen(req, timeout=600) as r, open(tmp, "wb") as f:
+        expected = int(r.headers.get("Content-Length") or 0)
+        while True:
+            b = r.read(1 << 20)
+            if not b:
+                break
+            f.write(b)
+    got = tmp.stat().st_size
+    # 途中で切れたファイルを掴むと，あとで Pillow が truncated で落ちて原因が分かりにくい
+    if expected and got != expected:
+        tmp.unlink()
+        sys.exit("ダウンロードが途中で切れた（%d / %d バイト）: %s" % (got, expected, url))
+    tmp.rename(dest)
+    print("    %.1f MB" % (got / 1e6))
+    return dest
+
+
+def cmd_fetch(args):
+    items = read_feed(args.feed)
+
+    if args.list or not args.slug:
+        for i, it in enumerate(items[:args.limit]):
+            tag = ("S%s-%s" % (it["season"], it["number"])) if it["number"] else "-"
+            print("  [%d] %-8s %s" % (i, tag, it["title"]))
+            print("        %s" % it["date"])
+        if not args.slug:
+            print("\n  --slug と --match（または --index）を付けると取ってくる")
+        return
+
+    if args.index is not None:
+        it = items[args.index]
+    else:
+        key = strip_marks(args.match)
+        hit = [x for x in items
+               if key in strip_marks(x["title"])
+               or key == "%s-%s" % (x["season"], x["number"])]
+        if not hit:
+            sys.exit("見つからない: %s（--list で一覧を見ること）" % args.match)
+        it = hit[0]
+    print("対象: %s" % it["title"])
+
+    root = Path(args.root) / args.slug
+    (root / "media").mkdir(parents=True, exist_ok=True)
+    (root / "build").mkdir(exist_ok=True)
+    download(it["audio"], root / "media" / "episode.mp3")
+    cover = None
+    if it["image"]:
+        cover = download(it["image"], root / "media" / "cover.jpeg")
+
+    ep = {
+        "slug": args.slug,
+        "show": args.show or ("EP.%s" % it["number"] if it["number"] else ""),
+        "title": args.title or it["title"],
+        "handle": args.handle,
+        "audio": "media/episode.mp3",
+        "cover": "media/cover.jpeg" if cover else None,
+        "script": args.script,
+        "transcript": "transcript.json",
+    }
+    dump_yaml(root / "episode.yaml", ep)
+    print("作業ディレクトリを作った: %s" % root)
+    print("  次は文字起こし（Metal が要るのでターミナルで直接叩くこと）:")
+    print("    /usr/bin/python3 %s transcribe --episode %s" % (sys.argv[0], root))
+
+
+# =========================================================================
+# transcribe / find / slice … 回まるごとの文字起こしを資産にする
+# =========================================================================
+WHISPER_FALLBACK = str(Path.home() / "Library/Python/3.9/bin/whisper")
+
+
+def cmd_transcribe(args):
+    """回まるごとを単語タイムスタンプ付きで文字起こしする．
+
+    mlx-whisper（Apple Silicon の GPU を使う）があればそちらを優先する．
+    無ければ openai-whisper の CLI に落ちる（CPU のみなので数倍遅い）．
+    """
+    import shutil
+    import tempfile
+
+    if args.all:
+        # 文字起こしがまだの回をまとめて回す（1 回ぶん数分かかるので放っておく用）
+        todo = []
+        for y in sorted(Path(args.root).glob("*/episode.yaml")):
+            root = y.parent
+            ep = load_yaml(y)
+            if not (root / ep.get("transcript", "transcript.json")).exists():
+                todo.append(str(root))
+        if not todo:
+            print("文字起こしがまだの回は無い")
+            return
+        print("%d 回ぶん回す: %s" % (len(todo), ", ".join(Path(t).name for t in todo)))
+        for i, t in enumerate(todo, 1):
+            print("\n[%d/%d] %s" % (i, len(todo), t))
+            args.all, args.episode = False, t
+            cmd_transcribe(args)
+        return
+
+    if args.episode:
+        root = Path(args.episode)
+        ep = load_yaml(root / "episode.yaml")
+        args.audio = str(root / ep["audio"])
+        args.out = str(root / ep.get("transcript", "transcript.json"))
+    if not args.audio or not args.out:
+        sys.exit("--episode か --all，あるいは --audio と --out の両方を指定すること")
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    tmp = Path(tempfile.mkdtemp())
+
+    mlx = shutil.which("mlx_whisper") or shutil.which(
+        "mlx_whisper", path=str(Path.home() / ".local/bin"))
+    if mlx and not args.force_cpu:
+        model = args.model or "mlx-community/whisper-large-v3-turbo"
+        cmd = [mlx, args.audio, "--model", model, "--language", "ja",
+               "--word-timestamps", "True", "--output-format", "json",
+               "--output-dir", str(tmp)]
+        print("$", " ".join(cmd))
+        r = subprocess.run(cmd, stderr=subprocess.PIPE, text=True)
+        if r.returncode != 0:
+            err = r.stderr or ""
+            sys.stderr.write(err)
+            if "Metal device" in err:
+                sys.exit(
+                    "\nmlx は Metal（GPU）を要求するので，サンドボックス内からは動かない．\n"
+                    "ターミナルで直接叩くか，`--force-cpu` で openai-whisper に落とすこと．")
+            sys.exit("mlx_whisper が失敗した（終了コード %d）" % r.returncode)
+    else:
+        model = args.model or "small"
+        cmd = [WHISPER_FALLBACK, args.audio, "--model", model, "--language", "ja",
+               "--word_timestamps", "True", "--output_format", "json",
+               "--output_dir", str(tmp), "--verbose", "False"]
+        if args.model_dir:
+            cmd += ["--model_dir", args.model_dir]
+        print("$", " ".join(cmd))
+        subprocess.run(cmd, check=True)
+
+    produced = sorted(tmp.glob("*.json"))
+    if not produced:
+        sys.exit("文字起こしの json が出てこなかった: %s" % tmp)
+    data = json.loads(produced[0].read_text())
+    # 使うのは segments だけなので落として軽くする
+    segs = [{"start": g["start"], "end": g["end"], "text": g.get("text", ""),
+             "words": [{"word": w["word"], "start": w["start"], "end": w["end"]}
+                       for w in g.get("words", [])]}
+            for g in data["segments"]]
+    out.write_text(json.dumps({"segments": segs}, ensure_ascii=False))
+    dur = segs[-1]["end"] if segs else 0
+    print("wrote %s  (%d segments / %.1f 分)" % (out, len(segs), dur / 60))
+
+
+def cmd_find(args):
+    """全文から与えたフレーズに近い箇所を探して秒数を出す．
+
+    whisper は固有名詞を外すので完全一致では引っかからない．
+    台本の言い回しをそのまま投げても当たるよう，あいまい一致で探す．
+    """
+    import difflib
+    src = args.transcript
+    if args.episode:
+        root = Path(args.episode)
+        src = str(root / load_yaml(root / "episode.yaml").get("transcript",
+                                                             "transcript.json"))
+    stream = char_stream(load_words(src))
+    text = "".join(c[0] for c in stream)
+    q = strip_marks(args.query)
+    n = len(q)
+    if n < 4:
+        sys.exit("クエリが短すぎる（4 文字以上）")
+
+    sm = difflib.SequenceMatcher(None, q, "", autojunk=False)
+    scored = []
+    step = max(n // 4, 1)
+    for i in range(0, max(len(text) - n, 0) + 1, step):
+        sm.set_seq2(text[i:i + n])
+        scored.append((sm.quick_ratio(), i))
+    scored.sort(reverse=True)
+
+    # 粗く絞ってから，その周辺だけ本気で見る
+    seen, hits = [], []
+    for _, i in scored[:40]:
+        if any(abs(i - j) < n for j in seen):
+            continue
+        seen.append(i)
+        best = (0, i)
+        for j in range(max(i - step, 0), min(i + step, len(text) - n) + 1):
+            sm.set_seq2(text[j:j + n])
+            r = sm.ratio()
+            if r > best[0]:
+                best = (r, j)
+        hits.append(best)
+    hits.sort(reverse=True)
+
+    print("query: %s" % args.query)
+    for r, i in hits[:args.top]:
+        s0 = stream[i][1]
+        e0 = stream[min(i + n - 1, len(stream) - 1)][2]
+        pad = args.context
+        around = text[max(i - pad, 0):i + n + pad]
+        print("  %.2f  %7.1fs - %7.1fs  (%s)  %s"
+              % (r, s0, e0, fmt_ts(s0), around))
+
+
+def fmt_ts(t):
+    return "%d:%02d:%02d" % (t // 3600, t % 3600 // 60, t % 60)
+
+
+def cmd_slice(args):
+    """全文から切り出し区間の単語だけ抜き，0 秒起点に直して書き出す．
+
+    これを plan / align に渡せば，切り出しごとに文字起こしを回さずに済む．
+    """
+    words = [w for w in load_words(args.transcript)
+             if w["e"] > args.start and w["s"] < args.end]
+    if not words:
+        sys.exit("その区間に単語が無い")
+    off = args.start
+    segs = [{"start": max(w["s"] - off, 0), "end": max(w["e"] - off, 0),
+             "text": w["t"],
+             "words": [{"word": w["t"], "start": max(w["s"] - off, 0),
+                        "end": max(w["e"] - off, 0)}]}
+            for w in words]
+    Path(args.out).write_text(json.dumps({"segments": segs}, ensure_ascii=False))
+    print("wrote %s  (%d words / %.1fs)" % (args.out, len(words), args.end - args.start))
+    print("  " + "".join(w["t"] for w in words))
+
+
+# =========================================================================
+# align … 手直ししたテキストを元の文字起こしに突き合わせて時刻を振り直す
+# =========================================================================
+def char_stream(words):
+    """whisper の word を 1 文字ずつに割って (文字, 開始, 終了) にする．"""
+    out = []
+    for w in words:
+        n = len(w["t"])
+        span = (w["e"] - w["s"]) / max(n, 1)
+        for i, ch in enumerate(w["t"]):
+            out.append((ch, w["s"] + i * span, w["s"] + (i + 1) * span))
+    return out
+
+
+def align_captions(words, lines, out_path):
+    """手直ししたテキストを元の文字起こしに突き合わせ，時刻だけ引き継ぐ．"""
+    import difflib
+    stream = char_stream(words)
+    src = "".join(c[0] for c in stream)
+    dst = "".join(strip_marks(l) for l in lines)
+
+    # 手直し後 → 元 の文字位置対応表を作る
+    m = difflib.SequenceMatcher(None, dst, src, autojunk=False)
+    idx = [None] * (len(dst) + 1)
+    for a, b, n in m.get_matching_blocks():
+        for k in range(n):
+            idx[a + k] = b + k
+    # 対応が取れなかった位置は前後から補間する
+    last = 0
+    for i in range(len(idx)):
+        if idx[i] is None:
+            idx[i] = last
+        else:
+            last = idx[i]
+
+    cues, pos = [], 0
+    for line in lines:
+        n = len(strip_marks(line))
+        s_i, e_i = idx[pos], idx[min(pos + n, len(dst)) - 1]
+        cues.append((stream[s_i][1], stream[min(e_i, len(stream) - 1)][2], line))
+        pos += n
+
+    out = ["#start\tend\ttext"]
+    out += ["%.3f\t%.3f\t%s" % c for c in cues]
+    Path(out_path).write_text("\n".join(out) + "\n")
+    print("字幕を並べた: %s (%d 枚)" % (out_path, len(cues)))
+    for c in cues:
+        print("  %6.2f-%6.2f  %s" % c)
+
+
+def cmd_align(args):
+    lines = [l.strip() for l in Path(args.text).read_text().splitlines() if l.strip()]
+    align_captions(load_words(args.words), lines, args.out)
+
+
+# =========================================================================
+# render
+# =========================================================================
+def read_cues(path):
+    cues = []
+    for ln in Path(path).read_text().splitlines():
+        if not ln.strip() or ln.startswith("#"):
+            continue
+        s, e, text = ln.split("\t", 2)
+        import unicodedata
+        cues.append({"s": float(s), "e": float(e),
+                     "text": unicodedata.normalize("NFC", text.strip())})
+
+    # 息継ぎ程度の間で字幕が消えるとチラつくので，次の字幕まで出しっぱなしにする
+    for i in range(len(cues) - 1):
+        gap = cues[i + 1]["s"] - cues[i]["e"]
+        if 0 < gap < HOLD_GAP:
+            cues[i]["e"] = cues[i + 1]["s"]
+    return cues
+
+
+def strip_marks(text):
+    """幅・文字数の計算から外す記号（空白と明示改行）を落とす．"""
+    for ch in (" ", "\u3000", "|"):
+        text = text.replace(ch, "")
+    return text
+
+
+def _greedy(text, font, max_w, max_chars):
+    lines, line = [], ""
+    for ch in text:
+        trial = line + ch
+        over = font.getlength(trial.replace(" ", "")) > max_w
+        if (over or len(trial.strip()) > max_chars) and line.strip():
+            lines.append(line.strip())
+            line = "" if ch == " " else ch
+        else:
+            line = trial
+    if line.strip():
+        lines.append(line.strip())
+    return lines
+
+
+def wrap_lines(text, font, max_w):
+    """幅を実測して折り返す．最終行が 1〜2 文字で孤立しないよう行数で均す．
+
+    `|` が入っていればそこで必ず改行する（文節で割りたいときに使う）．
+    """
+    if "|" in text:
+        out = []
+        for part in text.split("|"):
+            out += _greedy(part.strip(), font, max_w, 99) or [""]
+        return [l for l in out if l]
+    lines = _greedy(text, font, max_w, 99)
+    if len(lines) < 2:
+        return lines
+    n = len(lines)
+    target = -(-len("".join(lines)) // n)
+    balanced = _greedy(text, font, max_w, target)
+    return balanced if len(balanced) <= n else lines
+
+
+def cover(Image, img, w, h):
+    """アスペクトを保って w x h を埋めるように切り抜く．"""
+    src_r, dst_r = img.width / img.height, w / h
+    if src_r > dst_r:
+        nw = int(img.height * dst_r)
+        img = img.crop(((img.width - nw) // 2, 0, (img.width + nw) // 2, img.height))
+    else:
+        nh = int(img.width / dst_r)
+        img = img.crop((0, (img.height - nh) // 2, img.width, (img.height + nh) // 2))
+    return img.resize((w, h), Image.LANCZOS)
+
+
+def rounded(Image, ImageDraw, img, size, radius):
+    """正方形に切ってカドを丸めた RGBA を返す．"""
+    sq = cover(Image, img, size, size).convert("RGBA")
+    mask = Image.new("L", (size, size), 0)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, size - 1, size - 1],
+                                           radius=radius, fill=255)
+    sq.putalpha(mask)
+    return sq
+
+
+def make_background(Image, ImageDraw, ImageFilter, art):
+    """アートワークがあればぼかして敷き，無ければ単色グラデーション．"""
+    if art is None:
+        bg = Image.new("RGB", (W, H), BG_BOTTOM)
+        d = ImageDraw.Draw(bg)
+        for y in range(H):
+            k = y / H
+            d.line([(0, y), (W, y)], fill=tuple(
+                int(BG_TOP[i] + (BG_BOTTOM[i] - BG_TOP[i]) * k) for i in range(3)))
+        return bg
+
+    bg = cover(Image, art, W, H).filter(ImageFilter.GaussianBlur(BG_BLUR)).convert("RGB")
+    # 字幕が乗るので上から下へ濃くなる暗幕をかける
+    scrim = Image.new("RGBA", (W, H))
+    d = ImageDraw.Draw(scrim)
+    for y in range(H):
+        k = y / H
+        a = int(255 * (BG_SCRIM[0] + (BG_SCRIM[1] - BG_SCRIM[0]) * k))
+        col = tuple(int(BG_TOP[i] + (BG_BOTTOM[i] - BG_TOP[i]) * k) for i in range(3))
+        d.line([(0, y), (W, y)], fill=col + (a,))
+    return Image.alpha_composite(bg.convert("RGBA"), scrim).convert("RGB")
+
+
+def draw_static(Image, ImageDraw, ImageFilter, base, L, art,
+                show, title, handle, f_show, f_title, f_foot):
+    d = ImageDraw.Draw(base)
+    if art is not None and L["art_y"] is not None:
+        card = rounded(Image, ImageDraw, art, ART_SIZE, ART_RADIUS)
+        x, y = (W - ART_SIZE) // 2, L["art_y"] - ART_SIZE // 2
+        # 影を先に落としてからカードを置く
+        shadow = Image.new("RGBA", (W, H))
+        ImageDraw.Draw(shadow).rounded_rectangle(
+            [x, y + 14, x + ART_SIZE, y + ART_SIZE + 14],
+            radius=ART_RADIUS, fill=(0, 0, 0, 150))
+        base.paste(Image.alpha_composite(base.convert("RGBA"),
+                                         shadow.filter(ImageFilter.GaussianBlur(22))
+                                         ).convert("RGB"), (0, 0))
+        base.paste(card, (x, y), card)
+        d = ImageDraw.Draw(base)
+
+    if show:
+        d.text((W // 2, L["show_y"]), show, font=f_show, fill=ACCENT, anchor="mm")
+        w = f_show.getlength(show)
+        for dx in (-1, 1):
+            x0 = W // 2 + dx * (w / 2 + 18)
+            d.line([(x0, L["show_y"]), (x0 + dx * 22, L["show_y"])],
+                   fill=ACCENT, width=3)
+    if title:
+        d.text((W // 2, L["title_y"]), title, font=f_title, fill=TITLE_COL, anchor="mm")
+    if handle:
+        d.text((W // 2, H - 110), handle, font=f_foot, fill=FOOT, anchor="mm")
+
+
+def audio_peaks(audio, nbars):
+    """音声を nbars 本ぶんのピーク値（0..1）に落とす．"""
+    import array
+    raw = subprocess.run(
+        ["ffmpeg", "-v", "error", "-i", audio,
+         "-f", "s16le", "-acodec", "pcm_s16le", "-ac", "1", "-ar", "4000", "-"],
+        stdout=subprocess.PIPE, check=True).stdout
+    a = array.array("h")
+    a.frombytes(raw[:len(raw) // 2 * 2])
+    step = max(len(a) // nbars, 1)
+    peaks = [max([abs(v) for v in a[i * step:(i + 1) * step]] or [0])
+             for i in range(nbars)]
+    top = max(peaks) or 1
+    return [v / top for v in peaks]
+
+
+def cmd_render(args):
+    render(args.audio, args.captions, args.out, args.art, args.bg,
+           args.show, args.title, args.handle)
+
+
+def render(audio, captions, out, art=None, bg=None, show="", title="", handle=""):
+    import unicodedata
+    from PIL import Image, ImageDraw, ImageFont, ImageFilter
+
+    show, title, handle = (unicodedata.normalize("NFC", x or "")
+                           for x in (show, title, handle))
+
+    cues = read_cues(captions)
+    dur = cues[-1]["e"] + 0.6
+
+    art = Image.open(art).convert("RGB") if art else None
+    bg_src = Image.open(bg).convert("RGB") if bg else art
+    L = LAYOUT_ART if art is not None else LAYOUT_PLAIN
+
+    f_cap = ImageFont.truetype(FONT_BOLD, CAP_SIZE, index=0)
+    f_show = ImageFont.truetype(FONT_BOLD, SHOW_SIZE, index=0)
+    f_title = ImageFont.truetype(FONT_MID, TITLE_SIZE, index=0)
+    f_foot = ImageFont.truetype(FONT_MID, FOOT_SIZE, index=0)
+
+    base = make_background(Image, ImageDraw, ImageFilter, bg_src)
+    draw_static(Image, ImageDraw, ImageFilter, base, L, art,
+                show, title, handle, f_show, f_title, f_foot)
+
+    peaks = audio_peaks(audio, WAVE_BARS)
+    bar_w = W / WAVE_BARS
+    bar_pad = bar_w * 0.34
+    wave_y = L["wave_y"]
+    cap_y = L["cap_y"]
+
+    for c in cues:
+        c["lines"] = wrap_lines(c["text"], f_cap, CAP_MAX_W)
+        c["nchars"] = sum(len(l) for l in c["lines"])
+
+    gray_cache = {}
+
+    def gray_tile(ci):
+        """発話前のグレー字幕はキューごとに 1 回だけ描いて使い回す"""
+        if ci not in gray_cache:
+            img = base.copy()
+            d = ImageDraw.Draw(img)
+            lines = cues[ci]["lines"]
+            y0 = cap_y - (len(lines) - 1) * CAP_LINE_H / 2
+            for i, line in enumerate(lines):
+                x = (W - f_cap.getlength(line)) / 2
+                d.text((x, y0 + i * CAP_LINE_H), line, font=f_cap, fill=CAP_OFF,
+                       anchor="lm", stroke_width=7, stroke_fill=(6, 9, 15))
+            gray_cache[ci] = img
+        return gray_cache[ci]
+
+    def draw_wave(d, progress):
+        """再生済みをアクセント色，未再生をくすませて出す．"""
+        played = progress * WAVE_BARS
+        for i, v in enumerate(peaks):
+            h = max(WAVE_H * v, 4)
+            x = i * bar_w + bar_pad / 2
+            w = bar_w - bar_pad
+            box = [x, wave_y - h / 2, x + w, wave_y + h / 2]
+            col = ACCENT if i <= played else WAVE_DIM
+            # 角丸の半径はバーの短辺を超えられない
+            r = int(min(w, h) / 2) - 1
+            if r >= 1:
+                d.rounded_rectangle(box, radius=r, fill=col)
+            else:
+                d.rectangle(box, fill=col)
+
+    nframes = int(dur * FPS)
+    ff = subprocess.Popen([
+        "ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
+        "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", "%dx%d" % (W, H),
+        "-r", str(FPS), "-i", "-",
+        "-i", audio,
+        "-map", "0:v", "-map", "1:a", "-t", "%.2f" % dur,
+        "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p",
+        "-crf", "20", "-c:a", "aac", "-b:a", "192k",
+        "-movflags", "+faststart", out,
+    ], stdin=subprocess.PIPE)
+
+    ci = 0
+    for n in range(nframes):
+        t = n / FPS
+        while ci < len(cues) and t > cues[ci]["e"] + 0.12:
+            ci += 1
+        cur = cues[ci] if ci < len(cues) and t >= cues[ci]["s"] else None
+        img = (gray_tile(ci) if cur else base).copy()
+        d = ImageDraw.Draw(img)
+        if cur:
+            prog = (t - cur["s"]) / max(cur["e"] - cur["s"], 0.01)
+            spoken = min(cur["nchars"], int(cur["nchars"] * prog) + 1)
+            y0 = cap_y - (len(cur["lines"]) - 1) * CAP_LINE_H / 2
+            seen = 0
+            for i, line in enumerate(cur["lines"]):
+                k = max(0, min(len(line), spoken - seen))
+                if k:
+                    x = (W - f_cap.getlength(line)) / 2
+                    d.text((x, y0 + i * CAP_LINE_H), line[:k], font=f_cap,
+                           fill=CAP_ON, anchor="lm", stroke_width=7,
+                           stroke_fill=(6, 9, 15))
+                seen += len(line)
+        draw_wave(d, t / dur)
+        ff.stdin.write(img.tobytes())
+        if n % 600 == 0:
+            print("  %d/%d frames" % (n, nframes), file=sys.stderr)
+    ff.stdin.close()
+    ff.wait()
+    print("焼いた: %s (%.1f 秒)" % (out, dur))
+
+
+p = argparse.ArgumentParser()
+sub = p.add_subparsers(dest="cmd")
+a = sub.add_parser("plan")
+a.add_argument("--words", required=True)
+a.add_argument("--out", required=True)
+a.set_defaults(fn=cmd_plan)
+fe = sub.add_parser("fetch", help="Art19 の RSS から音源とカバーを取って作業ディレクトリを作る")
+fe.add_argument("--list", action="store_true", help="最近のエピソードを並べるだけ")
+fe.add_argument("--limit", type=int, default=10)
+fe.add_argument("--slug", default=None)
+fe.add_argument("--match", default="", help="タイトルの一部か，シーズン-番号（例: 5-10）")
+fe.add_argument("--index", type=int, default=None, help="--list の番号で選ぶ")
+fe.add_argument("--show", default=None, help="既定は itunes:episode から EP.N")
+fe.add_argument("--title", default=None, help="既定は RSS のタイトル")
+fe.add_argument("--handle", default="@kkeeth   #WEB小噺")
+fe.add_argument("--script", default=None)
+fe.add_argument("--feed", default=FEED_URL)
+fe.add_argument("--root", default=SHORTS_ROOT)
+fe.set_defaults(fn=cmd_fetch)
+
+ie = sub.add_parser("init-episode", help="手元のファイルから作業ディレクトリを作る")
+ie.add_argument("--slug", required=True)
+ie.add_argument("--audio", required=True, help="配信音源の mp3")
+ie.add_argument("--cover", default=None, help="カバー画像")
+ie.add_argument("--show", default="", help="例: EP.9")
+ie.add_argument("--title", default="")
+ie.add_argument("--handle", default="@kkeeth   #WEB小噺")
+ie.add_argument("--script", default=None, help="台本 md のパス")
+ie.add_argument("--root", default=SHORTS_ROOT)
+ie.set_defaults(fn=cmd_init_episode)
+
+dr = sub.add_parser("draft", help="区間から字幕の下書き入り YAML を起こす")
+dr.add_argument("--episode", required=True, help="shorts/<slug>")
+dr.add_argument("--name", required=True, help="例: hate-programming")
+dr.add_argument("--start", type=float, required=True)
+dr.add_argument("--end", type=float, required=True)
+dr.set_defaults(fn=cmd_draft)
+
+bl = sub.add_parser("build", help="YAML 1 枚から mp4 まで通す")
+bl.add_argument("short", help="shorts/<slug>/NN-<name>.yaml")
+bl.set_defaults(fn=cmd_build)
+
+t = sub.add_parser("transcribe")
+t.add_argument("--episode", default=None, help="shorts/<slug>（episode.yaml から拾う）")
+t.add_argument("--all", action="store_true", help="文字起こしがまだの回をまとめて回す")
+t.add_argument("--root", default=SHORTS_ROOT)
+t.add_argument("--audio", default=None)
+t.add_argument("--out", default=None, help="例: shorts/<slug>/transcript.json")
+t.add_argument("--model", default=None, help="mlx なら HF repo，CPU なら small / medium など")
+t.add_argument("--model-dir", dest="model_dir", default=None)
+t.add_argument("--force-cpu", action="store_true", help="mlx があっても openai-whisper を使う")
+t.set_defaults(fn=cmd_transcribe)
+
+fnd = sub.add_parser("find")
+fnd.add_argument("--episode", default=None, help="shorts/<slug>")
+fnd.add_argument("--transcript", default=None)
+fnd.add_argument("--query", required=True, help="台本の言い回しでよい（あいまい一致）")
+fnd.add_argument("--top", type=int, default=3)
+fnd.add_argument("--context", type=int, default=12, help="前後に何文字添えるか")
+fnd.set_defaults(fn=cmd_find)
+
+sl = sub.add_parser("slice")
+sl.add_argument("--transcript", required=True)
+sl.add_argument("--start", type=float, required=True)
+sl.add_argument("--end", type=float, required=True)
+sl.add_argument("--out", required=True)
+sl.set_defaults(fn=cmd_slice)
+
+c = sub.add_parser("align")
+c.add_argument("--words", required=True, help="whisper の json")
+c.add_argument("--text", required=True, help="手直ししたテキスト（1 行 = 字幕 1 枚）")
+c.add_argument("--out", required=True)
+c.set_defaults(fn=cmd_align)
+b = sub.add_parser("render")
+b.add_argument("--audio", required=True)
+b.add_argument("--captions", required=True)
+b.add_argument("--out", required=True)
+b.add_argument("--show", default="")
+b.add_argument("--title", default="")
+b.add_argument("--handle", default="")
+b.add_argument("--art", default=None, help="番組アートワーク（上のカード＋背景に使う）")
+b.add_argument("--bg", default=None, help="背景に敷く画像（配信回の画像など．--art と別にしたいとき）")
+b.set_defaults(fn=cmd_render)
+args = p.parse_args()
+if not getattr(args, "fn", None):
+    p.print_help(); sys.exit(1)
+args.fn(args)
