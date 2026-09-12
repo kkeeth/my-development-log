@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WCPD 2026 カンペ</title>
+<style>
+  @page { size: A4 portrait; margin: 7mm; }
+
+  :root { --ink:#111; --sub:#555; --line:#bbb; --faint:#888; }
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 10px 12px 18px;
+    color: var(--ink);
+    background: #fff;
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, system-ui, sans-serif;
+    font-size: 8.5pt; /* ← 収まらなければ 8pt に下げる（全体が連動して縮む） */
+    line-height: 1.32;
+    font-feature-settings: "palt" 1;
+    text-align: justify;
+  }
+
+  .hint {
+    margin: 0 0 8px; padding: 5px 8px;
+    border: 1px solid var(--line); border-radius: 4px;
+    font-size: 8.5pt; color: var(--sub);
+  }
+
+  header.sheet {
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 3px; margin-bottom: 6px;
+  }
+  header.sheet h1 { margin: 0; display: inline; font-size: 12pt; letter-spacing: .02em; }
+  header.sheet .meta { display: inline; margin-left: .6em; font-size: 8pt; font-weight: 700; }
+  header.sheet .legend { margin-top: 1px; font-size: 7.5pt; color: var(--sub); }
+
+  .cols { column-count: 2; column-gap: 6mm; column-rule: 1px solid #ddd; }
+
+  section, footer.tail {
+    break-inside: avoid; page-break-inside: avoid;
+    margin: 0 0 4px;
+  }
+  section.newcol { break-before: column; }
+
+  h2 {
+    margin: 0 0 2px; font-size: 1.06em; line-height: 1.25;
+    border-bottom: 1px solid var(--ink); padding-bottom: 1px;
+    text-align: left;
+  }
+  h2 .t {
+    display: inline-block; min-width: 3.3em; margin-right: .3em;
+    font-variant-numeric: tabular-nums; font-size: 1.18em; letter-spacing: -.02em;
+  }
+
+  ul { margin: 2px 0 0; padding-left: .95em; }
+  li { margin: 0 0 1px; }
+  li::marker { color: var(--faint); }
+
+  li.star, li.cut { list-style: none; margin-left: -.95em; padding: 0 3px 0 5px; }
+  li.star { border-left: 3px solid var(--ink); font-weight: 700; }
+  li.star::before { content: "★ "; }
+  li.cut { border-left: 2px dashed var(--faint); color: var(--sub); }
+  li.cut::before { content: "✂ "; }
+
+  blockquote.card, blockquote.read {
+    margin: 3px 0; padding: 4px 6px;
+    border: 1px solid var(--line);
+    font-size: 0.94em; line-height: 1.42;
+  }
+  blockquote.read { border-left: 3px solid var(--ink); }
+  blockquote.read p { margin: 0 0 3px; }
+  blockquote.read p:last-child { margin-bottom: 0; }
+  blockquote.card .who {
+    display: block; margin-bottom: 1px;
+    font-size: 0.88em; font-weight: 700; color: var(--sub);
+  }
+
+  footer.tail { padding-top: 3px; border-top: 1px solid var(--ink); }
+  footer.tail h3 { margin: 0 0 2px; font-size: 1em; }
+  footer.tail ol { margin: 0; padding-left: 1.2em; font-size: 0.94em; }
+
+  @media print {
+    .hint { display: none; }
+    body { padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<p class="hint">印刷 → 送信先「PDF に保存」／用紙 A4 縦／<strong>余白「なし」</strong>／倍率 100%／背景グラフィックは不要。A4 縦 1 枚に収まるよう組んでいます。はみ出したら <code>body</code> の <code>font-size: 8.5pt</code> を 8pt に下げてください（全体が連動して縮みます）。</p>
+
+<header class="sheet">
+  <h1>WCPD 2026 カンペ</h1>
+  <div class="meta">24 分／ジングル 10 秒／巻きぎみに。持ち時間まで 99 秒の余裕</div>
+  <div class="legend">★＝この言葉で言う　✂＝押したら飛ばす（計 106 秒）　枠囲み＝読み上げ　完全版 → web-creator-podcast-day-2026.md</div>
+</header>
+
+<div class="cols">
+
+<section>
+  <h2><span class="t">0:10</span>オープニング</h2>
+  <blockquote class="read">
+    <p>はい，どうもこんにちは．「雨宿りとWEBの小噺」始まりました．気づきの配達屋 Keeth こと桑原です．</p>
+    <p>この番組では，普段気にも留めていなかったものに光を当てることで，世界の見え方が少し変わるかもしれない，そんな Web 業界の裏話や小噺をご紹介しております．</p>
+  </blockquote>
+  <ul>
+    <li>今回は番外編／Web Creator Podcast Day 2026／今回13時で気が楽</li>
+    <li class="star">おはがき2通。前回の倍。0通かと思ってた、泣きそう</li>
+    <li>2通とも「勉強」の話</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="t">1:54</span>① ともみさん（24歳・1年目）</h2>
+  <ul>
+    <li>おはがきを読む（運営配布の紙）→「殻をかぶってる」（笑）／回答悩んだ／大先輩は気恥ずかしい</li>
+    <li class="star">答えは3つ</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="t">3:22</span>①-1 ロールモデルを一人決めて盗む</h2>
+  <ul>
+    <li>先輩がすごい＝最高の環境。一人決める／質問は考えてから</li>
+    <li>盗むのは仕事の進め方＋<strong>開発環境</strong>（設定には失敗談がある）</li>
+    <li class="star">言語化できたものだけ盗める</li>
+    <li>質問の具体：<strong>「その設定なんですか」「レビューで最初にどこを見てますか」</strong></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="t">4:47</span>①-2 勉強は一生。ただし楽しく</h2>
+  <ul>
+    <li>30年現役の先輩も今もキャッチアップ → 生涯勉強は前提</li>
+    <li class="star">無理はしてほしくない。最強なのは楽しんでる人＝努力を努力と思わない</li>
+    <li>食べていける武器を作るのも正解。でも嫌いになるくらいなら詰めなくていい</li>
+    <li>詰めすぎのサイン：<strong>休日に触る気がしない／エラー画面を見るのが嫌</strong></li>
+    <li class="cut"><strong>エンジニアは技術で問題を解決する生き物</strong>。分野で縛らず、必要になったら学ぶ</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="t">6:41</span>①-3 若手カードは今しか切れない</h2>
+  <ul>
+    <li>若い方に会うと必ず言う話</li>
+    <li>24歳1年目＝<strong>若手カード</strong>。新卒カードが最強だが20代前半も威力抜群</li>
+    <li class="star">失敗が許されるカード。会社のリソースで学習し放題の期間</li>
+    <li>実践の場で大手を振って失敗できるのは今だけ</li>
+    <li>コツ：<strong>やる前に話をする</strong>。仮説とプランを語れば通る</li>
+    <li>相談は1枚で：<strong>目的／やること／期間／成功の定義／得たい学び</strong></li>
+    <li class="star">早く失敗して、早く成長して、早く戦力になる</li>
+    <li>背伸びしないと届かない所で失敗する／会社が傾く失敗は任されない（若手のうちは）</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="t">8:35</span>①-3 続き　使い道は LT 5 分</h2>
+  <ul>
+    <li>一番いい使い道が<strong>外で喋ること</strong></li>
+    <li>もう1つ＝<strong>パイプを作る</strong>。名前とブログを知ってる程度で十分。あとになるほど効く</li>
+    <li class="star">LT、たった5分。勇気を出して</li>
+    <li>ネタは<strong>自分が詰まって抜けた話1個</strong>でいい。社内で説明した内容の流用でも十分</li>
+    <li>5分の型：<strong>スライド5〜8枚／1枚1メッセージ／結論から</strong></li>
+    <li>探し方：connpass で<strong>「LT枠あり」</strong>→ 枠に申し込んでから中身を作る</li>
+    <li>理由①<strong>学びの密度が変わる</strong>。登壇するとまず自分が勉強する。まとめ方の質が段違い</li>
+    <li>理由②パイプ。SNS繋がらせてください／懇親会で突っ込んだ質問。分からなければ「分かりません」でいい＝<strong>それも若手カード</strong></li>
+    <li>1回目は恥ずかしい／2回で慣れる／<strong>聞いてる人は意外とポジティブ</strong></li>
+    <li>小技：<strong>「これが初めてのLTです」</strong>→ 目線が急にあたたかくなる（笑）</li>
+    <li class="star">一回の登壇で得られるものは想像の数倍。機会が訪れる確率が変わる</li>
+    <li><strong>まとめ</strong>：ロールモデル／一生・楽しく／<strong>若手カードで外で喋る</strong></li>
+  </ul>
+</section>
+
+<section class="newcol">
+  <h2><span class="t">11:34</span>② ガチ太郎さん</h2>
+  <ul>
+    <li>おはがきを読む（運営配布の紙）→ 気恥ずかしい</li>
+    <li class="star">質問は3つ：勉強法／キャリア／ポッドキャスト</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="t">12:52</span>②-1 強化系。学び方から学ぶ</h2>
+  <ul>
+    <li><strong>強化系</strong>。順番に1個ずつ／実践から入って体系は後</li>
+    <li class="cut">一般的には良くない学び方。今も非効率をやってる節</li>
+    <li class="star">最初にやるべきは「自分に合う学び方を探す」こと。一生使える</li>
+    <li>試す候補：<strong>写経／公式ドキュメント通読／人に説明する／先に全体像→あとで手を動かす</strong></li>
+    <li>合う型が分かると、<strong>新しい言語の「最初の3日」の使い方</strong>が決まる</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="t">14:29</span>②-2 スキルは錆びる</h2>
+  <ul>
+    <li>結局<strong>書いてきた</strong>。JS→PHP→日本語（笑）／TS は嫌いで AI 頼み（笑）</li>
+    <li>書かないとレビュー速度も精度も落ちた → <span style="font-weight:700">スキルは錆びる</span></li>
+    <li>錆びの兆候：<strong>レビューで「なんか違う」が言語化できない／書き出しの一歩が遅い</strong></li>
+    <li>効くのは量より<strong>頻度</strong>。週1回でも自分の手で書く時間を残しておく</li>
+    <li class="cut"><strong>地図は見ていい。歩くのは自分の足で</strong> → あえて非効率へ</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="t">16:58</span>②-3 チャンスがあったら手を挙げる</h2>
+  <ul>
+    <li><strong>さっきの若手カードを僕自身が切った話</strong></li>
+    <li>ゆめみの<strong>チャレンジ取締役</strong>。1年目ひより、2年目に応募</li>
+    <li>半年は置物「なんて世界に飛び込んだんだ」／でも視座が変わった</li>
+    <li class="star">「根拠のない自信と、それを裏付ける努力」（南場さん・茂木さん）</li>
+    <li>自信はない。でも「やります」と言う。言ったから頑張る。この順番</li>
+    <li>言ったあとの埋め方：<strong>分からない言葉はその場で聞く／前提の資料を遡って読む</strong></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="t">18:51</span>②-4 ポッドキャストは先に始める</h2>
+  <ul>
+    <li class="star">勉強してから喋ってない。喋るために勉強してる</li>
+    <li><strong>さっきのLTと同じで、やらないと身につかない</strong>／2020年3月の初回は撮り直したい</li>
+    <li class="cut">再生数は回らない → 数字のために始めたんじゃないはず</li>
+    <li>1本の流れ：<strong>ネタ→裏取り→台本→収録→編集</strong>。これを回すと毎週勉強が発生する</li>
+    <li>今ならスマホ1本。マイクも凝らなくていい。見直しは始めてから</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="t">20:43</span>クロージング</h2>
+  <ul>
+    <li>違う質問なのに答えは同じ所に着地</li>
+    <li class="star">手を動かした量が残る／楽しんでる人がいちばん強い／その手を外に向ける</li>
+    <li>お二人にお礼</li>
+    <li>運営にお礼／このあとも素敵な出演者が続きます</li>
+  </ul>
+  <blockquote class="read">
+    <p>この番組，面白かったよという方は，ぜひチャンネル登録もお願いします．</p>
+    <p>もし聞いていて気になることや，話してほしいトピック，感想などございましたら，X でハッシュタグ「web小噺」でつぶやいてください．web はアルファベット，小噺は漢字でもひらがなでも大丈夫です．</p>
+    <p>それでは，また雨宿りしに来てください．今回もお聞きくださり，ありがとうございました．「雨宿りとWEBの小噺」，お相手はキースでした．バイバイ．</p>
+  </blockquote>
+</section>
+
+<footer class="tail">
+  <h3>余ったら足す（上から順に）</h3>
+  <ol>
+    <li>①-1 に「dotfiles を GitHub 管理してパソコン買い替えでも再現」（約25秒）</li>
+    <li>②-3 に「手を挙げた理由には打算もあった。逆求人で肩書きがないと土俵に上がれない」（約40秒）</li>
+    <li>①-2 に「好き嫌いはあっていい／体にいいものは苦い」（約40秒）</li>
+  </ol>
+</footer>
+
+</div>
+
+</body>
+</html>
