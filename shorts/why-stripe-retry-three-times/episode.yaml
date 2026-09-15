@@ -1,0 +1,8 @@
+slug: why-stripe-retry-three-times
+show: EP.5
+title: Stripe の決済は裏で最大3回再実行している
+handle: '@kkeeth   #WEB小噺'
+audio: media/episode.mp3
+cover: media/cover.jpeg
+script: src/PODCASTS/WEB小噺/Season5/published/why-stripe-retry-three-times.md
+transcript: transcript.json
