@@ -1,0 +1,8 @@
+slug: premium-podcast-with-cloudflare-workers
+show: EP.7
+title: メンバーシップ基盤を自作して全部捨てた話
+handle: '@kkeeth   #WEB小噺'
+audio: media/episode.mp3
+cover: media/cover.jpeg
+script: src/PODCASTS/WEB小噺/Season5/published/premium-podcast-with-cloudflare-workers.md
+transcript: transcript.json
