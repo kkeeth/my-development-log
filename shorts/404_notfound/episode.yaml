@@ -1,0 +1,8 @@
+slug: 404_notfound
+show: EP.4
+title: 404エラーはCERNの部屋番号だった？
+handle: '@kkeeth   #WEB小噺'
+audio: media/episode.mp3
+cover: media/cover.jpeg
+script: src/PODCASTS/WEB小噺/Season5/published/404_notfound.md
+transcript: transcript.json
