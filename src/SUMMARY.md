@@ -130,6 +130,10 @@
   - [体系的に学ぶ 安全な WEB アプリケーションの作り方](BOOKS/2024/learn_howto_create_web_applications_systematically.md)
   - [エレガントパズル](BOOKS/2024/elegant_pazzle.md)
   - [アジャイルチームによる目標づくりガイドブック](BOOKS/2024/guidebook_abou_tobjective.md)
+- 📻️ RADIO
+  - ゆめのたね
+    - [第0回 はじめまして](RADIO/ゆめのたね/hello-my-program.md)
+    - [第1回 僕を動かした，一つの問い](RADIO/ゆめのたね/the-question-that-moved-me.md)
 - 🎤 PODCASTS
   - WEB 小噺
     - Season4
@@ -156,6 +160,7 @@
         - [HTTPSの鍵マークをクリックすると証明書が見れる](PODCASTS/WEB小噺/Season5/https-lock-icon-certificate-story.md)
         - [Next.js の待ち時間にキレて JS ランタイムを自作した話](PODCASTS/WEB小噺/Season5/nodejs-to-bun.md)
         - [PayPalはPalmPilotの暗号化ソフトから始まった](PODCASTS/WEB小噺/Season5/paypal-started-as-palmpilot-crypto.md)
+        - [ボツになった番組名，全部話します](PODCASTS/WEB小噺/Season5/podcast-name-rejected-candidates.md)
         - [GitHubの草，なぜ「連続記録」をやめたのか](PODCASTS/WEB小噺/Season5/why-github-stopped-counting-streaks.md)
         - [JavaScriptの「[] + []」が空文字になる理由](PODCASTS/WEB小噺/Season5/why-js-array-plus-array-is-empty-string.md)
         - [VS Codeのアイコンは無限大記号∞がモチーフ](PODCASTS/WEB小噺/Season5/why-vs-code-icon-is-an-infinity-symbol.md)
