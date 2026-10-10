@@ -199,6 +199,79 @@ Ciscoを辞めた理由が「顧客が満足していない」でした．そし
 それでは，また次回の雨宿りでお会いしましょう！「雨宿りとWEBの小噺」お相手は Keeth でした．さようなら！
 【ジングル】
 
+## 📣 配信メタ
+
+### タイトル
+
+17. Zoomの創業者のビザは9回目で通った
+
+（別案：17. ビザを8回断られた男がZoomを作った ／ 17. 「満足した顧客に一人も会わなかった」）
+
+### 概要欄
+
+1995年，25歳の中国人技術者が，出張先の日本でビル・ゲイツの講演を聞いていました．のちに Zoom を作るエリック・ユアンさんです．アメリカに渡ると決めた彼のビザ申請は，そこから8回続けて却下されます．
+
+第17回は，Zoom の創業者エリック・ユアンさんについてお話しました！これは，8回突き返されたビザ申請書と，「顧客が喜んでいない」という感覚と，社名が子ども向けの絵本から来ているという話です．是非お聴きください💁
+
+【今回の内容】
+
+- エリック・ユアン（袁征）：ビザを8回却下されて9回目で渡米し，英語がほとんど話せないままコードで WebEx に入った人
+- Cisco の VP of Engineering：800人を率いながら「満足している顧客に一人も会わなかった」と感じて辞め，40人が後を追った
+- Zoombombing：利用者が3ヶ月で20倍に増えている最中に，新機能の開発を90日止めてセキュリティを直した
+
+【参考リンク】
+
+- Wikipedia「Eric Yuan」. https://en.wikipedia.org/wiki/Eric_Yuan
+- CNBC（2019）「Zoom founder left his job because he wasn't happy, became a billionaire」. https://www.cnbc.com/2019/08/21/zoom-founder-left-job-because-he-wasnt-happy-became-billionaire.html
+- Alex Konrad（2019）「Zoom, Zoom, Zoom! The Exclusive Inside Story Of The New Billionaire Behind Tech's Hottest IPO」Forbes. https://www.forbes.com/sites/alexkonrad/2019/04/19/zoom-zoom-zoom-the-exclusive-inside-story-of-the-new-billionaire-behind-techs-hottest-ipo/
+- TechCrunch（2020）「Zoom freezes feature development to fix security and privacy issues」. https://techcrunch.com/2020/04/02/zoom-freezes-feature-development-to-fix-security-and-privacy-issues
+
+ではでは(=ﾟωﾟ)ﾉ
+
+ーーーーー
+
+【📣宣伝📣】
+
+- [{告知タイトル}]({URL})
+
+ーーーーー
+
+【📧 コンタクト】
+
+- おたよりフォーム: https://forms.gle/utkE7JBKSReSdArPA
+- 公式𝕏: https://x.com/kuwahara_jsri
+
+### X 投稿
+
+#### 告知ポスト
+
+／
+📣「雨宿りとWEBの小噺」Season 5-17 更新！
+　　Zoomの創業者のビザは9回目で通った
+＼
+
+「満足している顧客に，一人も会わなかった」．Zoom の創業者エリック・ユアンさんが，前の会社を辞める前の 1 年を振り返った言葉です．ビザを8回断られて渡ったアメリカで，800人を率いる立場まで来たあとのことでした❗️
+
+↓リンクから是非お聴きください💁
+
+#web小噺 #webこばなし
+
+#### リプライポスト
+
+お好きなプラットフォームをお選びください❗️
+
+🟢 Spotify
+{Spotify}
+
+🔴 YouTube
+{YouTube}
+
+🟣 Apple Podcasts
+{Apple}
+
+⚪️ LISTEN
+{LISTEN}
+
 ## 📚 参考情報
 
 **確認済み**
