@@ -124,7 +124,7 @@ def cmd_plan(args):
 # =========================================================================
 # 作業ディレクトリ … 回ごとに 1 つ，ショート 1 本 = YAML 1 枚
 #
-#   shorts/<slug>/
+#   shorts/S<シーズン>-<話数 2 桁>-<slug>/   例: shorts/S5-09-php-creator-was-a-perl-user/
 #     episode.yaml          回の設定（コミットする）
 #     transcript.json       全文の文字起こし（gitignore）
 #     media/                音源とカバー（gitignore）
@@ -374,6 +374,17 @@ def download(url, dest):
     return dest
 
 
+def episode_dirname(slug, item):
+    """一覧で回の順に並ぶよう，ディレクトリ名の頭に S5-09 のような番号を付ける．
+
+    話数は 2 桁に揃える（S5-10 が S5-9 より前に並ばないように）．
+    slug 自体は台本 md と揃えたままにする．
+    """
+    if item["season"] and item["number"]:
+        return "S%s-%02d-%s" % (item["season"], int(item["number"]), slug)
+    return slug
+
+
 def cmd_fetch(args):
     items = read_feed(args.feed)
 
@@ -398,7 +409,7 @@ def cmd_fetch(args):
         it = hit[0]
     print("対象: %s" % it["title"])
 
-    root = Path(args.root) / args.slug
+    root = Path(args.root) / episode_dirname(args.slug, it)
     (root / "media").mkdir(parents=True, exist_ok=True)
     (root / "build").mkdir(exist_ok=True)
     download(it["audio"], root / "media" / "episode.mp3")

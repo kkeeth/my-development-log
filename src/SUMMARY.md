@@ -155,6 +155,7 @@
       - 未配信
         - [Bootstrapは週末プロジェクトだった](PODCASTS/WEB小噺/Season5/bootstrap-was-a-weekend-project.md)
         - [CSSのカスケードは「滝」じゃなくて「階段状の滝」だった](PODCASTS/WEB小噺/Season5/css-cascade-staircase-waterfall.md)
+        - [AIがいても，僕はコードで絵を描く](PODCASTS/WEB小噺/Season5/creative-coding-with-coding-agents.md)
         - [番組名を41回目で変えたWebディレクター](PODCASTS/WEB小噺/Season5/guest-kaneko-web-director.md)
         - [GitHubのOctocatには兄弟がいる？](PODCASTS/WEB小噺/Season5/github-octocat-siblings.md)
         - [HTTPSの鍵マークをクリックすると証明書が見れる](PODCASTS/WEB小噺/Season5/https-lock-icon-certificate-story.md)

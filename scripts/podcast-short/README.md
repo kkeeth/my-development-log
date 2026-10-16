@@ -13,7 +13,7 @@
 回ごとに 1 つ．**ショート 1 本 = YAML 1 枚**．
 
 ```
-shorts/<slug>/
+shorts/<dir>/
   episode.yaml          回の設定（コミットする）
   transcript.json       全文の文字起こし（gitignore）
   media/                音源とカバー（gitignore）
@@ -21,7 +21,9 @@ shorts/<slug>/
   build/                書き出したもの（gitignore）
 ```
 
-`<slug>` は台本 md と揃える（`src/PODCASTS/WEB小噺/Season5/published/<slug>.md`）．
+`<dir>` は `S5-09-php-creator-was-a-perl-user` のように，**シーズンと話数（2 桁）を頭に付けた slug**．
+一覧で回の順に並ぶ．`fetch` が RSS の番号から自動で付ける．
+`<slug>` 自体は台本 md と揃える（`src/PODCASTS/WEB小噺/Season5/published/<slug>.md`）．
 
 音源・動画・文字起こしは音源から作り直せるので追わない．
 **人が書いたもの（切り出し区間と字幕）だけが git に残る**．
@@ -62,7 +64,7 @@ build_short.py fetch --slug json-inventor-douglas-crockford --match 5-10 \
 続けて，回まるごとを単語タイムスタンプ付きで文字起こしする（**ターミナルで直接**）。
 
 ```
-build_short.py transcribe --episode shorts/json-inventor-douglas-crockford
+build_short.py transcribe --episode shorts/S5-10-json-inventor-douglas-crockford
 ```
 
 これを 1 回取っておけば，その回から何本ショートを作っても文字起こしは回さない．
@@ -80,7 +82,7 @@ build_short.py transcribe --episode shorts/json-inventor-douglas-crockford
 whisper 側が固有名詞を外していても当たる．
 
 ```
-build_short.py find --episode shorts/<slug> \
+build_short.py find --episode shorts/<dir> \
   --query "プログラミングが大嫌いだ．でも問題を解決するのが好きだ"
 ```
 
@@ -107,7 +109,7 @@ build_short.py find --episode shorts/<slug> \
 ### 2. 下書きを起こす
 
 ```
-build_short.py draft --episode shorts/<slug> --name hate-programming \
+build_short.py draft --episode shorts/<dir> --name hate-programming \
   --start 800.7 --end 830.6
 ```
 
@@ -135,7 +137,7 @@ segments:
 ### 4. 焼く
 
 ```
-build_short.py build shorts/<slug>/01-hate-programming.yaml
+build_short.py build shorts/<dir>/01-hate-programming.yaml
 ```
 
 音の切り出し（-14 LUFS へ正規化）→ 文字起こしの切り出し → 字幕の時刻合わせ →
